@@ -6,7 +6,7 @@ namespace HogeschoolPXL.Models
     {
         public int HandboekId { get; set; }
         public string Titel { get; set; }
-        public int KostPrijs { get; set; }
+        public double KostPrijs { get; set; }
         [DataType(DataType.Date)]
         public DateTime UitgifteDatum { get; set; }
         public string Afbeelding { get; set; }
