@@ -1,0 +1,47 @@
+﻿@model IEnumerable<HogeschoolPXL.Models.Inschrijving>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AcademieJaarId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VakLector)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AcademieJaarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VakLector.VakLectorId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InschrijvingId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InschrijvingId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
