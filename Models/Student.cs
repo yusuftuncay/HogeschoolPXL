@@ -4,8 +4,9 @@ namespace HogeschoolPXL.Models
 {
     public class Student
     {
-        [Range(1000,2000)]
+        [Key]
         public int StudentId { get; set; }
+        [Required]
         public int GebruikerId { get; set; }
         public Gebruiker Gebruiker { get; set; }
     }

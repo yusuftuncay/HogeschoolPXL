@@ -9,11 +9,67 @@ namespace HogeschoolPXL.Data
         {
             using var scope = app.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            if (!context.Gebruiker.Any())
+            {
+                foreach (var g in GetGebruiker())
+                {
+                    context.Gebruiker.Add(g);
+                    context.SaveChanges();
+                }
+            }
             if (!context.Student.Any())
             {
                 foreach (var st in GetStudent())
                 {
                     context.Student.Add(st);
+                    context.SaveChanges();
+                }
+            }
+            if (!context.Lector.Any())
+            {
+                foreach (var l in GetLector())
+                {
+                    context.Lector.Add(l);
+                    context.SaveChanges();
+                }
+            }
+            if (!context.Handboek.Any())
+            {
+                foreach (var h in GetHandboek())
+                {
+                    context.Handboek.Add(h);
+                    context.SaveChanges();
+                }
+            }
+            if (!context.Vak.Any())
+            {
+                foreach (var v in GetVak())
+                {
+                    context.Vak.Add(v);
+                    context.SaveChanges();
+                }
+            }
+            if (!context.VakLector.Any())
+            {
+                foreach (var v in GetVakLector())
+                {
+                    context.VakLector.Add(v);
+                    context.SaveChanges();
+                }
+            }
+            if (!context.AcademieJaar.Any())
+            {
+                foreach (var a in GetAcademieJaar())
+                {
+                    context.AcademieJaar.Add(a);
+                    context.SaveChanges();
+                }
+            }
+            if (!context.Inschrijving.Any())
+            {
+                foreach (var i in GetInschrijving())
+                {
+                    context.Inschrijving.Add(i);
                     context.SaveChanges();
                 }
             }
@@ -45,6 +101,14 @@ namespace HogeschoolPXL.Data
             };
             return lector;
         }
+        private static List<Handboek> GetHandboek()
+        {
+            List<Handboek> handboek = new()
+            {
+                new Handboek { Titel = "C# Web 1", KostPrijs = 19.99, UitgifteDatum = DateTime.Parse("01 01 2022")}
+            };
+            return handboek;
+        }
         private static List<Vak> GetVak()
         {
             List<Vak> vak = new()
@@ -53,13 +117,29 @@ namespace HogeschoolPXL.Data
             };
             return vak;
         }
-        private static List<Handboek> GetHandboek()
+        private static List<VakLector> GetVakLector()
         {
-            List<Handboek> handboek = new()
+            List<VakLector> vakLector = new()
             {
-                new Handboek { Titel = "C# Web 1", KostPrijs = 19.99, UitgifteDatum = DateTime.Parse("01 01 2022")}
+                new VakLector { LectorId = 1, VakId = 1 }
             };
-            return handboek;
+            return vakLector;
+        }
+        private static List<AcademieJaar> GetAcademieJaar()
+        {
+            List<AcademieJaar> academieJaar = new()
+            {
+                new AcademieJaar { Datum = DateTime.Parse("20 09 2021") }
+            };
+            return academieJaar;
+        }
+        private static List<Inschrijving> GetInschrijving()
+        {
+            List<Inschrijving> inschrijving = new()
+            {
+                new Inschrijving { StudentId = 1, VakLectorId = 1, AcademieJaarId = 1}
+            };
+            return inschrijving;
         }
         #endregion
     }

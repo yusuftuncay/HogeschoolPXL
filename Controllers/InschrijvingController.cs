@@ -22,7 +22,9 @@ namespace HogeschoolPXL.Controllers
         // GET: Inschrijving
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Inschrijving.Include(i => i.Student).Include(i => i.VakLector);
+            var appDbContext = _context.Inschrijving.Include(i => i.AcademieJaar)
+                .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
+                .Include(i => i.VakLector).ThenInclude(x => x.Vak);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -35,8 +37,9 @@ namespace HogeschoolPXL.Controllers
             }
 
             var inschrijving = await _context.Inschrijving
-                .Include(i => i.Student)
-                .Include(i => i.VakLector)
+                .Include(i => i.AcademieJaar)
+                .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
+                .Include(i => i.VakLector).ThenInclude(x => x.Vak)
                 .FirstOrDefaultAsync(m => m.InschrijvingId == id);
             if (inschrijving == null)
             {
@@ -49,6 +52,7 @@ namespace HogeschoolPXL.Controllers
         // GET: Inschrijving/Create
         public IActionResult Create()
         {
+            ViewData["AcademieJaarId"] = new SelectList(_context.AcademieJaar, "AcademieJaarId", "Datum");
             ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId");
             ViewData["VakLectorId"] = new SelectList(_context.VakLector, "VakLectorId", "VakLectorId");
             return View();
@@ -67,6 +71,7 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AcademieJaarId"] = new SelectList(_context.AcademieJaar, "AcademieJaarId", "Datum", inschrijving.AcademieJaarId);
             ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", inschrijving.StudentId);
             ViewData["VakLectorId"] = new SelectList(_context.VakLector, "VakLectorId", "VakLectorId", inschrijving.VakLectorId);
             return View(inschrijving);
@@ -85,6 +90,7 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
+            ViewData["AcademieJaarId"] = new SelectList(_context.AcademieJaar, "AcademieJaarId", "Datum", inschrijving.AcademieJaarId);
             ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", inschrijving.StudentId);
             ViewData["VakLectorId"] = new SelectList(_context.VakLector, "VakLectorId", "VakLectorId", inschrijving.VakLectorId);
             return View(inschrijving);
@@ -122,6 +128,7 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AcademieJaarId"] = new SelectList(_context.AcademieJaar, "AcademieJaarId", "Datum", inschrijving.AcademieJaarId);
             ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", inschrijving.StudentId);
             ViewData["VakLectorId"] = new SelectList(_context.VakLector, "VakLectorId", "VakLectorId", inschrijving.VakLectorId);
             return View(inschrijving);
@@ -136,6 +143,7 @@ namespace HogeschoolPXL.Controllers
             }
 
             var inschrijving = await _context.Inschrijving
+                .Include(i => i.AcademieJaar)
                 .Include(i => i.Student)
                 .Include(i => i.VakLector)
                 .FirstOrDefaultAsync(m => m.InschrijvingId == id);
