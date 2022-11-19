@@ -31,7 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Student.Gebruiker.VoorNaam)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
+                <a asp-action="Details" asp-route-id="@item.VakLector.VakLectorId">
+                    @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AcademieJaar.Datum)

@@ -1,12 +1,11 @@
 ﻿@model HogeschoolPXL.Models.Lector
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Edit</h1>
+<h1>Edit Lector</h1>
 
-<h4>Lector</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="LectorId" />
             <div class="form-group">
-                <label asp-for="GebruikerId" class="control-label"></label>
+                <label asp-for="GebruikerId" class="control-label">Gebruiker</label>
                 <select asp-for="GebruikerId" class="form-control" asp-items="ViewBag.GebruikerId"></select>
                 <span asp-validation-for="GebruikerId" class="text-danger"></span>
             </div>

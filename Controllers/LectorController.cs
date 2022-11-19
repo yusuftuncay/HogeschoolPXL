@@ -48,7 +48,7 @@ namespace HogeschoolPXL.Controllers
         // GET: Lector/Create
         public IActionResult Create()
         {
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "GebruikerId");
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "GebruikerId", lector.GebruikerId);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam", lector.GebruikerId);
             return View(lector);
         }
 
@@ -82,7 +82,7 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "GebruikerId", lector.GebruikerId);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam", lector.GebruikerId);
             return View(lector);
         }
 
@@ -118,7 +118,7 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "GebruikerId", lector.GebruikerId);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam", lector.GebruikerId);
             return View(lector);
         }
 

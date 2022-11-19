@@ -4,16 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Create Lector</h1>
 
-<h4>Lector</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="GebruikerId" class="control-label"></label>
+                <label asp-for="GebruikerId" class="control-label">Gebruiker</label>
                 <select asp-for="GebruikerId" class ="form-control" asp-items="ViewBag.GebruikerId"></select>
             </div>
             <div class="form-group">
