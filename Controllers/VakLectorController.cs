@@ -22,7 +22,7 @@ namespace HogeschoolPXL.Controllers
         // GET: VakLector
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.VakLector.Include(v => v.Lector).Include(v => v.Vak);
+            var appDbContext = _context.VakLector.Include(v => v.Lector).ThenInclude(x => x.Gebruiker).Include(v => v.Vak);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -49,8 +49,8 @@ namespace HogeschoolPXL.Controllers
         // GET: VakLector/Create
         public IActionResult Create()
         {
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "LectorId");
-            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakId");
+            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "Gebruiker.VoorNaam");
+            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "LectorId", vakLector.LectorId);
-            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakId", vakLector.VakId);
+            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "VoorNaam", vakLector.LectorId);
+            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
 
@@ -85,8 +85,8 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "LectorId", vakLector.LectorId);
-            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakId", vakLector.VakId);
+            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "VoorNaam", vakLector.LectorId);
+            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
 
@@ -122,8 +122,8 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "LectorId", vakLector.LectorId);
-            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakId", vakLector.VakId);
+            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "VoorNaam", vakLector.LectorId);
+            ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
 

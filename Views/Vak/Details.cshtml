@@ -4,11 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Details Vak</h1>
+<hr />
 
 <div>
-    <h4>Vak</h4>
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.VakNaam)
@@ -26,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Handboek)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Handboek.HandboekId)
+            @Html.DisplayFor(model => model.Handboek.Titel)
         </dd>
     </dl>
 </div>

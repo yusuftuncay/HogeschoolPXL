@@ -48,7 +48,7 @@ namespace HogeschoolPXL.Controllers
         // GET: Vak/Create
         public IActionResult Create()
         {
-            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "HandboekId");
+            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "HandboekId", vak.HandboekId);
+            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel", vak.HandboekId);
             return View(vak);
         }
 
@@ -82,7 +82,7 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
-            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "HandboekId", vak.HandboekId);
+            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel", vak.HandboekId);
             return View(vak);
         }
 
@@ -118,7 +118,7 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "HandboekId", vak.HandboekId);
+            ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel", vak.HandboekId);
             return View(vak);
         }
 

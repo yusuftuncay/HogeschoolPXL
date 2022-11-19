@@ -105,7 +105,7 @@ namespace HogeschoolPXL.Data
         {
             List<Handboek> handboek = new()
             {
-                new Handboek { Titel = "C# Web 1", KostPrijs = 19.99, UitgifteDatum = DateTime.Parse("01 01 2022")}
+                new Handboek { Titel = "Syllabus C# Web 1", KostPrijs = 19.99, UitgifteDatum = DateTime.Parse("01 01 2022")}
             };
             return handboek;
         }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<HogeschoolPXL.Models.Vak>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Overview";
 }
 
-<h1>Index</h1>
+<h1>Overview</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.StudiePunten)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Handboek.HandboekId)
+                @Html.DisplayFor(modelItem => item.Handboek.Titel)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VakId">Edit</a> |
