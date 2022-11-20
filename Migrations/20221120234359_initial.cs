@@ -83,7 +83,7 @@ namespace HogeschoolPXL.Migrations
                     HandboekId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KostPrijs = table.Column<double>(type: "float", nullable: false),
+                    KostPrijs = table.Column<int>(type: "int", nullable: false),
                     UitgifteDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Afbeelding = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

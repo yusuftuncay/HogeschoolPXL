@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HogeschoolPXL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221118173703_initial")]
+    [Migration("20221120234359_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,8 +76,8 @@ namespace HogeschoolPXL.Migrations
                     b.Property<string>("Afbeelding")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("KostPrijs")
-                        .HasColumnType("float");
+                    b.Property<int>("KostPrijs")
+                        .HasColumnType("int");
 
                     b.Property<string>("Titel")
                         .IsRequired()

@@ -11,7 +11,7 @@ namespace HogeschoolPXL.Models
         [Required]
         public string Titel { get; set; }
         [Required]
-        public double KostPrijs { get; set; }
+        public int KostPrijs { get; set; }
         [Required]
         [CustomHandboek]
         [DataType(DataType.Date)]

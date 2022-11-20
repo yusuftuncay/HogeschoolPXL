@@ -14,13 +14,13 @@ namespace HogeschoolPXL.CustomModelValidation
 
             if (DateTime.TryParse(context.Model.ToString(), out dtm))
             {
-                if (dtm < maxDate)
+                if (dtm > maxDate)
                 {
-                    lst.Add(new ModelValidationResult("", "UitgifteDatum kan niet in de toekomst zijn"));
+                    lst.Add(new ModelValidationResult("", "UitgifteDatum kan niet na 1/1/2022 zijn"));
                 }
-                else if (dtm > minDate)
+                else if (dtm < minDate)
                 {
-                    lst.Add(new ModelValidationResult("", "UitgifteDatum kan niet voor 1/1/2022 zijn"));
+                    lst.Add(new ModelValidationResult("", "UitgifteDatum kan niet voor 1980 zijn"));
                 }
             }
             else

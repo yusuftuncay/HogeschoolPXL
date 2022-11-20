@@ -32,9 +32,7 @@
                 @Html.DisplayFor(modelItem => item.Student.Gebruiker.Naam)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.VakLector.Vak.VakId">
-                    @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
-                </a>
+                @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AcademieJaar.Datum)
