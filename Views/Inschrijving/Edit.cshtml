@@ -4,27 +4,26 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Inschrijving</h4>
+<h1>Edit Inschrijving</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="InschrijvingId" />
             <div class="form-group">
-                <label asp-for="StudentId" class="control-label"></label>
+                <label asp-for="StudentId" class="control-label">Student</label>
                 <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
                 <span asp-validation-for="StudentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VakLectorId" class="control-label"></label>
+                <label asp-for="VakLectorId" class="control-label">VakLector</label>
                 <select asp-for="VakLectorId" class="form-control" asp-items="ViewBag.VakLectorId"></select>
                 <span asp-validation-for="VakLectorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AcademieJaarId" class="control-label"></label>
+                <label asp-for="AcademieJaarId" class="control-label">AcademieJaar</label>
                 <select asp-for="AcademieJaarId" class="form-control" asp-items="ViewBag.AcademieJaarId"></select>
                 <span asp-validation-for="AcademieJaarId" class="text-danger"></span>
             </div>

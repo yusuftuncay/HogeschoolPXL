@@ -36,6 +36,7 @@ namespace HogeschoolPXL.Controllers
 
             var vakLector = await _context.VakLector
                 .Include(v => v.Lector)
+                .ThenInclude(g => g.Gebruiker)
                 .Include(v => v.Vak)
                 .FirstOrDefaultAsync(m => m.VakLectorId == id);
             if (vakLector == null)
@@ -49,8 +50,10 @@ namespace HogeschoolPXL.Controllers
         // GET: VakLector/Create
         public IActionResult Create()
         {
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "Gebruiker.VoorNaam");
+            ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
+                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam");
+
             return View();
         }
 
@@ -67,7 +70,8 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "VoorNaam", vakLector.LectorId);
+            ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
+                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
@@ -85,7 +89,8 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "VoorNaam", vakLector.LectorId);
+            ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
+                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
@@ -122,7 +127,8 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LectorId"] = new SelectList(_context.Lector, "LectorId", "VoorNaam", vakLector.LectorId);
+            ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
+                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
@@ -137,6 +143,7 @@ namespace HogeschoolPXL.Controllers
 
             var vakLector = await _context.VakLector
                 .Include(v => v.Lector)
+                .ThenInclude(g => g.Gebruiker)
                 .Include(v => v.Vak)
                 .FirstOrDefaultAsync(m => m.VakLectorId == id);
             if (vakLector == null)

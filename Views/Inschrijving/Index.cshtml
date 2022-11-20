@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<HogeschoolPXL.Models.Inschrijving>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Overview";
 }
 
-<h1>Inschrijvingen</h1>
+<h1>Overview</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Student.Gebruiker)
+                @Html.DisplayNameFor(model => model.Student)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.VakLector.Vak)
@@ -28,10 +28,11 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Student.Gebruiker.VoorNaam)
+                @Html.DisplayFor(modelItem => item.Student.Gebruiker.VoorNaam) 
+                @Html.DisplayFor(modelItem => item.Student.Gebruiker.Naam)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.VakLector.VakLectorId">
+                <a asp-action="Details" asp-route-id="@item.VakLector.Vak.VakId">
                     @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
                 </a>
             </td>
