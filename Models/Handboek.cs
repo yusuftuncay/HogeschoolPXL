@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HogeschoolPXL.CustomModelValidation;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace HogeschoolPXL.Models
@@ -12,6 +13,7 @@ namespace HogeschoolPXL.Models
         [Required]
         public double KostPrijs { get; set; }
         [Required]
+        [CustomHandboek]
         [DataType(DataType.Date)]
         public DateTime UitgifteDatum { get; set; }
         public string? Afbeelding { get; set; }
