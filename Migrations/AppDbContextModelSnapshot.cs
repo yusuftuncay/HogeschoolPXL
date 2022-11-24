@@ -74,8 +74,8 @@ namespace HogeschoolPXL.Migrations
                     b.Property<string>("Afbeelding")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("KostPrijs")
-                        .HasColumnType("int");
+                    b.Property<decimal>("KostPrijs")
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("Titel")
                         .IsRequired()

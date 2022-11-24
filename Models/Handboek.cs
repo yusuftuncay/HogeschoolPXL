@@ -1,6 +1,6 @@
 ﻿using HogeschoolPXL.CustomModelValidation;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HogeschoolPXL.Models
 {
@@ -11,7 +11,10 @@ namespace HogeschoolPXL.Models
         [Required]
         public string Titel { get; set; }
         [Required]
-        public int KostPrijs { get; set; }
+        //[Range(4.99, 100)]
+        [Column(TypeName = "decimal(8, 2)")]
+        [DataType(DataType.Currency)]
+        public decimal? KostPrijs { get; set; }
         [Required]
         [CustomHandboek]
         [DataType(DataType.Date)]
