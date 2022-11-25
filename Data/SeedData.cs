@@ -111,7 +111,7 @@ namespace HogeschoolPXL.Data
             {
                 new Handboek { Titel = "C# Web 1 (Syllabus)", KostPrijs = 24.99M, UitgifteDatum = DateTime.Parse("01 01 2022"), Afbeelding = "/img/csharp.jpg"},
                 new Handboek { Titel = "IT Organisation (Syllabus)", KostPrijs = 14.99M, UitgifteDatum = DateTime.Parse("02 12 2008"), Afbeelding = "/img/itorg.jpg"},
-                new Handboek { Titel = "Security & Privacy (Syllabus)", KostPrijs = 29.99M, UitgifteDatum = DateTime.Parse("20 08 2018"), Afbeelding = "/img/csharp.jpg"}
+                new Handboek { Titel = "Security & Privacy (Syllabus)", KostPrijs = 29.99M, UitgifteDatum = DateTime.Parse("20 08 2018"), Afbeelding = null}
             };
             return handboek;
         }
@@ -139,7 +139,8 @@ namespace HogeschoolPXL.Data
         {
             List<AcademieJaar> academieJaar = new()
             {
-                new AcademieJaar { Datum = DateTime.Parse("20 09 2021") }
+                new AcademieJaar { Datum = DateTime.Parse("20 09 2021") },
+                new AcademieJaar { Datum = DateTime.Parse("26 09 2022") }
             };
             return academieJaar;
         }
