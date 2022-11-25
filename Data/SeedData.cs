@@ -81,7 +81,9 @@ namespace HogeschoolPXL.Data
             List<Gebruiker> gebruiker = new()
             {
                 new Gebruiker { Naam = "Tuncay", VoorNaam = "Yusuf", Email = "yusuf.tuncay@student.pxl.be" },
-                new Gebruiker { Naam = "Palmaers", VoorNaam = "Kristof", Email = "kristof.palmaers@pxl.be" }
+                new Gebruiker { Naam = "Palmaers", VoorNaam = "Kristof", Email = "kristof.palmaers@pxl.be" },
+                new Gebruiker { Naam = "Smets", VoorNaam = "Stany", Email = "stany.smets@pxl.be" },
+                new Gebruiker { Naam = "DePuydt", VoorNaam = "Sander", Email = "sander.depuydt@pxl.be" }
             };
             return gebruiker;
         }
@@ -97,7 +99,9 @@ namespace HogeschoolPXL.Data
         {
             List<Lector> lector = new()
             {
-                new Lector { GebruikerId = 2 }
+                new Lector { GebruikerId = 2 },
+                new Lector { GebruikerId = 3 },
+                new Lector { GebruikerId = 4 }
             };
             return lector;
         }
@@ -105,7 +109,9 @@ namespace HogeschoolPXL.Data
         {
             List<Handboek> handboek = new()
             {
-                new Handboek { Titel = "Syllabus C# Web 1", KostPrijs = 24.99M, UitgifteDatum = DateTime.Parse("01 01 2022"), Afbeelding = "/img/csharp.jpg"}
+                new Handboek { Titel = "C# Web 1 (Syllabus)", KostPrijs = 24.99M, UitgifteDatum = DateTime.Parse("01 01 2022"), Afbeelding = "/img/csharp.jpg"},
+                new Handboek { Titel = "IT Organisation (Syllabus)", KostPrijs = 14.99M, UitgifteDatum = DateTime.Parse("02 12 2008"), Afbeelding = "/img/itorg.jpg"},
+                new Handboek { Titel = "Security & Privacy (Syllabus)", KostPrijs = 29.99M, UitgifteDatum = DateTime.Parse("20 08 2018"), Afbeelding = "/img/csharp.jpg"}
             };
             return handboek;
         }
@@ -113,7 +119,9 @@ namespace HogeschoolPXL.Data
         {
             List<Vak> vak = new()
             {
-                new Vak { VakNaam = "C# Web 1", StudiePunten = 6, HandboekId = 1 }
+                new Vak { VakNaam = "C# Web 1", StudiePunten = 6, HandboekId = 1 },
+                new Vak { VakNaam = "IT Organisation", StudiePunten = 3, HandboekId = 2 },
+                new Vak { VakNaam = "Security & Privacy", StudiePunten = 6, HandboekId = 3 }
             };
             return vak;
         }
@@ -121,7 +129,9 @@ namespace HogeschoolPXL.Data
         {
             List<VakLector> vakLector = new()
             {
-                new VakLector { LectorId = 1, VakId = 1 }
+                new VakLector { LectorId = 1, VakId = 1 },
+                new VakLector { LectorId = 2, VakId = 2 },
+                new VakLector { LectorId = 3, VakId = 3 }
             };
             return vakLector;
         }
