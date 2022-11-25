@@ -48,7 +48,14 @@ namespace HogeschoolPXL.Controllers
         // GET: Student/Create
         public IActionResult Create()
         {
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam");
+            // Show both Naam and VoorNaam (instead of just the Naam) while editing a Student
+            var result = _context.Gebruiker.Select(x => new
+            {
+                x.GebruikerId,
+                Naam = x.VoorNaam + " " + x.Naam
+            });
+            ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
+
             return View();
         }
 
@@ -86,7 +93,15 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam", student.GebruikerId);
+
+            // Show both Naam and VoorNaam (instead of just the Naam) while editing a Student
+            var result = _context.Gebruiker.Select(x => new
+            {
+                x.GebruikerId,
+                Naam = x.VoorNaam + " " + x.Naam
+            });
+            ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
+
             return View(student);
         }
 

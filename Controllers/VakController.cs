@@ -49,6 +49,12 @@ namespace HogeschoolPXL.Controllers
         // GET: Vak/Create
         public IActionResult Create()
         {
+            if (!_context.Handboek.Any())
+            {
+                ModelState.AddModelError("", "Eerst een Handboek aanmaken!");
+                return View();
+            }
+
             ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel");
             return View();
         }
@@ -63,6 +69,12 @@ namespace HogeschoolPXL.Controllers
             // Update ModelState to exclude nested model (Handboek) from model Vak
             await TryUpdateModelAsync(vak);
             ModelState.Remove("Handboek");
+
+            if (!_context.Handboek.Any())
+            {
+                ModelState.AddModelError("", "Er moet eerst een Handboek bestaan om een Vak te kunnen maken");
+                return View();
+            }
 
             if (ModelState.IsValid)
             {
