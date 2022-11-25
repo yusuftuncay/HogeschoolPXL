@@ -54,7 +54,7 @@ namespace HogeschoolPXL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VoorNaam")
+                    b.Property<string>("Voornaam")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -74,7 +74,8 @@ namespace HogeschoolPXL.Migrations
                     b.Property<string>("Afbeelding")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("KostPrijs")
+                    b.Property<decimal?>("KostPrijs")
+                        .IsRequired()
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("Titel")

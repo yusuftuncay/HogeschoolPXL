@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HogeschoolPXL.Models
 {
@@ -11,6 +12,7 @@ namespace HogeschoolPXL.Models
         [Required]
         public string VoorNaam { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     }
 }

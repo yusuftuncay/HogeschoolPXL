@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HogeschoolPXL.Models
 {
@@ -7,7 +8,9 @@ namespace HogeschoolPXL.Models
         [Key]
         public int StudentId { get; set; }
         [Required]
+        [DisplayName("Student")]
         public int GebruikerId { get; set; }
+        [DisplayName("Student")]
         public Gebruiker Gebruiker { get; set; }
     }
 }

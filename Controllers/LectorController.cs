@@ -59,6 +59,10 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LectorId,GebruikerId")] Lector lector)
         {
+            // Update ModelState to exclude nested model (Gebruiker) from model Lector
+            await TryUpdateModelAsync(lector);
+            ModelState.Remove("Gebruiker");
+
             if (ModelState.IsValid)
             {
                 _context.Add(lector);
@@ -93,6 +97,10 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LectorId,GebruikerId")] Lector lector)
         {
+            // Update ModelState to exclude nested model (Gebruiker) from model Lector
+            await TryUpdateModelAsync(lector);
+            ModelState.Remove("Gebruiker");
+
             if (id != lector.LectorId)
             {
                 return NotFound();

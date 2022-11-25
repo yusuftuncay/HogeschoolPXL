@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
+using System.IO;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -59,6 +60,10 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("VakId,VakNaam,StudiePunten,HandboekId")] Vak vak)
         {
+            // Update ModelState to exclude nested model (Handboek) from model Vak
+            await TryUpdateModelAsync(vak);
+            ModelState.Remove("Handboek");
+
             if (ModelState.IsValid)
             {
                 _context.Add(vak);
@@ -93,6 +98,10 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("VakId,VakNaam,StudiePunten,HandboekId")] Vak vak)
         {
+            // Update ModelState to exclude nested model (Handboek) from model Vak
+            await TryUpdateModelAsync(vak);
+            ModelState.Remove("Handboek");
+
             if (id != vak.VakId)
             {
                 return NotFound();

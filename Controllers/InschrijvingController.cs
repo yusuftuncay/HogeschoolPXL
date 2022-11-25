@@ -57,7 +57,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
-                x.Lector.Gebruiker.VoorNaam + " " + x.Lector.Gebruiker.Naam, x.VakLectorId.ToString()));
+                x.Vak.VakNaam, x.VakId.ToString()));
             return View();
         }
 
@@ -68,6 +68,12 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InschrijvingId,StudentId,VakLectorId,AcademieJaarId")] Inschrijving inschrijving)
         {
+            // Update ModelState to exclude nested models (Student, VakLector and AcademieJaar) from model Inschrijving
+            await TryUpdateModelAsync(inschrijving);
+            ModelState.Remove("Student");
+            ModelState.Remove("VakLector");
+            ModelState.Remove("AcademieJaar");
+
             if (ModelState.IsValid)
             {
                 _context.Add(inschrijving);
@@ -79,7 +85,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
-                x.Lector.Gebruiker.VoorNaam + " " + x.Lector.Gebruiker.Naam, x.VakLectorId.ToString()));
+                x.Vak.VakNaam, x.VakId.ToString()));
             return View(inschrijving);
         }
 
@@ -101,7 +107,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
-                x.Lector.Gebruiker.VoorNaam + " " + x.Lector.Gebruiker.Naam, x.VakLectorId.ToString()));
+                x.Vak.VakNaam, x.VakId.ToString()));
             return View(inschrijving);
         }
 
@@ -112,6 +118,12 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("InschrijvingId,StudentId,VakLectorId,AcademieJaarId")] Inschrijving inschrijving)
         {
+            // Update ModelState to exclude nested models (Student, VakLector and AcademieJaar) from model Inschrijving
+            await TryUpdateModelAsync(inschrijving);
+            ModelState.Remove("Student");
+            ModelState.Remove("VakLector");
+            ModelState.Remove("AcademieJaar");
+
             if (id != inschrijving.InschrijvingId)
             {
                 return NotFound();
@@ -142,7 +154,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
-                x.Lector.Gebruiker.VoorNaam + " " + x.Lector.Gebruiker.Naam, x.VakLectorId.ToString()));
+                x.Vak.VakNaam, x.VakId.ToString()));
             return View(inschrijving);
         }
 
