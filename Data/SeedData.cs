@@ -83,7 +83,10 @@ namespace HogeschoolPXL.Data
                 new Gebruiker { Naam = "Tuncay", VoorNaam = "Yusuf", Email = "yusuf.tuncay@student.pxl.be" },
                 new Gebruiker { Naam = "Palmaers", VoorNaam = "Kristof", Email = "kristof.palmaers@pxl.be" },
                 new Gebruiker { Naam = "Smets", VoorNaam = "Stany", Email = "stany.smets@pxl.be" },
-                new Gebruiker { Naam = "DePuydt", VoorNaam = "Sander", Email = "sander.depuydt@pxl.be" }
+                new Gebruiker { Naam = "DePuydt", VoorNaam = "Sander", Email = "sander.depuydt@pxl.be" },
+                new Gebruiker { Naam = "Achternaam", VoorNaam = "Student1", Email = "student.een@pxl.be" },
+                new Gebruiker { Naam = "Achternaam", VoorNaam = "Student2", Email = "student.twee@pxl.be" },
+                new Gebruiker { Naam = "Achternaam", VoorNaam = "Student3", Email = "student.drie@pxl.be" }
             };
             return gebruiker;
         }
@@ -91,7 +94,10 @@ namespace HogeschoolPXL.Data
         {
             List<Student> student = new()
             {
-                new Student { GebruikerId = 1 }
+                new Student { GebruikerId = 1 },
+                new Student { GebruikerId = 5 },
+                new Student { GebruikerId = 6 },
+                new Student { GebruikerId = 7 }
             };
             return student;
         }

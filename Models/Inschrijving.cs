@@ -13,10 +13,10 @@ namespace HogeschoolPXL.Models
         [Required]
         [DisplayName("Lector")]
         public int VakLectorId { get; set; }
-
         [Required]
         [DisplayName("Academie Jaar")]
         public int AcademieJaarId { get; set; }
+
         [DisplayName("Student")]
         public Student Student { get; set; }
         [DisplayName("Lector")]

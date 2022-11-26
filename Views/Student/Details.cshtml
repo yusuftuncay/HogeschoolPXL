@@ -1,4 +1,4 @@
-﻿@model HogeschoolPXL.Models.Student
+﻿@model HogeschoolPXL.Models.ViewModels.StudentCard
 
 @{
     ViewData["Title"] = "Details";
@@ -6,7 +6,15 @@
 
 <h1>Details Student</h1>
 
-<table class="table">
+<student-card student-card-view-model="@Model"></student-card>
+
+@if (Model.Inschrijving != null)
+{
+    <a asp-action="Edit" asp-route-id="@Model.Inschrijving.Student.StudentId">Edit</a><text> | </text>
+}
+<a asp-action="Index">Back to List</a>
+
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -33,4 +41,4 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table>*@

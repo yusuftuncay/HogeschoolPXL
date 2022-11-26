@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
+using System.Linq.Expressions;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -58,6 +59,13 @@ namespace HogeschoolPXL.Controllers
                 x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
                 x.Vak.VakNaam, x.VakId.ToString()));
+
+            if (!_context.Student.Any() || !_context.Vak.Any())
+            {
+                ModelState.AddModelError("", "Create a Student or Vak before creating an Inschrijving");
+                return View();
+            }
+
             return View();
         }
 
@@ -68,11 +76,24 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InschrijvingId,StudentId,VakLectorId,AcademieJaarId")] Inschrijving inschrijving)
         {
+            ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
+                x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
+            ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
+                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+            ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
+                x.Vak.VakNaam, x.VakId.ToString()));
+
             // Update ModelState to exclude nested models (Student, VakLector and AcademieJaar) from model Inschrijving
             await TryUpdateModelAsync(inschrijving);
             ModelState.Remove("Student");
             ModelState.Remove("VakLector");
             ModelState.Remove("AcademieJaar");
+
+            if (!_context.Student.Any() || !_context.Vak.Any())
+            {
+                ModelState.AddModelError("", "Create a Student or Vak before creating an Inschrijving");
+                return View();
+            }
 
             if (ModelState.IsValid)
             {
@@ -80,12 +101,7 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
-                x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
-            ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
-            ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
-                x.Vak.VakNaam, x.VakId.ToString()));
+
             return View(inschrijving);
         }
 

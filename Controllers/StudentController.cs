@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
+using HogeschoolPXL.Models.ViewModels;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -29,20 +30,14 @@ namespace HogeschoolPXL.Controllers
         // GET: Student/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Student == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Student
-                .Include(s => s.Gebruiker)
+            var student = await _context.Inschrijving
+                .Include(x => x.Student).ThenInclude(g => g.Gebruiker)
+                .Include(x => x.AcademieJaar)
+                .Include(x => x.VakLector).ThenInclude(x => x.Vak)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
 
-            return View(student);
+            var studentCard = new StudentCard(_context, student);
+            return View(studentCard);
         }
 
         // GET: Student/Create
