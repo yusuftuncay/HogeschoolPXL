@@ -10,7 +10,7 @@ namespace HogeschoolPXL.Models.ViewModels
             if (inschrijving != null)
             {
                 Inschrijving = inschrijving;
-                VoorNaam = inschrijving.Student.Gebruiker.VoorNaam;
+                VoorNaam = inschrijving.Student.Gebruiker.Voornaam;
                 Naam = inschrijving.Student.Gebruiker.Naam;
                 Email = inschrijving.Student.Gebruiker.Email;
 

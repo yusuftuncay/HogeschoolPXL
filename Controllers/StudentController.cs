@@ -43,11 +43,11 @@ namespace HogeschoolPXL.Controllers
         // GET: Student/Create
         public IActionResult Create()
         {
-            // Show both Naam and VoorNaam (instead of just the Naam) while editing a Student
+            // Show both Naam and Voornaam (instead of just the Naam) while editing a Student
             var result = _context.Gebruiker.Select(x => new
             {
                 x.GebruikerId,
-                Naam = x.VoorNaam + " " + x.Naam
+                Naam = x.Voornaam + " " + x.Naam
             });
             ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
 
@@ -71,7 +71,7 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam", student.GebruikerId);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "Voornaam", student.GebruikerId);
             return View(student);
         }
 
@@ -89,11 +89,11 @@ namespace HogeschoolPXL.Controllers
                 return NotFound();
             }
 
-            // Show both Naam and VoorNaam (instead of just the Naam) while editing a Student
+            // Show both Naam and Voornaam (instead of just the Naam) while editing a Student
             var result = _context.Gebruiker.Select(x => new
             {
                 x.GebruikerId,
-                Naam = x.VoorNaam + " " + x.Naam
+                Naam = x.Voornaam + " " + x.Naam
             });
             ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
 
@@ -136,7 +136,7 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "VoorNaam", student.GebruikerId);
+            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "Voornaam", student.GebruikerId);
             return View(student);
         }
 

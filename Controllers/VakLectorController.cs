@@ -51,7 +51,7 @@ namespace HogeschoolPXL.Controllers
         public IActionResult Create()
         {
             ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam");
 
             return View();
@@ -76,7 +76,7 @@ namespace HogeschoolPXL.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
@@ -95,7 +95,7 @@ namespace HogeschoolPXL.Controllers
                 return NotFound();
             }
             ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }
@@ -138,7 +138,7 @@ namespace HogeschoolPXL.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
             ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam", vakLector.VakId);
             return View(vakLector);
         }

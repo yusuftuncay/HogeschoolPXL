@@ -56,7 +56,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
                 x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
                 x.Vak.VakNaam, x.VakId.ToString()));
 
@@ -79,7 +79,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
                 x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
                 x.Vak.VakNaam, x.VakId.ToString()));
 
@@ -121,7 +121,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
                 x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
                 x.Vak.VakNaam, x.VakId.ToString()));
             return View(inschrijving);
@@ -168,7 +168,7 @@ namespace HogeschoolPXL.Controllers
             ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
                 x.Datum.ToString(), x.AcademieJaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
-                x.Gebruiker.VoorNaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
                 x.Vak.VakNaam, x.VakId.ToString()));
             return View(inschrijving);

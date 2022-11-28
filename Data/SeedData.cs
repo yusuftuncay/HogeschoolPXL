@@ -80,13 +80,13 @@ namespace HogeschoolPXL.Data
         {
             List<Gebruiker> gebruiker = new()
             {
-                new Gebruiker { Naam = "Tuncay", VoorNaam = "Yusuf", Email = "yusuf.tuncay@student.pxl.be" },
-                new Gebruiker { Naam = "Palmaers", VoorNaam = "Kristof", Email = "kristof.palmaers@pxl.be" },
-                new Gebruiker { Naam = "Smets", VoorNaam = "Stany", Email = "stany.smets@pxl.be" },
-                new Gebruiker { Naam = "DePuydt", VoorNaam = "Sander", Email = "sander.depuydt@pxl.be" },
-                new Gebruiker { Naam = "Achternaam", VoorNaam = "Student1", Email = "student.een@pxl.be" },
-                new Gebruiker { Naam = "Achternaam", VoorNaam = "Student2", Email = "student.twee@pxl.be" },
-                new Gebruiker { Naam = "Achternaam", VoorNaam = "Student3", Email = "student.drie@pxl.be" }
+                new Gebruiker { Naam = "Tuncay", Voornaam = "Yusuf", Email = "yusuf.tuncay@student.pxl.be" },
+                new Gebruiker { Naam = "Palmaers", Voornaam = "Kristof", Email = "kristof.palmaers@pxl.be" },
+                new Gebruiker { Naam = "Smets", Voornaam = "Stany", Email = "stany.smets@pxl.be" },
+                new Gebruiker { Naam = "DePuydt", Voornaam = "Sander", Email = "sander.depuydt@pxl.be" },
+                new Gebruiker { Naam = "Achternaam", Voornaam = "Student1", Email = "student.een@pxl.be" },
+                new Gebruiker { Naam = "Achternaam", Voornaam = "Student2", Email = "student.twee@pxl.be" },
+                new Gebruiker { Naam = "Achternaam", Voornaam = "Student3", Email = "student.drie@pxl.be" }
             };
             return gebruiker;
         }

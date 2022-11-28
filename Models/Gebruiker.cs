@@ -10,7 +10,7 @@ namespace HogeschoolPXL.Models
         [Required]
         public string Naam { get; set; }
         [Required]
-        public string VoorNaam { get; set; }
+        public string Voornaam { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

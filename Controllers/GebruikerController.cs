@@ -54,7 +54,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GebruikerId,Naam,VoorNaam,Email")] Gebruiker gebruiker)
+        public async Task<IActionResult> Create([Bind("GebruikerId,Naam,Voornaam,Email")] Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GebruikerId,Naam,VoorNaam,Email")] Gebruiker gebruiker)
+        public async Task<IActionResult> Edit(int id, [Bind("GebruikerId,Naam,Voornaam,Email")] Gebruiker gebruiker)
         {
             if (id != gebruiker.GebruikerId)
             {

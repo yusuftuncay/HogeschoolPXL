@@ -5,10 +5,8 @@
 }
 
 <div class="createButtonParent">
-    <a class="btn btn-outline-primary btn-sm bi bi-arrow-left" href="javascript:history.go(-1)">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-        </svg>
+    <a class="btn btn-outline-secondary btn-sm arrow-left" href="javascript:history.go(-1)">
+        <img src="~/img/arrow-left.svg"/>
     </a>
     <a class="btn btn-outline-success btn-sm createButton" asp-action="Create">Create Gebruiker</a>
 </div>
@@ -19,10 +17,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Naam)
+                @Html.DisplayNameFor(model => model.Voornaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VoorNaam)
+                @Html.DisplayNameFor(model => model.Naam)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -34,18 +32,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Naam)
+                @Html.DisplayFor(modelItem => item.Voornaam)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VoorNaam)
+                @Html.DisplayFor(modelItem => item.Naam)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.GebruikerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GebruikerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GebruikerId">Delete</a>
+                <a class="btn btn-outline-primary btn-sm createButton" asp-action="Edit" asp-route-id="@item.GebruikerId">Edit</a>
+                <a class="btn btn-outline-primary btn-sm createButton" asp-action="Details" asp-route-id="@item.GebruikerId">Details</a>
+                <a class="btn btn-outline-danger btn-sm createButton" asp-action="Delete" asp-route-id="@item.GebruikerId">Delete</a>
             </td>
         </tr>
 }
