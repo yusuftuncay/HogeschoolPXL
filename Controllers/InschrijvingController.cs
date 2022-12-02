@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -21,12 +22,19 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Inschrijving
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category = null)
         {
-            var appDbContext = _context.Inschrijving.Include(i => i.Academiejaar)
+            var appDbContextModel = _context.Inschrijving
+                .Where(p => category == null || p.Student.Gebruiker.Voornaam == category)
+                .Include(i => i.Academiejaar)
                 .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
                 .Include(i => i.VakLector).ThenInclude(x => x.Vak);
-            return View(await appDbContext.ToListAsync());
+            return View(await appDbContextModel.ToListAsync());
+
+            //var appDbContext = _context.Inschrijving.Include(i => i.Academiejaar)
+            //    .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
+            //    .Include(i => i.VakLector).ThenInclude(x => x.Vak);
+            //return View(await appDbContext.ToListAsync());
         }
 
         // GET: Inschrijving/Details/5
@@ -62,7 +70,7 @@ namespace HogeschoolPXL.Controllers
 
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
-                ModelState.AddModelError("", "Create a Student or Vak before creating an Inschrijving");
+                ModelState.AddModelError("", "Creëer een Student en/of Vak voordat je een Inschrijving creëert!");
                 return View();
             }
 
@@ -91,7 +99,7 @@ namespace HogeschoolPXL.Controllers
 
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
-                ModelState.AddModelError("", "Create a Student or Vak before creating an Inschrijving");
+                ModelState.AddModelError("", "Creëer een Student en/of Vak voordat je een Inschrijving creëert!");
                 return View();
             }
 

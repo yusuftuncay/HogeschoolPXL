@@ -51,7 +51,7 @@ namespace HogeschoolPXL.Controllers
         {
             if (!_context.Handboek.Any())
             {
-                ModelState.AddModelError("", "Eerst een Handboek aanmaken!");
+                ModelState.AddModelError("", "Er moet eerst een Handboek bestaan om een Vak te kunnen maken!");
                 return View();
             }
 
@@ -72,7 +72,7 @@ namespace HogeschoolPXL.Controllers
 
             if (!_context.Handboek.Any())
             {
-                ModelState.AddModelError("", "Er moet eerst een Handboek bestaan om een Vak te kunnen maken");
+                ModelState.AddModelError("", "Er moet eerst een Handboek bestaan om een Vak te kunnen maken!");
                 return View();
             }
 

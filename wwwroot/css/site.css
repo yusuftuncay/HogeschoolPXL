@@ -26,7 +26,7 @@ footer #footerText {
     margin-left: 25px;
 }
 
-/* Container */
+/* Container & Main Content */
 .container {
     margin: 25px auto;
     max-width: 65rem;
@@ -49,6 +49,37 @@ footer #footerText {
 }
 .backArrow img {
     vertical-align: sub;
+}
+
+/* Navigation Menu View Component */
+#categories a {
+    width: 100%;
+    margin: 2px 0;
+    border-radius: 10px;
+}
+#categories a:hover {
+    background-color: #efefef;
+}
+#categories a:last-child /* Clear Button */ {
+    margin: 5px 0 -5px 0;
+    display: block;
+
+    background-color: transparent !important;
+    border: 0 solid transparent !important;
+}
+#categories th {
+    text-align: center;
+}
+#categories tr td:last-child {
+    text-align: center;
+    margin-top: 4px;
+}
+#categories tr td a:last-child {
+    text-decoration: none;
+}
+.active /* .active Class for active components */ {
+    border: 1px solid #adadad !important;
+    background-color: #ececec !important;
 }
 
 /* View Pages Title */
@@ -87,12 +118,11 @@ tr:last-child {
     margin-left: 5px;
     margin-bottom: 2px;
 }
-
 .row dd {
     text-align: right;
 }
 
-/* Logo */
+/* Logo Navigation Bar */
 #logo {
     box-shadow: 0 0 16px grey;
     border-radius: 50%;
@@ -102,33 +132,37 @@ tr:last-child {
     width: 40px;
 }
 
-/* Navbar */
+/* Navigation Bar */
+.dropdown /* Dropdown */ {
+    position: relative;
+    display: inline-block;
+}
 .dropdown:hover {
     background-color: #f4f4f4;
     cursor: pointer;
 }
-nav .dropdown /* Dropdown */ {
-    position: relative;
-    display: inline-block;
-}
 .dropdown-content {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.1s linear;
     position: absolute;
-    background-color: #fcfcfc;
-    min-width: 160px;
-    padding: 12px 16px;
     z-index: 1;
 
+    background-color: #fcfcfc;
+    min-width: 160px;
     border-radius: 6px;
+    padding: 12px 16px;
     box-shadow: 0 0 20px lightgrey;
 }
 .dropdown:hover .dropdown-content {
-    display: block;
+    visibility: visible;
+    opacity: 1;
 }
 .dropdown-item:focus {
     background-color: grey;
 }
 .dropdown-item:hover {
+    transition: ease 0.1s;
     background-color: #f1f1f1;
     border-radius: 6px;
 }
@@ -139,7 +173,7 @@ nav .dropdown /* Dropdown */ {
 .dropdown span {
     font-size: 18px;
 }
-header form /* Form */ {
+header form /* Search Bar */ {
     display: flex;
     margin-left: auto;
 }

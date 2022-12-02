@@ -13,40 +13,56 @@
     <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Inschrijving</a>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VakLector.Vak)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Academiejaar)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.Gebruiker.Voornaam) 
-                @Html.DisplayFor(modelItem => item.Student.Gebruiker.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Academiejaar.Datum)
-            </td>
-            <td>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.InschrijvingId">Edit</a>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
-                <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.InschrijvingId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="d-flex justify-content-center row">
+    <div class="col-2">
+        <table id="categories" class="table">
+            <thead>
+                <tr> <th>Categorieën</th> </tr>
+            </thead>
+            <tbody class="row">
+                <tr> <td> <vc:navigation-menu onclick="focus"/> </td> </tr>
+            </tbody>
+        </table>
+    </div>
+        
+    <div class="col-10">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VakLector.Vak)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Academiejaar)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.Gebruiker.Voornaam) 
+                        @Html.DisplayFor(modelItem => item.Student.Gebruiker.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Academiejaar.Datum)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.InschrijvingId">Edit</a>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
+                        <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.InschrijvingId">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
