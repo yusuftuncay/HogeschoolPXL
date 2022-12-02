@@ -83,7 +83,9 @@ namespace HogeschoolPXL.Data
                 new Gebruiker { Naam = "Tuncay", Voornaam = "Yusuf", Email = "yusuf.tuncay@student.pxl.be" },
                 new Gebruiker { Naam = "Palmaers", Voornaam = "Kristof", Email = "kristof.palmaers@pxl.be" },
                 new Gebruiker { Naam = "Smets", Voornaam = "Stany", Email = "stany.smets@pxl.be" },
-                new Gebruiker { Naam = "DePuydt", Voornaam = "Sander", Email = "sander.depuydt@pxl.be" }
+                new Gebruiker { Naam = "DePuydt", Voornaam = "Sander", Email = "sander.depuydt@pxl.be" },
+                new Gebruiker { Naam = "Kaya", Voornaam = "Ahmet", Email = "ahmet.kaya@pxl.be" },
+                new Gebruiker { Naam = "Demir", Voornaam = "Furkan", Email = "furkan.demir@pxl.be" }
             };
             return gebruiker;
         }
@@ -91,7 +93,9 @@ namespace HogeschoolPXL.Data
         {
             List<Student> student = new()
             {
-                new Student { GebruikerId = 1 }
+                new Student { GebruikerId = 1 },
+                new Student { GebruikerId = 5 },
+                new Student { GebruikerId = 6 }
             };
             return student;
         }
@@ -150,7 +154,9 @@ namespace HogeschoolPXL.Data
             {
                 new Inschrijving { StudentId = 1, VakLectorId = 1, AcademiejaarId = 1},
                 new Inschrijving { StudentId = 1, VakLectorId = 2, AcademiejaarId = 1},
-                new Inschrijving { StudentId = 1, VakLectorId = 3, AcademiejaarId = 1}
+                new Inschrijving { StudentId = 1, VakLectorId = 3, AcademiejaarId = 1},
+                new Inschrijving { StudentId = 5, VakLectorId = 1, AcademiejaarId = 2},
+                new Inschrijving { StudentId = 6, VakLectorId = 1, AcademiejaarId = 2}
             };
             return inschrijving;
         }

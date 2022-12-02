@@ -25,16 +25,11 @@ namespace HogeschoolPXL.Controllers
         public async Task<IActionResult> Index(string category = null)
         {
             var appDbContextModel = _context.Inschrijving
-                .Where(p => category == null || p.Student.Gebruiker.Voornaam == category)
+                .Where(x => category == null || x.Student.Gebruiker.Voornaam == category)
                 .Include(i => i.Academiejaar)
                 .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
                 .Include(i => i.VakLector).ThenInclude(x => x.Vak);
             return View(await appDbContextModel.ToListAsync());
-
-            //var appDbContext = _context.Inschrijving.Include(i => i.Academiejaar)
-            //    .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
-            //    .Include(i => i.VakLector).ThenInclude(x => x.Vak);
-            //return View(await appDbContext.ToListAsync());
         }
 
         // GET: Inschrijving/Details/5
