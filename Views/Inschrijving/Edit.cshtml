@@ -4,10 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Inschrijving</h1>
-<hr />
+<h1 class="titleView">Edit Inschrijving</h1>
 
-<div class="row">
+<div class="row d-flex justify-content-center">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -18,24 +17,25 @@
                 <span asp-validation-for="StudentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VakLectorId" class="control-label">Vak</label>
+                <label asp-for="VakLectorId" class="control-label"></label>
                 <select asp-for="VakLectorId" class="form-control" asp-items="ViewBag.VakLectorId"></select>
                 <span asp-validation-for="VakLectorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AcademieJaarId" class="control-label"></label>
-                <select asp-for="AcademieJaarId" class="form-control" asp-items="ViewBag.AcademieJaarId"></select>
-                <span asp-validation-for="AcademieJaarId" class="text-danger"></span>
+                <label asp-for="AcademiejaarId" class="control-label"></label>
+                <select asp-for="AcademiejaarId" class="form-control" asp-items="ViewBag.AcademiejaarId"></select>
+                <span asp-validation-for="AcademiejaarId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="form-group d-flex justify-content-between">
+                <a class="btn btn-outline-secondary btn-sm backArrow" href="javascript:history.back()">
+                    <img src="~/img/arrow-left.svg" />
+                    <span class="backButton">Terug</span>
+                </a>
+                <input type="submit" value="Update Inschrijving" class="btn btn-outline-success btn-sm viewButton" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

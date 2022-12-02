@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<HogeschoolPXL.Models.Gebruiker>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Overview";
 }
 
-<div class="createButtonParent">
-    <a class="btn btn-outline-secondary btn-sm arrow-left" href="javascript:history.go(-1)">
-        <img src="~/img/arrow-left.svg"/>
+<div class="d-flex justify-content-between mx-2 mb-3">
+    <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Home">
+        <img src="~/img/arrow-left.svg" />
+        <span class="backButton">Home</span>
     </a>
-    <a class="btn btn-outline-success btn-sm createButton" asp-action="Create">Create Gebruiker</a>
+    <h1>Gebruikers</h1>
+    <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Gebruiker</a>
 </div>
-
-<h1>Gebruikers</h1>
 
 <table class="table">
     <thead>
@@ -41,9 +41,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a class="btn btn-outline-primary btn-sm createButton" asp-action="Edit" asp-route-id="@item.GebruikerId">Edit</a>
-                <a class="btn btn-outline-primary btn-sm createButton" asp-action="Details" asp-route-id="@item.GebruikerId">Details</a>
-                <a class="btn btn-outline-danger btn-sm createButton" asp-action="Delete" asp-route-id="@item.GebruikerId">Delete</a>
+                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.GebruikerId">Edit</a>
+                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.GebruikerId">Details</a>
+                <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.GebruikerId">Delete</a>
             </td>
         </tr>
 }

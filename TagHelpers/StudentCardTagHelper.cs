@@ -14,20 +14,21 @@ namespace HogeschoolPXL.TagHelpers
             if (StudentCardViewModel.InschrijvingId == 0)
             {
                 string content = $@"<div>";
-                content += $@"<h2 class='card-student-empty'>Geen Inschrijvingen</h2>";
+                content += $@"<h4 class='card-student-empty d-flex justify-content-center'>Geen Inschrijvingen</h4>";
 
                 output.TagName = "div";
                 output.Content.SetHtmlContent(content);
             }
             else
             {
-                string content = $@"<div>";
-                content += $@"<h4 class='card-student-name'>{StudentCardViewModel.VoorNaam} {StudentCardViewModel.Naam} | {StudentCardViewModel.Email}</h4>";
-                for (int i = 0; i < StudentCardViewModel.InschrijvingId; i++)
+                string content = $@"<div class='d-flex flex-column' style='margin:auto;width:50%;'>";
+                content += $@"<h4 class='card-student-name text-center'>{StudentCardViewModel.VoorNaam} {StudentCardViewModel.Naam}</h4>";
+                content += $@"<h4 class='card-student-email text-center'>{StudentCardViewModel.Email}</h4>";
+                for (int i = 0; i < StudentCardViewModel.Academiejaar.Distinct().Count(); i++)
                 {
                     content += $@"<div class='card p-3 m-1'>";
-                    content += $@"<span class='card-vak-{i}'><strong>Vak</strong> {StudentCardViewModel.Vak[i]}</span>";
-                    content += $@"<span class='card-academiejaar-{i}'><strong>AcademieJaar</strong> {StudentCardViewModel.AcademieJaar[i].ToShortDateString()}</span>";
+                        content += $@"<span class='card-info'>Academiejaar: {StudentCardViewModel.Academiejaar[i].ToShortDateString()}</span>";
+                        content += $@"<span class='card-info'>Vak: {StudentCardViewModel.Vak[i]}</span>";
                     content += $@"</div>";
                 }
                 output.TagName = "div";

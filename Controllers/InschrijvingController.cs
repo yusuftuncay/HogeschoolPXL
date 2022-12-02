@@ -23,7 +23,7 @@ namespace HogeschoolPXL.Controllers
         // GET: Inschrijving
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Inschrijving.Include(i => i.AcademieJaar)
+            var appDbContext = _context.Inschrijving.Include(i => i.Academiejaar)
                 .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
                 .Include(i => i.VakLector).ThenInclude(x => x.Vak);
             return View(await appDbContext.ToListAsync());
@@ -38,7 +38,7 @@ namespace HogeschoolPXL.Controllers
             }
 
             var inschrijving = await _context.Inschrijving
-                .Include(i => i.AcademieJaar)
+                .Include(i => i.Academiejaar)
                 .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
                 .Include(i => i.VakLector).ThenInclude(x => x.Vak)
                 .FirstOrDefaultAsync(m => m.InschrijvingId == id);
@@ -53,8 +53,8 @@ namespace HogeschoolPXL.Controllers
         // GET: Inschrijving/Create
         public IActionResult Create()
         {
-            ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
-                x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
+            ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
+                x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
@@ -74,20 +74,20 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InschrijvingId,StudentId,VakLectorId,AcademieJaarId")] Inschrijving inschrijving)
+        public async Task<IActionResult> Create([Bind("InschrijvingId,StudentId,VakLectorId,AcademiejaarId")] Inschrijving inschrijving)
         {
-            ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
-                x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
+            ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
+                x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
                 x.Vak.VakNaam, x.VakId.ToString()));
 
-            // Update ModelState to exclude nested models (Student, VakLector and AcademieJaar) from model Inschrijving
+            // Update ModelState to exclude nested models (Student, VakLector and Academiejaar) from model Inschrijving
             await TryUpdateModelAsync(inschrijving);
             ModelState.Remove("Student");
             ModelState.Remove("VakLector");
-            ModelState.Remove("AcademieJaar");
+            ModelState.Remove("Academiejaar");
 
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
@@ -118,8 +118,8 @@ namespace HogeschoolPXL.Controllers
             {
                 return NotFound();
             }
-            ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
-                x.Datum.ToShortDateString().ToString(), x.AcademieJaarId.ToString()));
+            ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
+                x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
@@ -132,13 +132,13 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InschrijvingId,StudentId,VakLectorId,AcademieJaarId")] Inschrijving inschrijving)
+        public async Task<IActionResult> Edit(int id, [Bind("InschrijvingId,StudentId,VakLectorId,AcademiejaarId")] Inschrijving inschrijving)
         {
-            // Update ModelState to exclude nested models (Student, VakLector and AcademieJaar) from model Inschrijving
+            // Update ModelState to exclude nested models (Student, VakLector and Academiejaar) from model Inschrijving
             await TryUpdateModelAsync(inschrijving);
             ModelState.Remove("Student");
             ModelState.Remove("VakLector");
-            ModelState.Remove("AcademieJaar");
+            ModelState.Remove("Academiejaar");
 
             if (id != inschrijving.InschrijvingId)
             {
@@ -165,8 +165,8 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AcademieJaarId"] = _context.AcademieJaar.Select(x => new SelectListItem(
-                x.Datum.ToString(), x.AcademieJaarId.ToString()));
+            ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
+                x.Datum.ToString(), x.AcademiejaarId.ToString()));
             ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
                 x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
@@ -183,7 +183,7 @@ namespace HogeschoolPXL.Controllers
             }
 
             var inschrijving = await _context.Inschrijving
-                .Include(i => i.AcademieJaar)
+                .Include(i => i.Academiejaar)
                 .Include(i => i.Student).ThenInclude(g => g.Gebruiker)
                 .Include(i => i.VakLector).ThenInclude(v => v.Vak)
                 .FirstOrDefaultAsync(m => m.InschrijvingId == id);

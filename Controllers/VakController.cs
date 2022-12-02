@@ -64,7 +64,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VakId,VakNaam,StudiePunten,HandboekId")] Vak vak)
+        public async Task<IActionResult> Create([Bind("VakId,VakNaam,Studiepunten,HandboekId")] Vak vak)
         {
             // Update ModelState to exclude nested model (Handboek) from model Vak
             await TryUpdateModelAsync(vak);
@@ -108,7 +108,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VakId,VakNaam,StudiePunten,HandboekId")] Vak vak)
+        public async Task<IActionResult> Edit(int id, [Bind("VakId,VakNaam,Studiepunten,HandboekId")] Vak vak)
         {
             // Update ModelState to exclude nested model (Handboek) from model Vak
             await TryUpdateModelAsync(vak);

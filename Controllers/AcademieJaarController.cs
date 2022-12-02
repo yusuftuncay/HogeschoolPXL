@@ -10,31 +10,31 @@ using HogeschoolPXL.Models;
 
 namespace HogeschoolPXL.Controllers
 {
-    public class AcademieJaarController : Controller
+    public class AcademiejaarController : Controller
     {
         private readonly AppDbContext _context;
 
-        public AcademieJaarController(AppDbContext context)
+        public AcademiejaarController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: AcademieJaar
+        // GET: Academiejaar
         public async Task<IActionResult> Index()
         {
-              return View(await _context.AcademieJaar.ToListAsync());
+              return View(await _context.Academiejaar.ToListAsync());
         }
 
-        // GET: AcademieJaar/Details/5
+        // GET: Academiejaar/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.AcademieJaar == null)
+            if (id == null || _context.Academiejaar == null)
             {
                 return NotFound();
             }
 
-            var academieJaar = await _context.AcademieJaar
-                .FirstOrDefaultAsync(m => m.AcademieJaarId == id);
+            var academieJaar = await _context.Academiejaar
+                .FirstOrDefaultAsync(m => m.AcademiejaarId == id);
             if (academieJaar == null)
             {
                 return NotFound();
@@ -43,18 +43,18 @@ namespace HogeschoolPXL.Controllers
             return View(academieJaar);
         }
 
-        // GET: AcademieJaar/Create
+        // GET: Academiejaar/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AcademieJaar/Create
+        // POST: Academiejaar/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AcademieJaarId,Datum")] AcademieJaar academieJaar)
+        public async Task<IActionResult> Create([Bind("AcademiejaarId,Datum")] Academiejaar academieJaar)
         {
             if (ModelState.IsValid)
             {
@@ -65,15 +65,15 @@ namespace HogeschoolPXL.Controllers
             return View(academieJaar);
         }
 
-        // GET: AcademieJaar/Edit/5
+        // GET: Academiejaar/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.AcademieJaar == null)
+            if (id == null || _context.Academiejaar == null)
             {
                 return NotFound();
             }
 
-            var academieJaar = await _context.AcademieJaar.FindAsync(id);
+            var academieJaar = await _context.Academiejaar.FindAsync(id);
             if (academieJaar == null)
             {
                 return NotFound();
@@ -81,14 +81,14 @@ namespace HogeschoolPXL.Controllers
             return View(academieJaar);
         }
 
-        // POST: AcademieJaar/Edit/5
+        // POST: Academiejaar/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AcademieJaarId,Datum")] AcademieJaar academieJaar)
+        public async Task<IActionResult> Edit(int id, [Bind("AcademiejaarId,Datum")] Academiejaar academieJaar)
         {
-            if (id != academieJaar.AcademieJaarId)
+            if (id != academieJaar.AcademiejaarId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace HogeschoolPXL.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AcademieJaarExists(academieJaar.AcademieJaarId))
+                    if (!AcademiejaarExists(academieJaar.AcademiejaarId))
                     {
                         return NotFound();
                     }
@@ -116,16 +116,16 @@ namespace HogeschoolPXL.Controllers
             return View(academieJaar);
         }
 
-        // GET: AcademieJaar/Delete/5
+        // GET: Academiejaar/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.AcademieJaar == null)
+            if (id == null || _context.Academiejaar == null)
             {
                 return NotFound();
             }
 
-            var academieJaar = await _context.AcademieJaar
-                .FirstOrDefaultAsync(m => m.AcademieJaarId == id);
+            var academieJaar = await _context.Academiejaar
+                .FirstOrDefaultAsync(m => m.AcademiejaarId == id);
             if (academieJaar == null)
             {
                 return NotFound();
@@ -134,28 +134,28 @@ namespace HogeschoolPXL.Controllers
             return View(academieJaar);
         }
 
-        // POST: AcademieJaar/Delete/5
+        // POST: Academiejaar/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.AcademieJaar == null)
+            if (_context.Academiejaar == null)
             {
-                return Problem("Entity set 'AppDbContext.AcademieJaar'  is null.");
+                return Problem("Entity set 'AppDbContext.Academiejaar'  is null.");
             }
-            var academieJaar = await _context.AcademieJaar.FindAsync(id);
+            var academieJaar = await _context.Academiejaar.FindAsync(id);
             if (academieJaar != null)
             {
-                _context.AcademieJaar.Remove(academieJaar);
+                _context.Academiejaar.Remove(academieJaar);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AcademieJaarExists(int id)
+        private bool AcademiejaarExists(int id)
         {
-          return _context.AcademieJaar.Any(e => e.AcademieJaarId == id);
+          return _context.Academiejaar.Any(e => e.AcademiejaarId == id);
         }
     }
 }

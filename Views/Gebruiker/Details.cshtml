@@ -4,32 +4,36 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details Gebruiker</h1>
-<hr />
+<h1 class="titleView">Details Gebruiker</h1>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Voornaam)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Voornaam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Naam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Naam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.GebruikerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Voornaam)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Voornaam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Naam)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Naam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+        <div class="form-group d-flex justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Gebruiker">
+                <img src="~/img/arrow-left.svg" />
+                <span class="backButton">Terug</span>
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.GebruikerId" class="btn btn-outline-success btn-sm viewButton">Edit Gebruiker</a>
+        </div>
+    </div>
 </div>

@@ -8,11 +8,10 @@ namespace HogeschoolPXL.Models
         [Key]
         public int VakId { get; set; }
         [Required]
-        [DisplayName("Vak Naam")]
+        [DisplayName("Vaknaam")]
         public string VakNaam { get; set; }
         [Required]
-        [DisplayName("Studie Punten")]
-        public int StudiePunten { get; set; }
+        public int Studiepunten { get; set; }
         [Required]
         [DisplayName("Handboek")]
         public int HandboekId { get; set; }

@@ -2,50 +2,45 @@
 
 @{
     ViewData["Title"] = "Details";
-    var b = Html.DisplayFor(model => model.Afbeelding).ToString();
-    var a = Html.DisplayFor(model => model.Afbeelding);
-
 }
 
-<h1>Details Handboek</h1>
-<hr />
+<h1 class="titleView">Details Handboek</h1>
 
-<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.KostPrijs)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.KostPrijs)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UitgifteDatum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UitgifteDatum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Afbeelding)
-        </dt>
-        <dd class = "col-sm-10">
-            @if (Model.Afbeelding == null)
-            {
-                <text>Geen Afbeelding Beschikbaar</text>
-            }
-            else
-            {
-                <img src="@Model.Afbeelding" width="170px" height="240px" />
-            }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.HandboekId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Titel)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Titel)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Kostprijs)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Kostprijs)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.UitgifteDatum)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.UitgifteDatum)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Afbeelding)
+            </dt>
+            <dd class="col-sm-8">
+                @if (Model.Afbeelding == null) { <text>Geen Afbeelding Beschikbaar</text> }
+                else { <img src="@Model.Afbeelding" width="170px" height="240px"/> }
+            </dd>
+            <div class="form-group d-flex justify-content-between">
+                <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Handboek">
+                    <img src="~/img/arrow-left.svg" />
+                    <span class="backButton">Terug</span>
+                </a>
+                <a asp-action="Edit" asp-route-id="@Model?.HandboekId" class="btn btn-outline-success btn-sm viewButton">Edit Handboek</a>
+            </div>
+        </dl>
+    </div>
 </div>

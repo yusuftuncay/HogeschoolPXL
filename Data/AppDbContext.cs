@@ -14,6 +14,6 @@ namespace HogeschoolPXL.Data
         public DbSet<VakLector> VakLector { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Inschrijving> Inschrijving { get; set; }
-        public DbSet<AcademieJaar> AcademieJaar { get; set; }
+        public DbSet<Academiejaar> Academiejaar { get; set; }
     }
 }

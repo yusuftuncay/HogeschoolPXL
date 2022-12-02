@@ -4,41 +4,17 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details Student</h1>
+<h1 class="titleView">Details Student</h1>
 
 <student-card student-card-view-model="@Model"></student-card>
 
 @if (Model.Inschrijving != null)
 {
-    <a asp-action="Edit" asp-route-id="@Model.Inschrijving.Student.StudentId">Edit</a><text> | </text>
+    <div class="form-group d-flex justify-content-center">
+        <a class="btn btn-outline-secondary btn-sm backArrow mx-1" asp-action="Index" asp-controller="Lector">
+            <img src="~/img/arrow-left.svg" />
+            <span class="backButton">Terug</span>
+        </a>
+        <a asp-action="Edit" asp-route-id="@Model?.Inschrijving.Student.StudentId" class="btn btn-outline-success btn-sm viewButton mx-1">Edit Student</a>
+    </div>
 }
-<a asp-action="Index">Back to List</a>
-
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Gebruiker)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gebruiker.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(model => model.Gebruiker.VoorNaam)
-                @Html.DisplayFor(model => model.Gebruiker.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Gebruiker.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@Model?.StudentId">Edit</a> |
-                <a asp-action="Index">Back to List</a>
-            </td>
-        </tr>
-    </tbody>
-</table>*@

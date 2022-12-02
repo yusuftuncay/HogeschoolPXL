@@ -2,35 +2,33 @@
 
 @{
     ViewData["Title"] = "Details";
-}
+}   
 
-<h1>Details Lector</h1>
+<h1 class="titleView">Details Lector</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Gebruiker)
-            </th>
-            <th>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Gebruiker.Naam)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Gebruiker.Email)
+            </dd>
+            <dt class="col-sm-4">
                 @Html.DisplayNameFor(model => model.Gebruiker.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
+            </dt>
+            <dd class="col-sm-8">
                 @Html.DisplayFor(model => model.Gebruiker.Voornaam)
                 @Html.DisplayFor(model => model.Gebruiker.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Gebruiker.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@Model?.LectorId">Edit</a> |
-                <a asp-action="Index">Back to List</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            </dd>
+        </dl>
+        <div class="form-group d-flex justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Lector">
+                <img src="~/img/arrow-left.svg" />
+                <span class="backButton">Terug</span>
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.LectorId" class="btn btn-outline-success btn-sm viewButton">Edit Lector</a>
+        </div>
+    </div>
+</div>

@@ -2,10 +2,10 @@
 
 namespace HogeschoolPXL.Models
 {
-    public class AcademieJaar
+    public class Academiejaar
     {
         [Key]
-        public int AcademieJaarId { get; set; }
+        public int AcademiejaarId { get; set; }
         [Required]
         [DataType(DataType.Date)]
         public DateTime Datum { get; set; }

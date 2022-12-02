@@ -57,11 +57,11 @@ namespace HogeschoolPXL.Data
                     context.SaveChanges();
                 }
             }
-            if (!context.AcademieJaar.Any())
+            if (!context.Academiejaar.Any())
             {
-                foreach (var a in GetAcademieJaar())
+                foreach (var a in GetAcademiejaar())
                 {
-                    context.AcademieJaar.Add(a);
+                    context.Academiejaar.Add(a);
                     context.SaveChanges();
                 }
             }
@@ -83,10 +83,7 @@ namespace HogeschoolPXL.Data
                 new Gebruiker { Naam = "Tuncay", Voornaam = "Yusuf", Email = "yusuf.tuncay@student.pxl.be" },
                 new Gebruiker { Naam = "Palmaers", Voornaam = "Kristof", Email = "kristof.palmaers@pxl.be" },
                 new Gebruiker { Naam = "Smets", Voornaam = "Stany", Email = "stany.smets@pxl.be" },
-                new Gebruiker { Naam = "DePuydt", Voornaam = "Sander", Email = "sander.depuydt@pxl.be" },
-                new Gebruiker { Naam = "Achternaam", Voornaam = "Student1", Email = "student.een@pxl.be" },
-                new Gebruiker { Naam = "Achternaam", Voornaam = "Student2", Email = "student.twee@pxl.be" },
-                new Gebruiker { Naam = "Achternaam", Voornaam = "Student3", Email = "student.drie@pxl.be" }
+                new Gebruiker { Naam = "DePuydt", Voornaam = "Sander", Email = "sander.depuydt@pxl.be" }
             };
             return gebruiker;
         }
@@ -94,10 +91,7 @@ namespace HogeschoolPXL.Data
         {
             List<Student> student = new()
             {
-                new Student { GebruikerId = 1 },
-                new Student { GebruikerId = 5 },
-                new Student { GebruikerId = 6 },
-                new Student { GebruikerId = 7 }
+                new Student { GebruikerId = 1 }
             };
             return student;
         }
@@ -115,9 +109,9 @@ namespace HogeschoolPXL.Data
         {
             List<Handboek> handboek = new()
             {
-                new Handboek { Titel = "C# Web 1 (Syllabus)", KostPrijs = 24.99M, UitgifteDatum = DateTime.Parse("01 01 2022"), Afbeelding = "/img/csharp.jpg"},
-                new Handboek { Titel = "IT Organisation (Syllabus)", KostPrijs = 14.99M, UitgifteDatum = DateTime.Parse("02 12 2008"), Afbeelding = "/img/itorg.jpg"},
-                new Handboek { Titel = "Security & Privacy (Syllabus)", KostPrijs = 29.99M, UitgifteDatum = DateTime.Parse("20 08 2018"), Afbeelding = null}
+                new Handboek { Titel = "C# Web 1 (Syllabus)", Kostprijs = 24.99M, UitgifteDatum = DateTime.Parse("01 01 2022"), Afbeelding = "/img/csharp.jpg"},
+                new Handboek { Titel = "IT Organisation (Syllabus)", Kostprijs = 14.99M, UitgifteDatum = DateTime.Parse("02 12 2008"), Afbeelding = "/img/itorg.jpg"},
+                new Handboek { Titel = "Security & Privacy (Syllabus)", Kostprijs = 29.99M, UitgifteDatum = DateTime.Parse("20 08 2018"), Afbeelding = null}
             };
             return handboek;
         }
@@ -125,9 +119,9 @@ namespace HogeschoolPXL.Data
         {
             List<Vak> vak = new()
             {
-                new Vak { VakNaam = "C# Web 1", StudiePunten = 6, HandboekId = 1 },
-                new Vak { VakNaam = "IT Organisation", StudiePunten = 3, HandboekId = 2 },
-                new Vak { VakNaam = "Security & Privacy", StudiePunten = 6, HandboekId = 3 }
+                new Vak { VakNaam = "C# Web 1", Studiepunten = 6, HandboekId = 1 },
+                new Vak { VakNaam = "IT Organisation", Studiepunten = 3, HandboekId = 2 },
+                new Vak { VakNaam = "Security & Privacy", Studiepunten = 6, HandboekId = 3 }
             };
             return vak;
         }
@@ -141,12 +135,12 @@ namespace HogeschoolPXL.Data
             };
             return vakLector;
         }
-        private static List<AcademieJaar> GetAcademieJaar()
+        private static List<Academiejaar> GetAcademiejaar()
         {
-            List<AcademieJaar> academieJaar = new()
+            List<Academiejaar> academieJaar = new()
             {
-                new AcademieJaar { Datum = DateTime.Parse("20 09 2021") },
-                new AcademieJaar { Datum = DateTime.Parse("26 09 2022") }
+                new Academiejaar { Datum = DateTime.Parse("20 09 2021") },
+                new Academiejaar { Datum = DateTime.Parse("26 09 2022") }
             };
             return academieJaar;
         }
@@ -154,7 +148,9 @@ namespace HogeschoolPXL.Data
         {
             List<Inschrijving> inschrijving = new()
             {
-                new Inschrijving { StudentId = 1, VakLectorId = 1, AcademieJaarId = 1}
+                new Inschrijving { StudentId = 1, VakLectorId = 1, AcademiejaarId = 1},
+                new Inschrijving { StudentId = 1, VakLectorId = 2, AcademiejaarId = 1},
+                new Inschrijving { StudentId = 1, VakLectorId = 3, AcademiejaarId = 1}
             };
             return inschrijving;
         }

@@ -22,20 +22,20 @@ namespace HogeschoolPXL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HogeschoolPXL.Models.AcademieJaar", b =>
+            modelBuilder.Entity("HogeschoolPXL.Models.Academiejaar", b =>
                 {
-                    b.Property<int>("AcademieJaarId")
+                    b.Property<int>("AcademiejaarId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademieJaarId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademiejaarId"), 1L, 1);
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("AcademieJaarId");
+                    b.HasKey("AcademiejaarId");
 
-                    b.ToTable("AcademieJaar");
+                    b.ToTable("Academiejaar");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Gebruiker", b =>
@@ -74,7 +74,7 @@ namespace HogeschoolPXL.Migrations
                     b.Property<string>("Afbeelding")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("KostPrijs")
+                    b.Property<decimal?>("Kostprijs")
                         .IsRequired()
                         .HasColumnType("decimal(8,2)");
 
@@ -98,7 +98,7 @@ namespace HogeschoolPXL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InschrijvingId"), 1L, 1);
 
-                    b.Property<int>("AcademieJaarId")
+                    b.Property<int>("AcademiejaarId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentId")
@@ -109,7 +109,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasKey("InschrijvingId");
 
-                    b.HasIndex("AcademieJaarId");
+                    b.HasIndex("AcademiejaarId");
 
                     b.HasIndex("StudentId");
 
@@ -165,7 +165,7 @@ namespace HogeschoolPXL.Migrations
                     b.Property<int>("HandboekId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudiePunten")
+                    b.Property<int>("Studiepunten")
                         .HasColumnType("int");
 
                     b.Property<string>("VakNaam")
@@ -402,9 +402,9 @@ namespace HogeschoolPXL.Migrations
 
             modelBuilder.Entity("HogeschoolPXL.Models.Inschrijving", b =>
                 {
-                    b.HasOne("HogeschoolPXL.Models.AcademieJaar", "AcademieJaar")
+                    b.HasOne("HogeschoolPXL.Models.Academiejaar", "Academiejaar")
                         .WithMany()
-                        .HasForeignKey("AcademieJaarId")
+                        .HasForeignKey("AcademiejaarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -420,7 +420,7 @@ namespace HogeschoolPXL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AcademieJaar");
+                    b.Navigation("Academiejaar");
 
                     b.Navigation("Student");
 

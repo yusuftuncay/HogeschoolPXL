@@ -1,25 +1,30 @@
 ﻿@model HogeschoolPXL.Models.Student
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Verwijderen";
 }
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gebruiker)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gebruiker.Voornaam) 
-            @Html.DisplayFor(model => model.Gebruiker.Naam)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="StudentId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<h3 class="titleView">Deze student verwijderen?</h3>
+
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Gebruiker)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Gebruiker.Voornaam) 
+                @Html.DisplayFor(model => model.Gebruiker.Naam)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" class="form-group d-flex justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Lector">
+                <img src="~/img/arrow-left.svg" />
+                <span class="backButton">Terug</span>
+            </a>
+            <input type="hidden" asp-for="StudentId" />
+            <input type="submit" value="Verwijder" class="btn btn-outline-danger btn-sm viewButton"/>
+        </form>
+    </div>
 </div>

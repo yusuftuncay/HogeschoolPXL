@@ -4,33 +4,37 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details Inschrijving</h1>
-<hr />
+<h1 class="titleView">Details Inschrijving</h1>
 
-<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Student)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Student.Gebruiker.Voornaam) 
-            @Html.DisplayFor(model => model.Student.Gebruiker.Naam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VakLector.Vak)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VakLector.Vak.VakNaam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AcademieJaar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AcademieJaar.Datum)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.InschrijvingId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Student)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Student.Gebruiker.Voornaam) 
+                @Html.DisplayFor(model => model.Student.Gebruiker.Naam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.VakLector.Vak)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.VakLector.Vak.VakNaam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Academiejaar)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Academiejaar.Datum)
+            </dd>
+        </dl>
+        <div class="form-group d-flex justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Inschrijving">
+                <img src="~/img/arrow-left.svg" />
+                <span class="backButton">Terug</span>
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.InschrijvingId" class="btn btn-outline-success btn-sm viewButton">Edit Lector</a>
+        </div>
+    </div>
 </div>

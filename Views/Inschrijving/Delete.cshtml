@@ -1,38 +1,42 @@
 ﻿@model HogeschoolPXL.Models.Inschrijving
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Verwijderen";
 }
 
-<h3>Are you sure you want to delete this?</h3>
-<hr />
+<h3 class="titleView">Deze inschrijving verwijderen?</h3>
 
-<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Student)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Student.Gebruiker.Voornaam)
-            @Html.DisplayFor(model => model.Student.Gebruiker.Naam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VakLector.Vak)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VakLector.Vak.VakNaam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AcademieJaar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AcademieJaar.Datum)
-        </dd>
-    </dl>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Student)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Student.Gebruiker.Voornaam)
+                @Html.DisplayFor(model => model.Student.Gebruiker.Naam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.VakLector.Vak)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.VakLector.Vak.VakNaam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Academiejaar)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Academiejaar.Datum)
+            </dd>
+        </dl>
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="InschrijvingId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+        <form asp-action="Delete" class="form-group d-flex justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Inschrijving">
+                <img src="~/img/arrow-left.svg" />
+                <span class="backButton">Terug</span>
+            </a>
+            <input type="hidden" asp-for="InschrijvingId" />
+            <input type="submit" value="Verwijder" class="btn btn-outline-danger btn-sm viewButton" />
+        </form>
+    </div>
 </div>

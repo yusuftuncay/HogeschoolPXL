@@ -12,13 +12,12 @@ namespace HogeschoolPXL.Models
         [Required]
         public string Titel { get; set; }
         [Required]
-        [DisplayName("Kost Prijs")]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(8, 2)")]
-        [Range(4.99, 100)]
-        public decimal? KostPrijs { get; set; }
+        [Range(4.99, 79.99)]
+        public decimal? Kostprijs { get; set; }
         [Required]
-        [DisplayName("Uitgifte Datum")]
+        [DisplayName("Uitgiftedatum")]
         [CustomHandboek]
         [DataType(DataType.Date)]
         public DateTime UitgifteDatum { get; set; }

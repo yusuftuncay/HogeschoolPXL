@@ -32,7 +32,7 @@ namespace HogeschoolPXL.Controllers
         {
             var student = await _context.Inschrijving
                 .Include(x => x.Student).ThenInclude(g => g.Gebruiker)
-                .Include(x => x.AcademieJaar)
+                .Include(x => x.Academiejaar)
                 .Include(x => x.VakLector).ThenInclude(x => x.Vak)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
 

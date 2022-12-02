@@ -4,11 +4,15 @@
     ViewData["Title"] = "Overview";
 }
 
-<h1>Overview</h1>
+<div class="d-flex justify-content-between mx-2 mb-3">
+    <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Home">
+        <img src="~/img/arrow-left.svg" />
+        <span class="backButton">Home</span>
+    </a>
+    <h1>Vak</h1>
+    <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Vak</a>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.VakNaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StudiePunten)
+                @Html.DisplayNameFor(model => model.Studiepunten)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Handboek)
@@ -31,15 +35,15 @@
                 @Html.DisplayFor(modelItem => item.VakNaam)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StudiePunten)
+                @Html.DisplayFor(modelItem => item.Studiepunten)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Handboek.Titel)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.VakId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.VakId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.VakId">Delete</a>
+                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.VakId">Edit</a>
+                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.VakId">Details</a>
+                <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.VakId">Delete</a>
             </td>
         </tr>
 }

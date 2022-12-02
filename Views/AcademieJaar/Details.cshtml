@@ -1,23 +1,28 @@
-﻿@model HogeschoolPXL.Models.AcademieJaar
+﻿@model HogeschoolPXL.Models.Academiejaar
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details AcademieJaar</h1>
+<h1 class="titleView">Details Academiejaar</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Datum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Datum)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.AcademieJaarId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Datum)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Datum)
+            </dd>
+        </dl>
+
+        <div class="form-group d-flex justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Academiejaar">
+                <img src="~/img/arrow-left.svg" />
+                <span class="backButton">Terug</span>
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.AcademiejaarId" class="btn btn-outline-success btn-sm viewButton">Edit Academiejaar</a>
+        </div>
+    </div>
 </div>

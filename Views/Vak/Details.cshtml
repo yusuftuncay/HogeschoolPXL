@@ -4,32 +4,37 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details Vak</h1>
-<hr />
+<h1 class="titleView">Details Vak</h1>
 
-<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VakNaam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VakNaam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StudiePunten)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StudiePunten)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Handboek)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Handboek.Titel)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.VakId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="d-flex justify-content-center">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.VakNaam)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.VakNaam)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Studiepunten)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Studiepunten)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Handboek)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Handboek.Titel)
+            </dd>
+
+            <div class="form-group d-flex justify-content-between">
+                <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Vak">
+                    <img src="~/img/arrow-left.svg" />
+                    <span class="backButton">Terug</span>
+                </a>
+                <a asp-action="Edit" asp-route-id="@Model?.VakId" class="btn btn-outline-success btn-sm viewButton">Edit Vak</a>
+            </div>
+        </dl>
+    </div>
 </div>

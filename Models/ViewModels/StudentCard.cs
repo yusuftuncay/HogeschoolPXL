@@ -20,8 +20,8 @@ namespace HogeschoolPXL.Models.ViewModels
                 Vak = context.Inschrijving.Where(x => x.Student.StudentId == inschrijving.Student.StudentId)
                     .Select(x => x.VakLector.Vak.VakNaam).ToList();
 
-                AcademieJaar = context.Inschrijving.Where(x => x.Student.StudentId == inschrijving.Student.StudentId)
-                    .Select(x => x.AcademieJaar.Datum)
+                Academiejaar = context.Inschrijving.Where(x => x.Student.StudentId == inschrijving.Student.StudentId)
+                    .Select(x => x.Academiejaar.Datum)
                     .OrderBy(x => x.Day).ToList();
             }
         }
@@ -33,6 +33,6 @@ namespace HogeschoolPXL.Models.ViewModels
         public int InschrijvingId { get; set; }
         public List<string> Vak { get; set; }
         [DataType(DataType.Date)]
-        public List<DateTime> AcademieJaar { get; set; }
+        public List<DateTime> Academiejaar { get; set; }
     }
 }
