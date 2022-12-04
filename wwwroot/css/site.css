@@ -35,7 +35,7 @@ footer #footerText {
     margin: 6px 0;
     height: fit-content;
     border-radius: 50px;
-    box-shadow: 0 0 8px lightgrey;
+    box-shadow: 0 0 8px lightgrey !important;
 }
 .backArrow /* Arrow */{
     height: fit-content;
@@ -136,6 +136,7 @@ tr:last-child {
 .dropdown /* Dropdown */ {
     position: relative;
     display: inline-block;
+    transition-delay: 100ms;
 }
 .dropdown:hover {
     background-color: #f4f4f4;
@@ -147,16 +148,19 @@ tr:last-child {
     transition: visibility 0s, opacity 0.1s linear;
     position: absolute;
     z-index: 1;
+    transition-delay: 100ms;
 
+    transform: translate(-10%, 2%);
     background-color: #fcfcfc;
     min-width: 160px;
-    border-radius: 6px;
+    border-radius: 14px;
     padding: 12px 16px;
     box-shadow: 0 0 20px lightgrey;
 }
 .dropdown:hover .dropdown-content {
     visibility: visible;
     opacity: 1;
+    transition-delay: 100ms;
 }
 .dropdown-item:focus {
     background-color: grey;
@@ -180,6 +184,29 @@ header form /* Search Bar */ {
 header form * {
     box-shadow: 0 0 12px lightgrey;
     border-radius: 50px !important;
+}
+.dropdown-login .dropdown-content /* Dropdown Login */ {
+    transform: translate(-75%, 6%);
+    padding-top: 10px;
+
+    border-radius: 20px;
+    width: 200px;
+}
+.dropdown-login form * {
+    box-shadow: initial;
+}
+.dropdown-login form input {
+    box-shadow: 0 0 12px lightgrey;
+}
+.dropdown-login img {
+    box-shadow: 0 0 16px grey;
+    border-radius: 50px;
+}
+.dropdown-content-loggedout .dropdown-item:hover {
+    background-color: initial;
+}
+.dropdown-content-loggedin span {
+    background-color: initial !important;
 }
 
 /* Media */

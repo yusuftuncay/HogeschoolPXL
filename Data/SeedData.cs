@@ -155,8 +155,7 @@ namespace HogeschoolPXL.Data
                 new Inschrijving { StudentId = 1, VakLectorId = 1, AcademiejaarId = 1},
                 new Inschrijving { StudentId = 1, VakLectorId = 2, AcademiejaarId = 1},
                 new Inschrijving { StudentId = 1, VakLectorId = 3, AcademiejaarId = 1},
-                new Inschrijving { StudentId = 5, VakLectorId = 1, AcademiejaarId = 2},
-                new Inschrijving { StudentId = 6, VakLectorId = 1, AcademiejaarId = 2}
+                new Inschrijving { StudentId = 5, VakLectorId = 1, AcademiejaarId = 2}
             };
             return inschrijving;
         }

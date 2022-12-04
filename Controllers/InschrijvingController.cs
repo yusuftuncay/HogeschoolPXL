@@ -9,9 +9,11 @@ using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
+    [Authorize]
     public class InschrijvingController : Controller
     {
         private readonly AppDbContext _context;

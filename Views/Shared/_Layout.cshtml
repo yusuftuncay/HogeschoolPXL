@@ -1,69 +1,36 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HogeschoolPXL.styles.css" asp-append-version="true" />
-    <link rel="icon" href="~/img/pxl.png">
-</head>
-<body>
-    <header>
-        <a asp-controller="Home" asp-action="Index" id="logo">
-            <img src="~/img/pxl.png"/>
-        </a>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <div class="dropdown">
-            <span>Gebruiker</span>
-            <div class="dropdown-content">
-                <a class="dropdown-item" asp-controller="Gebruiker" asp-action="Index">Gebruiker</a>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" asp-controller="Student" asp-action="Index">Student</a>
-                <a class="dropdown-item" asp-controller="Lector" asp-action="Index">Lector</a>
+        <title>@ViewData["Title"]</title>
+        <link rel="icon" href="~/img/pxl.png">
+
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/HogeschoolPXL.styles.css" asp-append-version="true" />
+    </head>
+    <body>
+        <header>
+            <partial name="_HeaderPartial"/>
+        </header>
+
+        <div class="container">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div id="footerText">
+                HogeschoolPXL
             </div>
-        </div>
+        </footer>
 
-        <div class="dropdown">
-            <span>Inschrijving</span>
-            <div class="dropdown-content">
-                <a class="dropdown-item" asp-controller="Inschrijving" asp-action="Index">Inschrijving</a>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" asp-controller="Academiejaar" asp-action="Index">Academiejaar</a>
-                <a class="dropdown-item" asp-controller="Handboek" asp-action="Index">Handboek</a>
-                <a class="dropdown-item" asp-controller="Vak" asp-action="Index">Vak</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <span>VakLector</span>
-            <div class="dropdown-content">
-                <a class="dropdown-item" class="dropdown-item" asp-controller="VakLector" asp-action="Index">VakLector</a>
-            </div>
-        </div>
-        
-        <form role="search">
-            <input class="form-control me-2" type="search" placeholder="Zoeken" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Zoeken</button>
-        </form>
-    </header>
-
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="footer">
-        <div id="footerText">
-            HogeschoolPXL
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
 </html>
