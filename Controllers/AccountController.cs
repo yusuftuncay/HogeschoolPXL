@@ -26,7 +26,7 @@ namespace HogeschoolPXL.Controllers
 			return View();
 		}
 		[HttpPost]
-        public async Task<IActionResult> LoginAsync(LoginViewModel login)
+		public async Task<IActionResult> LoginAsync(LoginViewModel login)
 		{
 			var signInResult = await _signInManager.PasswordSignInAsync(
 			login.Email, login.Password, false, lockoutOnFailure: false);
@@ -34,14 +34,33 @@ namespace HogeschoolPXL.Controllers
 			if (signInResult.Succeeded)
 			{
                 return RedirectToAction("Index", "Home");
-            }
-			ModelState.AddModelError("", "Fout");
+			}
+			ModelState.AddModelError("", "Email of Wachtwoord is verkeerd!");
 			return View();
 		}
 		#endregion
 
-		#region register
-		[HttpGet]
+		#region
+		/* Login Action for Pop-up window in the Navigation Bar */
+		public async Task<IActionResult> LoginFormAsync(string email, string password)
+		{
+            var signInResult = await _signInManager.PasswordSignInAsync(
+            email, password, false, lockoutOnFailure: false);
+
+            if (signInResult.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+			else
+			{
+				ModelState.AddModelError("", "Email of Wachtwoord is verkeerd!");
+				return View("Login");
+			}
+		}
+        #endregion
+
+        #region register
+        [HttpGet]
 		public IActionResult Register()
 		{
 			return View();

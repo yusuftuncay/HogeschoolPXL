@@ -67,8 +67,8 @@ footer #footerText {
     background-color: transparent !important;
     border: 0 solid transparent !important;
 }
-#categories th {
-    text-align: center;
+#categories tr {
+    text-align: -webkit-center;
 }
 #categories tr td:last-child {
     text-align: center;
@@ -185,6 +185,9 @@ header form * {
     box-shadow: 0 0 12px lightgrey;
     border-radius: 50px !important;
 }
+.dropdown-login {
+    margin-left: auto;
+}
 .dropdown-login .dropdown-content /* Dropdown Login */ {
     transform: translate(-75%, 6%);
     padding-top: 10px;
@@ -207,6 +210,26 @@ header form * {
 }
 .dropdown-content-loggedin span {
     background-color: initial !important;
+}
+
+/* Toast */
+#toast-dismiss {
+    z-index: 2
+}
+.toast {
+    margin-bottom: 5rem;
+    padding: 4px 0 0 4px;
+
+    background-color: #f9f9f9;
+    border-radius: 14px;
+    box-shadow: 0 0 20px lightgrey;
+}
+.toast toast-header {
+    background-color: #f9f9f9;
+}
+.toast-header img {
+    box-shadow: 0 0 10px lightgrey;
+    border-radius: 50px !important;
 }
 
 /* Media */

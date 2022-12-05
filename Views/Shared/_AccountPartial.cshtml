@@ -1,32 +1,32 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@model HogeschoolPXL.Models.ViewModels.LoginViewModel
+@*@model HogeschoolPXL.Models.ViewModels.LoginViewModel*@
 
 <div class="dropdown dropdown-login">
     <span> <img src="~/img/profile.png" height="38px" /> </span>
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="dropdown-content dropdown-content-loggedin py-3">
-            <span class="dropdown-item">Hello @User.Identity?.Name</span>
+            <span class="dropdown-item">@User.Identity?.Name</span>
             <hr class="dropdown-divider">
-            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+            <a class="dropdown-item" asp-controller="Account" asp-action="Logout" onclick="showToast()">Logout</a>
         </div>
     }
     else
     {
         <div class="dropdown-content dropdown-content-loggedout py-3">
-            <form class="dropdown-item" asp-controller="Account" asp-action="Login">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <form class="dropdown-item" asp-controller="Account" asp-action="LoginForm" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div> @* Validation *@
                 <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" type="email" placeholder="email@example.com" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label name="Email" class="control-label">Email</label>
+                    <input name="Email" class="form-control" type="email" placeholder="email@example.com" />
+                    @*<span asp-validation-for="Email" class="text-danger"></span>*@
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" type="password" placeholder="Wachtwoord" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label name="Password" class="control-label">Password</label>
+                    <input name="Password" class="form-control" type="password" placeholder="Wachtwoord" />
+                    @*<span asp-validation-for="Password" class="text-danger"></span>*@
                 </div>
                 <div class="form-group d-flex justify-content-between">
                     <a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="Register">Registreer</a>
@@ -36,3 +36,20 @@
         </div>
     }
 </div>
+
+@* Toast after a succesfull login *@
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <div class="toast show" id="toast-dismiss" role="alert">
+            <div class="toast-header">
+                <img src="~/img/green-check.png" height="16" class="rounded me-2">
+                <strong class="me-auto">Succesfull</strong>
+                <button type="button" class="btn-close" onclick="hideToast()" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                Logged in as <i>@User.Identity?.Name</i>
+            </div>
+        </div>
+    </div>
+}
