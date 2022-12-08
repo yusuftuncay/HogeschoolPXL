@@ -11,7 +11,7 @@
     </span>
     @if (SignInManager.IsSignedIn(User))
     {
-		<div class="dropdown-content" id="dropdown-login-form" @*onload="showSnackbar();"*@>
+		<div class="dropdown-content" id="dropdown-login-form">
             <span class="dropdown-item">@User.Identity?.Name</span>
             <hr>
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>

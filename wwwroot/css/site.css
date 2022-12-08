@@ -66,8 +66,8 @@ footer #footerText {
     background-color: transparent !important;
     border: 0 solid transparent !important;
 }
-#categories tr {
-    text-align: -webkit-center;
+#categories thead {
+    text-align: center;
 }
 #categories tr td:last-child {
     text-align: center;
@@ -220,6 +220,7 @@ header form * {
 
 /* SnackBar */
 #snackbar {
+    /* Positioning */
     opacity: 0; /* Hide */
     position: absolute;
     z-index: 1;
