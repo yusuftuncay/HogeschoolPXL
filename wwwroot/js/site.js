@@ -18,7 +18,7 @@ $(function disableToast_LoginPage() {
     // Get Full URL
     var url = window.location.href;
     var loginDropdown = document.getElementById("dropdown-login-form");
-    if (url.includes("/Account/LoginForm") || url.includes("/Account/Login")) {
+    if (url.includes("/Account/LoginForm") || url.includes("/Account/Login") || url.includes("/Account/Register")) {
         loginDropdown.classList.add("d-none");
         loginDropdown.classList.remove("d-block");
     }
