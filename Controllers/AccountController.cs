@@ -33,10 +33,15 @@ namespace HogeschoolPXL.Controllers
 
 			if (signInResult.Succeeded)
 			{
+                ViewBag.LoginSuccess = 1;
                 return RedirectToAction("Index", "Home");
 			}
-			ModelState.AddModelError("", "Email of Wachtwoord is verkeerd!");
-			return View();
+			else
+			{
+                ViewBag.LoginSuccess = 0;
+                ModelState.AddModelError("", "Email of Wachtwoord is verkeerd!");
+                return View("Login");
+            }
 		}
 		#endregion
 
@@ -49,11 +54,13 @@ namespace HogeschoolPXL.Controllers
 
             if (signInResult.Succeeded)
             {
+                ViewBag.LoginSuccess = 1;
                 return RedirectToAction("Index", "Home");
             }
 			else
 			{
-				ModelState.AddModelError("", "Email of Wachtwoord is verkeerd!");
+                ViewBag.LoginSuccess = 0;
+                ModelState.AddModelError("", "Email of Wachtwoord is verkeerd!");
 				return View("Login");
 			}
 		}
