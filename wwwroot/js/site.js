@@ -32,7 +32,7 @@ $(function disableToast_LoginPage() {
 $(function showSnackbar() {
     var toast = document.getElementById("snackbar");
     toast.style.opacity = "1";
-
+    
     // After 2 seconds, remove the show class from element
     setTimeout(function () { toast.style.opacity = toast.style.opacity.replace("1", "0"); }, 2000);
 })
