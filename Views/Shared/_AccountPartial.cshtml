@@ -4,10 +4,14 @@
 @*@model HogeschoolPXL.Models.ViewModels.LoginViewModel*@
 
 <div class="dropdown dropdown-login" onload="disableToast_LoginPage()">
-    <span id="loginImg"> <img src="~/img/profile.png" height="38px" /> </span>
+    <span id="loginImg">
+        <a asp-controller="Account" asp-action="Login">
+            <img src="~/img/profile.png" height="38px"/>
+        </a>
+    </span>
     @if (SignInManager.IsSignedIn(User))
     {
-        <div class="dropdown-content" id="dropdown-login-form" onload="showSnackbar();">
+		<div class="dropdown-content" id="dropdown-login-form" @*onload="showSnackbar();"*@>
             <span class="dropdown-item">@User.Identity?.Name</span>
             <hr>
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
@@ -17,7 +21,7 @@
     {
         <div class="dropdown-content" id="dropdown-login-form">
             <form class="dropdown-item" asp-controller="Account" asp-action="Login" method="post">
-                @* <div asp-validation-summary="ModelOnly" class="text-danger"></div> Validation *@
+                @*<div asp-validation-summary="All" class="text-danger"></div>*@
                 <div class="form-group">
                     <label name="Email" class="control-label">Email</label>
                     <input name="Email" class="form-control" type="email" placeholder="email@example.com" />
@@ -38,15 +42,41 @@
 </div>
 
 @* Toast after a succesfull login *@
-@if (ViewBag.LoginSuccess == 1)
-{
-    <div id="snackbar">
-    <div class="toast-header">
-        <img src="~/img/green-check.png" height="16" class="rounded me-2">
-        <strong class="me-auto">Succesfull</strong>
-    </div>
-    <div class="toast-body">
-        Logged in as <i>@User.Identity?.Name</i>
-    </div>
-</div>
+@{
+    if (ViewBag.Login == "Succeeded")
+    {
+        <div id="snackbar">
+            <div class="toast-header">
+                <img src="~/img/green-check.png" height="16" class="me-2">
+                <strong class="me-auto">Succesfull</strong>
+            </div>
+            <div class="toast-body">
+                Logged in as <i>@User.Identity?.Name</i>
+            </div>
+        </div>
+    }
+    else if (ViewBag.Login == "Failed")
+    {
+        <div id="snackbar">
+            <div class="toast-header">
+                <img src="~/img/red-cross.png" height="16" class="me-2">
+                <strong class="me-auto">Unsuccessfull</strong>
+            </div>
+            <div class="toast-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+        </div>
+    }
+    else if (ViewBag.Login == "Logout")
+    {
+        <div id="snackbar">
+            <div class="toast-header">
+                <img src="~/img/profile.png" height="16" class="me-2">
+                <strong class="me-auto">Logged Out</strong>
+            </div>
+            <div class="toast-body">
+                Succesfully Logged Out
+            </div>
+        </div>
+    }
 }

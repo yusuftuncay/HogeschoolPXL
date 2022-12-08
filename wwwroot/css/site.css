@@ -224,10 +224,10 @@ header form * {
     position: fixed;
     z-index: 1;
     bottom: 7rem;
-    margin-left: 75%;
     /*  */
     width: 200px;
     padding: 4px 8px;
+    background-color: #f4f4f4;
     box-shadow: 0 0 12px lightgrey;
     border-radius: 20px;
     transition: opacity 200ms ease;
@@ -235,6 +235,9 @@ header form * {
 #snackbar img {
     box-shadow: 0 0 12px grey;
     border-radius: 50px !important;
+}
+.toast-header {
+    background-color: #f4f4f4;
 }
 
 /* Media */

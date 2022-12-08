@@ -34,5 +34,5 @@ $(function showSnackbar() {
     toast.style.opacity = "1";
     
     // After 2 seconds, remove the show class from element
-    setTimeout(function () { toast.style.opacity = toast.style.opacity.replace("1", "0"); }, 2000);
+    setTimeout(function () { toast.style.opacity = toast.style.opacity.replace("1", "0"); }, 4000);
 })
