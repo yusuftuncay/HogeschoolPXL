@@ -31,7 +31,6 @@ namespace HogeschoolPXL.Controllers
         {
             if (login.Email == null || login.Password == null)
             {
-                ViewBag.Login = "Failed";
                 return View("Login");
             }
 
@@ -40,12 +39,11 @@ namespace HogeschoolPXL.Controllers
 
 			if (signInResult.Succeeded)
 			{
-                ViewBag.Login = "Succeeded";
+                TempData["Login"] = "Succeeded";
                 return RedirectToAction("Index", "Home");
 			}
 			else
 			{
-                ViewBag.Login = "Failed";
                 ModelState.AddModelError("", "Email of wachtwoord is verkeerd");
                 return View("Login");
             }
@@ -85,10 +83,10 @@ namespace HogeschoolPXL.Controllers
 		[HttpGet]
 		public async Task<IActionResult> LogOut()
 		{
-            ViewBag.Login = "LogOut";
+            TempData["Login"] = "LogOut";
 
             await _signInManager.SignOutAsync();
-			return RedirectToAction("Login"); // RedirectToAction Belangrijk!!
+			return RedirectToAction("Index", "Home"); // RedirectToAction Belangrijk!!
 		}
 		#endregion
 	}

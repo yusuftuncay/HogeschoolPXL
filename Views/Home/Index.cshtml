@@ -6,7 +6,7 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
-@* Toast after a succesfull login *@
+@* Toast after login attempt *@
 @{
     if (ViewBag.Login == "Succeeded")
     {
@@ -20,19 +20,7 @@
             </div>
         </div>
     }
-    else if (ViewBag.Login == "Failed")
-    {
-        <div id="snackbar">
-            <div class="toast-header">
-                <img src="~/img/red-cross.png" height="16" class="me-2">
-                <strong class="me-auto">Unsuccessfull</strong>
-            </div>
-            <div class="toast-body">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            </div>
-        </div>
-    }
-    else if (ViewBag.Login == "Logout")
+    else if (ViewBag.Login == "LogOut")
     {
         <div id="snackbar">
             <div class="toast-header">
