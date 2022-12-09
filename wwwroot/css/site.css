@@ -40,10 +40,11 @@ footer #footerText {
     box-shadow: 0 0 8px lightgrey !important;
 }
 .backArrow /* Arrow */ {
-    height: fit-content;
     margin: 6px 0;
+    width: 80px;
     display: flex;
     align-items: center;
+    height: fit-content;
     /*  */
     border-radius: 50px;
     box-shadow: 0 0 8px lightgrey;
@@ -156,9 +157,6 @@ tr:last-child {
     cursor: pointer;
     padding-bottom: 20px;
 }
-.dropdown:nth-child(1) {
-    padding-bottom: 20px;
-}
 .dropdown-content {
     /* Positioning */
     opacity: 0;
@@ -225,8 +223,9 @@ header form * {
 }
 .dropdown-login .dropdown-item:first-child {
     background-color: #fcfcfc;
+    cursor: text;
 }
-.dropdown-login span:nth-child(1) {
+.dropdown-login span:first-child {
     background-color: initial !important;
     padding-bottom: initial !important;
 }
