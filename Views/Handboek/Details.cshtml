@@ -35,9 +35,9 @@
                 else { <img src="@Model.Afbeelding" width="170px" height="240px"/> }
             </dd>
             <div class="form-group d-flex justify-content-between">
-                <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Handboek">
-                    <img src="~/img/arrow-left.svg" />
-                    <span class="backButton">Terug</span>
+                <a class="btn btn-sm backArrow" asp-action="Index" asp-controller="Handboek">
+                    <img src="~/img/arrow-left-black.png" height="16"/>
+                    <span >Terug</span>
                 </a>
                 <a asp-action="Edit" asp-route-id="@Model?.HandboekId" class="btn btn-outline-success btn-sm viewButton">Edit Handboek</a>
             </div>

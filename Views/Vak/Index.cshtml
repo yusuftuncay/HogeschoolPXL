@@ -5,9 +5,9 @@
 }
 
 <div class="d-flex justify-content-between mx-2 mb-3">
-    <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Home">
-        <img src="~/img/arrow-left.svg" />
-        <span class="backButton">Home</span>
+    <a class="btn btn-sm backArrow" asp-action="Index" asp-controller="Home">
+        <img src="~/img/arrow-left-black.png" height="16"/>
+        <span>Home</span>
     </a>
     <h1>Vakken</h1>
     <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Vak</a>
@@ -29,7 +29,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.VakNaam)
@@ -46,6 +47,6 @@
                 <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.VakId">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

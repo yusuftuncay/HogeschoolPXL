@@ -12,16 +12,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Datum" class="control-label"></label>
-                <input asp-for="Datum" class="form-control" />
+                <input asp-for="Datum" class="form-control"/>
                 <span asp-validation-for="Datum" class="text-danger"></span>
             </div>
 
             <div class="form-group d-flex justify-content-between">
-                <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Academiejaar">
-                    <img src="~/img/arrow-left.svg" />
-                    <span class="backButton">Terug</span>
+                <a class="btn btn-sm backArrow" asp-action="Index" asp-controller="Academiejaar">
+                    <img src="~/img/arrow-left-black.png" height="16"/>
+                    <span >Terug</span>
                 </a>
-                <input type="submit" value="Creëer Academiejaar" class="btn btn-outline-success btn-sm viewButton" />
+                <input type="submit" value="Creëer Academiejaar" class="btn btn-outline-success btn-sm viewButton"/>
             </div>
         </form>
     </div>

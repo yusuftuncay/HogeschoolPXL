@@ -10,7 +10,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="InschrijvingId" />
+            <input type="hidden" asp-for="InschrijvingId"/>
             <div class="form-group">
                 <label asp-for="StudentId" class="control-label"></label>
                 <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
@@ -28,11 +28,11 @@
             </div>
 
             <div class="form-group d-flex justify-content-between">
-                <a class="btn btn-outline-secondary btn-sm backArrow" href="javascript:history.back()">
-                    <img src="~/img/arrow-left.svg" />
-                    <span class="backButton">Terug</span>
+                <a class="btn btn-sm backArrow" href="javascript:history.back()">
+                    <img src="~/img/arrow-left-black.png" height="16"/>
+                    <span >Terug</span>
                 </a>
-                <input type="submit" value="Update Inschrijving" class="btn btn-outline-success btn-sm viewButton" />
+                <input type="submit" value="Update Inschrijving" class="btn btn-outline-success btn-sm viewButton"/>
             </div>
         </form>
     </div>

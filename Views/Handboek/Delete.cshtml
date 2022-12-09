@@ -36,12 +36,12 @@
         </dl>
     
         <form asp-action="Delete" class="form-group d-flex justify-content-between">
-            <a class="btn btn-outline-secondary btn-sm backArrow" asp-action="Index" asp-controller="Handboek">
-                <img src="~/img/arrow-left.svg" />
-                <span class="backButton">Terug</span>
+            <a class="btn btn-sm backArrow" asp-action="Index" asp-controller="Handboek">
+                <img src="~/img/arrow-left-black.png" height="16"/>
+                <span >Terug</span>
             </a>
-            <input type="hidden" asp-for="HandboekId" />
-            <input type="submit" value="Verwijder" class="btn btn-outline-danger btn-sm viewButton" />
+            <input type="hidden" asp-for="HandboekId"/>
+            <input type="submit" value="Verwijder" class="btn btn-outline-danger btn-sm viewButton"/>
         </form>
     </div>
 </div>

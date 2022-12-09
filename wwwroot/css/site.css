@@ -5,6 +5,8 @@ html {
 }
 body {
     margin-bottom: 60px;
+    background-image: url("/img/lightblue-background.png");
+    background-size: cover;
 }
 
 /* Header en Footer */
@@ -40,15 +42,25 @@ footer #footerText {
 .backArrow /* Arrow */ {
     height: fit-content;
     margin: 6px 0;
+    display: flex;
+    align-items: center;
     /*  */
     border-radius: 50px;
     box-shadow: 0 0 8px lightgrey;
+    border-color: grey;
 }
-.backButton {
-    padding: 0 3px;
+.backArrow span, .backArrow img {
+    padding: 0 4px;
 }
-.backArrow img {
-    vertical-align: sub;
+.backArrow:hover img {
+    content: url("/img/arrow-left-white.png");
+}
+.backArrow:hover span {
+    color: white;
+}
+.backArrow:hover {
+    background-color: #333333;
+    color: white;
 }
 
 /* Navigation Menu View Component */
@@ -142,6 +154,7 @@ tr:last-child {
 .dropdown span {
     font-size: 18px;
     cursor: pointer;
+    padding-bottom: 20px;
 }
 .dropdown:nth-child(1) {
     padding-bottom: 20px;
@@ -207,13 +220,13 @@ header form * {
     box-shadow: 0 0 16px grey;
     border-radius: 50px;
 }
-.dropdown-login #loginImg {
-    padding: 20px 0;
+.dropdown-login #loginImg /* Styling to Fix Visual Bugs */ {
+    padding-bottom: 20px !important;
 }
 .dropdown-login .dropdown-item:first-child {
     background-color: #fcfcfc;
 }
-.dropdown-login span:nth-child(2) {
+.dropdown-login span:nth-child(1) {
     background-color: initial !important;
     padding-bottom: initial !important;
 }
