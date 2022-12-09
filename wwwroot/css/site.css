@@ -155,7 +155,7 @@ tr:last-child {
 .dropdown span {
     font-size: 18px;
     cursor: pointer;
-    padding-bottom: 20px;
+    padding-bottom: 8px;
 }
 .dropdown-content {
     /* Positioning */
