@@ -5,21 +5,28 @@
 
 <div class="dropdown dropdown-login" onload="disableToast_LoginPage()">
     <span id="loginImg">
-        <a asp-controller="Account" asp-action="Login">
-            <img src="~/img/profile.png" height="38"/>
-        </a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <span>
+                <img src="~/img/profile.png" height="38" />
+            </span>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login">
+                <img src="~/img/profile.png" height="38" />
+            </a>
+        }
     </span>
-    @if (SignInManager.IsSignedIn(User))
-    {
-		<div class="dropdown-content" id="dropdown-login-form">
+    <div class="dropdown-content" id="dropdown-login-form">
+        @if (SignInManager.IsSignedIn(User))
+        {
             <span class="dropdown-item">@User.Identity?.Name</span>
             <hr>
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
-        </div>
-    }
-    else
-    {
-        <div class="dropdown-content" id="dropdown-login-form">
+        }
+        else
+        {
             <form class="dropdown-item" asp-controller="Account" asp-action="Login" method="post">
                 @*<div asp-validation-summary="All" class="text-danger"></div>*@
                 <div class="form-group">
@@ -37,6 +44,6 @@
                     <input type="submit" value="Inloggen" class="btn btn-outline-success btn-sm viewButton"/>
                 </div>
             </form>
-        </div>
-    }
+        }
+    </div>
 </div>

@@ -1,4 +1,5 @@
 ﻿@model HogeschoolPXL.Models.ViewModels.RegisterViewModel
+@* Link voor Bootstrap Icons *@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 @{
@@ -26,10 +27,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
-                <div class="togglePasswordForm">
-                    <input asp-for="ConfirmPassword" class="form-control password" type="password"/>
-                    <i class="bi bi-eye-slash" id="togglePassword"></i>
-                </div>
+                <input asp-for="ConfirmPassword" class="form-control password" type="password"/>
             </div>
             <div class="form-group d-flex justify-content-between">
                 <a class="btn btn-sm backArrow" asp-action="Index" asp-controller="Home">
@@ -48,13 +46,15 @@
 
 <script>
     const togglePassword = document.querySelector("#togglePassword");
-    const password = document.querySelector(".password");
+    const password = document.querySelectorAll(".password");
 
     togglePassword.addEventListener("click", function () {
-        // Toggle Type Attribute
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-
+        for (let i = 0; i < password.length; i++)
+        {
+            // Toggle Type Attribute
+            const type = password[i].getAttribute("type") === "password" ? "text" : "password";
+            password[i].setAttribute("type", type);
+        }
         // Toggle the Icon
         this.classList.toggle("bi-eye");
     });

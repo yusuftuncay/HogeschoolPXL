@@ -13,7 +13,7 @@ $(function highlightButton_InschrPage() {
     })
 })
 
-// Disable Login Toast if User is on Login Page
+// Disable Login Dropdown if User is on Login or Register Page
 $(function disableToast_LoginPage() {
     // Get Full URL
     var url = window.location.href;

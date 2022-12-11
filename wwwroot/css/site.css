@@ -5,7 +5,7 @@ html {
 }
 body {
     margin-bottom: 60px;
-    background-image: url("/img/lightblue-background.png");
+    background-color: #fafafa;
     background-size: cover;
 }
 
@@ -43,8 +43,9 @@ footer #footerText {
     margin: 6px 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: fit-content;
-    width: 8px;
+    width: 80px;
     /*  */
     border-radius: 50px;
     box-shadow: 0 0 8px lightgrey;
