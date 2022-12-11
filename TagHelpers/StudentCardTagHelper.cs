@@ -26,7 +26,7 @@ namespace HogeschoolPXL.TagHelpers
                 content += $@"<h4 class='card-student-email text-center'>{StudentCardViewModel.Email}</h4>";
                 for (int i = 0; i < StudentCardViewModel.InschrijvingId; i++)
                 {
-                    content += $@"<div class='card p-3 m-1'>";
+                    content += $@"<div class='card p-3 m-1 text-center border-2'>";
                         content += $@"<span class='card-info'>Academiejaar: {StudentCardViewModel.Academiejaar[i].ToShortDateString()}</span>";
                         content += $@"<span class='card-info'>Vak: {StudentCardViewModel.Vak[i]}</span>";
                     content += $@"</div>";

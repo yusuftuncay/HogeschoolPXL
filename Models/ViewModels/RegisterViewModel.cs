@@ -7,7 +7,7 @@ namespace HogeschoolPXL.Models.ViewModels
     {
         [Required]
         [DisplayName("Confirm Password")]
-        [Compare("Password", ErrorMessage = "Passwords don't match")]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
     }
 }
