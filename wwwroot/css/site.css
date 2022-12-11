@@ -44,6 +44,7 @@ footer #footerText {
     display: flex;
     align-items: center;
     height: fit-content;
+    width: 8px;
     /*  */
     border-radius: 50px;
     box-shadow: 0 0 8px lightgrey;

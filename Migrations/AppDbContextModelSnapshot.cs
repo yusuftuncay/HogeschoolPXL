@@ -431,6 +431,10 @@ namespace HogeschoolPXL.Migrations
                 {
                     b.HasBaseType("HogeschoolPXL.Models.ViewModels.LoginViewModel");
 
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("RegisterViewModel");
                 });
 
