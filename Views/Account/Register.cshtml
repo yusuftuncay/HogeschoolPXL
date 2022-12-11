@@ -1,4 +1,5 @@
 ﻿@model HogeschoolPXL.Models.ViewModels.RegisterViewModel
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 @{
     ViewData["Title"] = "Registreer";
@@ -8,7 +9,7 @@
 
 <div class="row d-flex justify-content-center">
     <div class="col-md-4">
-        <form asp-action="Register">
+        <form asp-action="Register" autocomplete="off">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -17,8 +18,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password"/>
+                <div class="togglePasswordForm">
+                    <input asp-for="Password" class="form-control password" type="password"/>
+                    <i class="bi bi-eye-slash" id="togglePassword"></i>
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <div class="togglePasswordForm">
+                    <input asp-for="ConfirmPassword" class="form-control password" type="password"/>
+                    <i class="bi bi-eye-slash" id="togglePassword"></i>
+                </div>
             </div>
             <div class="form-group d-flex justify-content-between">
                 <a class="btn btn-sm backArrow" asp-action="Index" asp-controller="Home">
@@ -34,3 +45,17 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector(".password");
+
+    togglePassword.addEventListener("click", function () {
+        // Toggle Type Attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // Toggle the Icon
+        this.classList.toggle("bi-eye");
+    });
+</script>
