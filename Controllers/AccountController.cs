@@ -26,7 +26,8 @@ namespace HogeschoolPXL.Controllers
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> LoginAsync(LoginViewModel login, string returnUrl)
+		// returnUrl works but has a problem with the Popup Toast after login that appears on the Home Page only
+		public async Task<IActionResult> LoginAsync(LoginViewModel login/*, string returnUrl*/)
         {
             if (login.Email == null || login.Password == null)
                 return View("Login");
@@ -37,9 +38,9 @@ namespace HogeschoolPXL.Controllers
 			if (signInResult.Succeeded)
 			{
                 TempData["Login"] = "Succeeded";
-                if (!string.IsNullOrEmpty(returnUrl)) // Return Url
-                    return Redirect(returnUrl);
-                else
+                //if (!string.IsNullOrEmpty(returnUrl))
+                //    return Redirect(returnUrl);
+                //else
 					return RedirectToAction("Index", "Home");
             }
 			else
