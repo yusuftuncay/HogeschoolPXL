@@ -1,5 +1,4 @@
-﻿using HogeschoolPXL.Data;
-using HogeschoolPXL.Models;
+﻿using HogeschoolPXL.Models;
 
 namespace HogeschoolPXL.Data
 {

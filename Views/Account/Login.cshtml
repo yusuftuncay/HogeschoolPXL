@@ -10,7 +10,7 @@
 
 <div class="row d-flex justify-content-center">
     <div class="col-md-4">
-        <form asp-action="Login">
+        <form asp-action="Login" asp-route-returnurl="@Context.Request.Query["returnUrl"]"> @*Return Url*@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -26,7 +26,7 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group d-flex justify-content-between">
-                <a class="btn btn-sm backArrow" asp-action="Register" asp-controller="Account">Registreer</a>
+                <a class="btn-sm backArrow" asp-action="Register" asp-controller="Account">Registreer</a>
                 <input type="submit" value="Inloggen" class="btn btn-outline-success btn-sm viewButton" />
             </div>
         </form>
@@ -37,7 +37,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<script>
+<script> // Script for the small eye icon in the Password Field to Toggle Password Visibility
     const togglePassword = document.querySelector("#togglePassword");
     const password = document.querySelector("#password");
 

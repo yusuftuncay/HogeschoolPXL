@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
@@ -56,6 +51,15 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("HandboekId,Titel,Kostprijs,UitgifteDatum,Afbeelding")] Handboek handboek)
         {
+            // Check if Handboek Titel exists
+            if (_context.Handboek
+                .Where(x => x.Titel == handboek.Titel)
+                .Select(x => x.HandboekId).Any())
+            {
+                ModelState.AddModelError("", "Handboek title already exists");
+                return View(handboek);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(handboek);
@@ -91,6 +95,15 @@ namespace HogeschoolPXL.Controllers
             if (id != handboek.HandboekId)
             {
                 return NotFound();
+            }
+
+            // Check if Handboek Titel exists
+            if (_context.Handboek
+                .Where(x => x.Titel == handboek.Titel)
+                .Select(x => x.HandboekId).Any())
+            {
+                ModelState.AddModelError("", "Handboek title already exists");
+                return View(handboek);
             }
 
             if (ModelState.IsValid)

@@ -16,7 +16,7 @@ namespace HogeschoolPXL.Data
         public DbSet<Student> Student { get; set; }
         public DbSet<Inschrijving> Inschrijving { get; set; }
         public DbSet<Academiejaar> Academiejaar { get; set; }
-        public DbSet<HogeschoolPXL.Models.ViewModels.LoginViewModel> LoginViewModel { get; set; }
-        public DbSet<HogeschoolPXL.Models.ViewModels.RegisterViewModel> RegisterViewModel { get; set; }
+        public DbSet<LoginViewModel> LoginViewModel { get; set; }
+        public DbSet<RegisterViewModel> RegisterViewModel { get; set; }
     }
 }

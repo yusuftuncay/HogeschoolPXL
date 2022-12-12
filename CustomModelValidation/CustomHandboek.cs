@@ -16,16 +16,16 @@ namespace HogeschoolPXL.CustomModelValidation
             {
                 if (dtm > maxDate)
                 {
-                    lst.Add(new ModelValidationResult("", "UitgifteDatum kan niet na 1/1/2022 zijn"));
+                    lst.Add(new ModelValidationResult("", "UitgifteDatum can't be after 1/1/2022"));
                 }
                 else if (dtm < minDate)
                 {
-                    lst.Add(new ModelValidationResult("", "UitgifteDatum kan niet voor 1980 zijn"));
+                    lst.Add(new ModelValidationResult("", "UitgifteDatum can't be before 1980 zijn"));
                 }
             }
             else
             { 
-                lst.Add(new ModelValidationResult("", "Geen geldig UitgifteDatum"));
+                lst.Add(new ModelValidationResult("", "Not a valid UitgifteDatum"));
             }
             return lst;
         }

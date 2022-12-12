@@ -1,5 +1,4 @@
 ﻿using HogeschoolPXL.Models.ViewModels;
-using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace HogeschoolPXL.TagHelpers

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
-using System.IO;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -69,6 +64,26 @@ namespace HogeschoolPXL.Controllers
             // Update ModelState to exclude nested model (Handboek) from model Vak
             await TryUpdateModelAsync(vak);
             ModelState.Remove("Handboek");
+
+            // Check if VakNaam exists
+            if (_context.Vak
+                .Where(x => x.VakNaam == vak.VakNaam)
+                .Select(x => x.VakId).Any())
+            {
+                ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel", vak.HandboekId);
+                ModelState.AddModelError("", "VakNaam al in gebruik");
+                return View(vak);
+            }
+
+            // Check if Vak with this Handboek exists
+            if (_context.Vak
+                .Where(x => x.HandboekId == vak.HandboekId)
+                .Select(x => x.VakId).Any())
+            {
+                ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel", vak.HandboekId);
+                ModelState.AddModelError("", "Vak met deze Handboek bestaat al");
+                return View(vak);
+            }
 
             if (!_context.Handboek.Any())
             {

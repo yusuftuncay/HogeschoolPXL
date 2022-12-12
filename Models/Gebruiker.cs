@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HogeschoolPXL.Models
 {
@@ -8,8 +7,10 @@ namespace HogeschoolPXL.Models
         [Key]
         public int GebruikerId { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
         public string Naam { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
         public string Voornaam { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]

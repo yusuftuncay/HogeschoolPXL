@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
@@ -56,6 +51,22 @@ namespace HogeschoolPXL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AcademiejaarId,Datum")] Academiejaar academieJaar)
         {
+            // Check if Academiejaar exists
+            if (_context.Academiejaar
+                .Where(x => x.Datum == academieJaar.Datum)
+                .Select(x => x.AcademiejaarId).Any())
+            {
+                ModelState.AddModelError("", "Academiejaar already exists");
+                return View(academieJaar);
+            }
+
+            // Check if Academiejaar start in September
+            if (!int.Equals(Convert.ToInt32(academieJaar.Datum.Month), 9))
+            {
+                ModelState.AddModelError("", "Academiejaar must to start in September");
+                return View(academieJaar);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(academieJaar);
@@ -91,6 +102,22 @@ namespace HogeschoolPXL.Controllers
             if (id != academieJaar.AcademiejaarId)
             {
                 return NotFound();
+            }
+
+            // Check if Academiejaar exists
+            if (_context.Academiejaar
+                .Where(x => x.Datum == academieJaar.Datum)
+                .Select(x => x.AcademiejaarId).Any())
+            {
+                ModelState.AddModelError("", "Academiejaar already exists");
+                return View(academieJaar);
+            }
+
+            // Check if Academiejaar start in September
+            if (!int.Equals(Convert.ToInt32(academieJaar.Datum.Month), 9))
+            {
+                ModelState.AddModelError("", "Academiejaar must to start in September");
+                return View(academieJaar);
             }
 
             if (ModelState.IsValid)

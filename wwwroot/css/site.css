@@ -48,8 +48,12 @@ footer #footerText {
     width: 80px;
     /*  */
     border-radius: 50px;
-    box-shadow: 0 0 8px lightgrey;
+    box-shadow: 0 0 8px lightgrey !important;
     border-color: grey;
+    text-decoration: none;
+    color: black;
+    border: 1px solid grey;
+    transition: 0.15s linear;
 }
 .backArrow span, .backArrow img {
     padding: 0 4px;
@@ -57,11 +61,8 @@ footer #footerText {
 .backArrow:hover img {
     content: url("/img/arrow-left-white.png");
 }
-.backArrow:hover span {
-    color: white;
-}
 .backArrow:hover {
-    background-color: #333333;
+    background-color: #666666;
     color: white;
 }
 .card /* StudentCard TagHelper Details Page */ {
@@ -233,6 +234,9 @@ header form * {
 .dropdown-login span:first-child {
     background-color: initial !important;
     padding-bottom: initial !important;
+}
+#dropdown-login-form .backArrow {
+    transition: 0 !important;
 }
 
 /* Placement to Toggle Password Visibility */

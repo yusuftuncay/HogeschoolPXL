@@ -10,12 +10,13 @@ namespace HogeschoolPXL.Models
         [Key]
         public int HandboekId { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
         public string Titel { get; set; }
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(8, 2)")]
         [Range(4.99, 79.99)]
-        public decimal? Kostprijs { get; set; }
+        public decimal Kostprijs { get; set; }
         [Required]
         [DisplayName("Uitgiftedatum")]
         [CustomHandboek]

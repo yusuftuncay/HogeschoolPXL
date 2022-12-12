@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
@@ -69,6 +65,20 @@ namespace HogeschoolPXL.Controllers
             ModelState.Remove("Vak");
             ModelState.Remove("Lector");
 
+            // Check if combination Vak and Lector exists
+            if (_context.VakLector
+                .Where(x => x.LectorId == vakLector.LectorId)
+                .Where(x => x.VakId == vakLector.VakId)
+                .Select(x => x.VakLectorId).Any())
+            {
+                ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
+                ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam");
+
+                ModelState.AddModelError("", "Combinatie Vak en Lector bestaat al"); 
+                return View(vakLector);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(vakLector);
@@ -111,6 +121,20 @@ namespace HogeschoolPXL.Controllers
             await TryUpdateModelAsync(vakLector);
             ModelState.Remove("Vak");
             ModelState.Remove("Lector");
+
+            // Check if combination Vak and Lector exists
+            if (_context.VakLector
+                .Where(x => x.LectorId == vakLector.LectorId)
+                .Where(x => x.VakId == vakLector.VakId)
+                .Select(x => x.VakLectorId).Any())
+            {
+                ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
+                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.LectorId.ToString()));
+                ViewData["VakId"] = new SelectList(_context.Vak, "VakId", "VakNaam");
+
+                ModelState.AddModelError("", "Combinatie Vak en Lector bestaat al");
+                return View(vakLector);
+            }
 
             if (id != vakLector.VakLectorId)
             {

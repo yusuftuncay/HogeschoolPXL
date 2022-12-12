@@ -1,11 +1,10 @@
 ﻿using HogeschoolPXL.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HogeschoolPXL.Controllers
 {
-	public class AccountController : Controller
+    public class AccountController : Controller
 	{
 		UserManager<IdentityUser> _userManager;
 		SignInManager<IdentityUser> _signInManager;
@@ -27,12 +26,10 @@ namespace HogeschoolPXL.Controllers
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> LoginAsync(LoginViewModel login)
+		public async Task<IActionResult> LoginAsync(LoginViewModel login, string returnUrl)
         {
             if (login.Email == null || login.Password == null)
-            {
                 return View("Login");
-            }
 
             var signInResult = await _signInManager.PasswordSignInAsync(
 			login.Email, login.Password, false, lockoutOnFailure: false);
@@ -40,11 +37,14 @@ namespace HogeschoolPXL.Controllers
 			if (signInResult.Succeeded)
 			{
                 TempData["Login"] = "Succeeded";
-                return RedirectToAction("Index", "Home");
-			}
+                if (!string.IsNullOrEmpty(returnUrl)) // Return Url
+                    return Redirect(returnUrl);
+                else
+					return RedirectToAction("Index", "Home");
+            }
 			else
 			{
-                ModelState.AddModelError("", "Email of wachtwoord is verkeerd");
+                ModelState.AddModelError("", "Something went wrong");
                 return View("Login");
             }
 		}
@@ -67,9 +67,7 @@ namespace HogeschoolPXL.Controllers
 			var identityResult = await _userManager.CreateAsync(identityUser, register.Password);
 
 			if (identityResult.Succeeded)
-			{
 				return View("RegistrationCompleted");
-			}
 			foreach (var error in identityResult.Errors)
 			{
 				ModelState.AddModelError("", error.Description);

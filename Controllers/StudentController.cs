@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
@@ -43,12 +39,25 @@ namespace HogeschoolPXL.Controllers
         // GET: Student/Create
         public IActionResult Create()
         {
-            // Show both Naam and Voornaam (instead of just the Naam) while editing a Student
-            var result = _context.Gebruiker.Select(x => new
+            // Show both Naam and Voornaam (instead of just the Naam) while creating a Student
+            // Don't show Gebruikers in SelectList that are already Students or Lectors
+            var students = _context.Student.Select(x => x.GebruikerId);
+            var lectors = _context.Lector.Select(x => x.GebruikerId);
+            var result = _context.Gebruiker
+                .Where(x => !students.Contains(x.GebruikerId))
+                .Where(x => !lectors.Contains(x.GebruikerId))
+                .Select(x => new
+                    {
+                        x.GebruikerId,
+                        Naam = x.Voornaam + " " + x.Naam
+                    }).ToList();
+
+            // Error if there is no Gebruiker without a role
+            if (result.Count == 0)
             {
-                x.GebruikerId,
-                Naam = x.Voornaam + " " + x.Naam
-            });
+                ModelState.AddModelError("", "Geen Gebruikers beschikbaar die geen rol toegekend hebben");
+                return View();
+            }
             ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
 
             return View();
@@ -71,7 +80,28 @@ namespace HogeschoolPXL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "Voornaam", student.GebruikerId);
+
+            // Show both Naam and Voornaam (instead of just the Naam) while creating a Student
+            // Don't show Gebruikers in SelectList that are already Students or Lectors
+            var students = _context.Student.Select(x => x.GebruikerId);
+            var lectors = _context.Lector.Select(x => x.GebruikerId);
+            var result = _context.Gebruiker
+                .Where(x => !students.Contains(x.GebruikerId))
+                .Where(x => !lectors.Contains(x.GebruikerId))
+                .Select(x => new
+                    {
+                        x.GebruikerId,
+                        Naam = x.Voornaam + " " + x.Naam
+                    }).ToList();
+
+            // Error if there is no Gebruiker without a role
+            if (result.Count == 0)
+            {
+                ModelState.AddModelError("", "Geen Gebruikers beschikbaar die geen rol toegekend hebben");
+                return View();
+            }
+            ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
+
             return View(student);
         }
 
@@ -89,12 +119,25 @@ namespace HogeschoolPXL.Controllers
                 return NotFound();
             }
 
-            // Show both Naam and Voornaam (instead of just the Naam) while editing a Student
-            var result = _context.Gebruiker.Select(x => new
+            // Show both Naam and Voornaam (instead of just the Naam) while creating a Student
+            // Don't show Gebruikers in SelectList that are already Students or Lectors
+            var students = _context.Student.Select(x => x.GebruikerId);
+            var lectors = _context.Lector.Select(x => x.GebruikerId);
+            var result = _context.Gebruiker
+                .Where(x => !students.Contains(x.GebruikerId))
+                .Where(x => !lectors.Contains(x.GebruikerId))
+                .Select(x => new
+                    {
+                        x.GebruikerId,
+                        Naam = x.Voornaam + " " + x.Naam
+                    }).ToList();
+
+            // Error if there is no Gebruiker without a role
+            if (result.Count == 0)
             {
-                x.GebruikerId,
-                Naam = x.Voornaam + " " + x.Naam
-            });
+                ModelState.AddModelError("", "Geen Gebruikers beschikbaar die geen rol toegekend hebben");
+                return View();
+            }
             ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
 
             return View(student);
@@ -136,7 +179,28 @@ namespace HogeschoolPXL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Gebruiker, "GebruikerId", "Voornaam", student.GebruikerId);
+
+            // Show both Naam and Voornaam (instead of just the Naam) while creating a Student
+            // Don't show Gebruikers in SelectList that are already Students or Lectors
+            var students = _context.Student.Select(x => x.GebruikerId);
+            var lectors = _context.Lector.Select(x => x.GebruikerId);
+            var result = _context.Gebruiker
+                .Where(x => !students.Contains(x.GebruikerId))
+                .Where(x => !lectors.Contains(x.GebruikerId))
+                .Select(x => new
+                    {
+                        x.GebruikerId,
+                        Naam = x.Voornaam + " " + x.Naam
+                    }).ToList();
+
+            // Error if there is no Gebruiker without a role
+            if (result.Count == 0)
+            {
+                ModelState.AddModelError("", "Geen Gebruikers beschikbaar die geen rol toegekend hebben");
+                return View();
+            }
+            ViewData["GebruikerId"] = new SelectList(result, "GebruikerId", "Naam");
+
             return View(student);
         }
 

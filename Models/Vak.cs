@@ -11,6 +11,7 @@ namespace HogeschoolPXL.Models
         [DisplayName("Vaknaam")]
         public string VakNaam { get; set; }
         [Required]
+        [Range(2, 8)]
         public int Studiepunten { get; set; }
         [Required]
         [DisplayName("Handboek")]
