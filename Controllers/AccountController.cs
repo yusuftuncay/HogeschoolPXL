@@ -27,6 +27,7 @@ namespace HogeschoolPXL.Controllers
 		}
 		[HttpPost]
 		// returnUrl works but has a problem with the Popup Toast after login that appears on the Home Page only
+		// Uncomment the commented lines below to test returnUrl
 		public async Task<IActionResult> LoginAsync(LoginViewModel login/*, string returnUrl*/)
         {
             if (login.Email == null || login.Password == null)
