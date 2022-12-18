@@ -1,0 +1,71 @@
+﻿@model IdentityViewModel
+
+<a asp-controller="Account" asp-action="CreateRole">Create Role</a>
+<a asp-controller="Account" asp-action="AssignRole">Assign Role</a>
+
+<div class="identity">
+	@* Roles *@
+	@if (Model.Roles != null)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Roles</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var role in Model.Roles)
+				{
+					<tr>
+						<td>@role.Name</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+
+	@* TagHelper *@
+	@if (Model.Roles != null)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Roles</th>
+					<th>Users</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var role in Model.Roles)
+			{
+				<tr>
+					<td>@role.Id</td>
+					<td>@role.Name</td>
+					<td role="@role.Id"></td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	}
+
+	@* Users *@
+	@if (Model.Users != null)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>RoleName</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var users in Model.Users) {
+					<tr>
+						<td>@users.UserName</td>
+						<td>@users.Email</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+</div>

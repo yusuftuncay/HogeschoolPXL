@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Models.ViewModels;
+using System.Data;
 
 namespace HogeschoolPXL.Data
 {
@@ -18,5 +19,5 @@ namespace HogeschoolPXL.Data
         public DbSet<Academiejaar> Academiejaar { get; set; }
         public DbSet<LoginViewModel> LoginViewModel { get; set; }
         public DbSet<RegisterViewModel> RegisterViewModel { get; set; }
-    }
+	}
 }

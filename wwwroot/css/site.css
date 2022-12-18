@@ -140,6 +140,11 @@ tr:last-child {
     text-align: right;
 }
 
+/* Table Identity */
+.identity tr td:last-child {
+     text-align: initial;
+}
+
 /* Logo Navigation Bar */
 #logo {
     box-shadow: 0 0 16px grey;

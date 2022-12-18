@@ -23,6 +23,11 @@
         {
             <span class="dropdown-item">@User.Identity?.Name</span>
             <hr>
+            @* Identity *@
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="dropdown-item" class="dropdown-item" asp-controller="Account" asp-action="Identity">Identity</a>
+            }
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
         }
         else
