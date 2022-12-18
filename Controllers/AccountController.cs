@@ -169,10 +169,60 @@ namespace HogeschoolPXL.Controllers
                 return BadRequest();
             }
         }
-		#endregion
+        #endregion
 
-		#region identity
-		[HttpGet]
+        #region remove role
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult RemoveRole()
+        {
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+            ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RemoveRoleAsync(string roles, string users)
+        {
+            // Get the user and role by their respective ids
+            var user = await _userManager.FindByIdAsync(users.ToString());
+            var role = await _roleManager.FindByIdAsync(roles.ToString());
+
+            if (user == null || role == null)
+            {
+                return BadRequest();
+            }
+
+            // Gets all users in selected role, needed to check if the user already has role
+            var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
+
+            // Check if user doesn't have the role
+            if (!usersInRole.Any(u => u.Id == users))
+            {
+                ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+                ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+                ModelState.AddModelError("", "User doesn't have this role");
+                return View();
+            }
+
+            // Remove role from the user
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+
+            // Check if the role was successfully assigned
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        #endregion
+
+        #region identity
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult Identity()
         {
