@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
+using HogeschoolPXL.Data.DefaultData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-SeedData.EnsurePopulated(app);
+SeedData.EnsurePopulatedAsync(app);
 
 app.Run();

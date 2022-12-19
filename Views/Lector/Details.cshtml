@@ -23,12 +23,15 @@
                 @Html.DisplayFor(model => model.Gebruiker.Naam)
             </dd>
         </dl>
-        <div class="form-group d-flex justify-content-between">
+        <div class="form-group d-flex @(User.IsInRole("Admin") ? "justify-content-between" : "justify-content-center")">
             <a class="btn-sm backArrow" asp-action="Index" asp-controller="Lector">
                 <img src="~/img/arrow-left-black.png" height="16"/>
                 <span >Terug</span>
             </a>
-            <a asp-action="Edit" asp-route-id="@Model?.LectorId" class="btn btn-outline-success btn-sm viewButton">Edit Lector</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model?.LectorId" class="btn btn-outline-success btn-sm viewButton">Edit Lector</a>
+            }
         </div>
     </div>
 </div>

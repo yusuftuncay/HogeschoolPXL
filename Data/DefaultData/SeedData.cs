@@ -1,80 +1,133 @@
 ﻿using HogeschoolPXL.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
 
-namespace HogeschoolPXL.Data
+namespace HogeschoolPXL.Data.DefaultData
 {
     public static class SeedData
     {
-        public static void EnsurePopulated(WebApplication app)
+        static AppDbContext? _context;
+        static RoleManager<IdentityRole>? _roleManager;
+        static UserManager<IdentityUser>? _userManager;
+        public static async Task EnsurePopulatedAsync(WebApplication app)
         {
             using var scope = app.Services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            if (!context.Gebruiker.Any())
+
+            _context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            _userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            _roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            await VoegRollenToeAsync();
+            await CreateIdentityRecordAsync("admin@pxl.be", "admin@pxl.be", "123Az#", Roles.Admin);
+            await CreateIdentityRecordAsync("lector@pxl.be", "lector@pxl.be", "123Az#", Roles.Lector);
+            await CreateIdentityRecordAsync("student@pxl.be", "student@pxl.be", "123Az#", Roles.Student);
+            VoegDataToe();
+        }
+
+        #region identity
+        private static async Task VoegRollenToeAsync()
+        {
+            if (_roleManager != null && !_roleManager.Roles.Any())
             {
-                foreach (var g in GetGebruiker())
-                {
-                    context.Gebruiker.Add(g);
-                    context.SaveChanges();
-                }
+                await VoegRolToeAsync(Roles.Admin);
+                await VoegRolToeAsync(Roles.Lector);
+                await VoegRolToeAsync(Roles.Student);
             }
-            if (!context.Student.Any())
+        }
+        private static async Task VoegRolToeAsync(string roleName)
+        {
+            if (_roleManager != null && !await _roleManager.RoleExistsAsync(roleName))
             {
-                foreach (var st in GetStudent())
-                {
-                    context.Student.Add(st);
-                    context.SaveChanges();
-                }
+                IdentityRole role = new IdentityRole(roleName);
+                await _roleManager.CreateAsync(role);
             }
-            if (!context.Lector.Any())
+        }
+        private static async Task CreateIdentityRecordAsync(string userName, string email, string pwd, string role)
+        {
+
+            if (_userManager != null && await _userManager.FindByEmailAsync(email) == null &&
+                    await _userManager.FindByNameAsync(userName) == null)
             {
-                foreach (var l in GetLector())
+                var identityUser = new IdentityUser() { Email = email, UserName = userName };
+                var result = await _userManager.CreateAsync(identityUser, pwd);
+                if (result.Succeeded)
                 {
-                    context.Lector.Add(l);
-                    context.SaveChanges();
-                }
-            }
-            if (!context.Handboek.Any())
-            {
-                foreach (var h in GetHandboek())
-                {
-                    context.Handboek.Add(h);
-                    context.SaveChanges();
-                }
-            }
-            if (!context.Vak.Any())
-            {
-                foreach (var v in GetVak())
-                {
-                    context.Vak.Add(v);
-                    context.SaveChanges();
-                }
-            }
-            if (!context.VakLector.Any())
-            {
-                foreach (var v in GetVakLector())
-                {
-                    context.VakLector.Add(v);
-                    context.SaveChanges();
-                }
-            }
-            if (!context.Academiejaar.Any())
-            {
-                foreach (var a in GetAcademiejaar())
-                {
-                    context.Academiejaar.Add(a);
-                    context.SaveChanges();
-                }
-            }
-            if (!context.Inschrijving.Any())
-            {
-                foreach (var i in GetInschrijving())
-                {
-                    context.Inschrijving.Add(i);
-                    context.SaveChanges();
+                    await _userManager.AddToRoleAsync(identityUser, role);
                 }
             }
         }
+        #endregion
 
-        #region data
+        #region voeg standaard data toe
+        public static void VoegDataToe()
+        {
+            if (!_context.Gebruiker.Any())
+            {
+                foreach (var g in GetGebruiker())
+                {
+                    _context.Gebruiker.Add(g);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.Student.Any())
+            {
+                foreach (var st in GetStudent())
+                {
+                    _context.Student.Add(st);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.Lector.Any())
+            {
+                foreach (var l in GetLector())
+                {
+                    _context.Lector.Add(l);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.Handboek.Any())
+            {
+                foreach (var h in GetHandboek())
+                {
+                    _context.Handboek.Add(h);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.Vak.Any())
+            {
+                foreach (var v in GetVak())
+                {
+                    _context.Vak.Add(v);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.VakLector.Any())
+            {
+                foreach (var v in GetVakLector())
+                {
+                    _context.VakLector.Add(v);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.Academiejaar.Any())
+            {
+                foreach (var a in GetAcademiejaar())
+                {
+                    _context.Academiejaar.Add(a);
+                    _context.SaveChanges();
+                }
+            }
+            if (!_context.Inschrijving.Any())
+            {
+                foreach (var i in GetInschrijving())
+                {
+                    _context.Inschrijving.Add(i);
+                    _context.SaveChanges();
+                }
+            }
+        }
+        #endregion
+
+        #region standaard data
         private static List<Gebruiker> GetGebruiker()
         {
             List<Gebruiker> gebruiker = new()

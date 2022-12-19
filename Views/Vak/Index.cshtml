@@ -10,7 +10,7 @@
         <span>Home</span>
     </a>
     <h1>Vakken</h1>
-    <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Vak</a>
+    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") || User.IsInRole("Lector") ? "" : "invisible")" asp-action="Create">Creëer Vak</a>
 </div>
 
 <table class="table">
@@ -25,7 +25,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Handboek)
             </th>
-            <th></th>
+            @if (User.IsInRole("Admin") || User.IsInRole("Lector"))
+            {
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -38,14 +41,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Studiepunten)
             </td>
-            <td>
+            <td class="text-start">
                 @Html.DisplayFor(modelItem => item.Handboek.Titel)
             </td>
-            <td>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.VakId">Edit</a>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.VakId">Details</a>
-                <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.VakId">Delete</a>
-            </td>
+            @if (User.IsInRole("Admin") || User.IsInRole("Lector"))
+            {
+                <td>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.VakId">Edit</a>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.VakId">Details</a>
+                    <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.VakId">Delete</a>
+                </td>    
+            }
         </tr>
     }
     </tbody>

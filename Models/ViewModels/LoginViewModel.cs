@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HogeschoolPXL.Models.ViewModels
 {
@@ -8,6 +9,7 @@ namespace HogeschoolPXL.Models.ViewModels
         [Required]
         public string Email { get; set; }
         [Required]
+        [DisplayName("Wachtwoord")]
         public string Password { get; set; }
     }
 }

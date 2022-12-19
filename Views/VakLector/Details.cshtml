@@ -23,12 +23,15 @@
                 @Html.DisplayFor(model => model.Vak.VakNaam)
             </dd>
 
-            <div class="form-group d-flex justify-content-between">
+            <div class="form-group d-flex @(User.IsInRole("Admin") || User.IsInRole("Lector") ? "justify-content-between" : "justify-content-center")">
                 <a class="btn-sm backArrow" asp-action="Index" asp-controller="VakLector">
                     <img src="~/img/arrow-left-black.png" height="16"/>
                     <span >Terug</span>
                 </a>
-                <a asp-action="Edit" asp-route-id="@Model?.VakLectorId" class="btn btn-outline-success btn-sm viewButton">Edit VakLector</a>
+                @if (User.IsInRole("Admin") || User.IsInRole("Lector"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model?.VakLectorId" class="btn btn-outline-success btn-sm viewButton">Edit VakLector</a>
+                }
             </div>
         </dl>
     </div>

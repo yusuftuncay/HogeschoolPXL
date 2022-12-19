@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
+    [Authorize(Roles = "Admin,Lector")]
     public class HandboekController : Controller
     {
         private readonly AppDbContext _context;

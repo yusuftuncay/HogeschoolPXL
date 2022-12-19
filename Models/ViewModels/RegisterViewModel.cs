@@ -6,7 +6,7 @@ namespace HogeschoolPXL.Models.ViewModels
     public class RegisterViewModel : LoginViewModel
     {
         [Required]
-        [DisplayName("Confirm Password")]
+        [DisplayName("Bevestig Wachtwoord")]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
     }

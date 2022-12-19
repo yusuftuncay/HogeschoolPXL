@@ -1,28 +1,64 @@
 ﻿@model IdentityViewModel
 
-<a asp-controller="Account" asp-action="CreateRole">Create Role</a>
-<a asp-controller="Account" asp-action="AssignRole">Assign Role</a>
+<div class="d-flex justify-content-between mx-2 mb-3">
+    <a class="btn-sm backArrow" asp-action="Index" asp-controller="Home">
+        <img src="~/img/arrow-left-black.png" height="16"/>
+        <span>Home</span>
+    </a>
+    <h1>Identity</h1>
+	<div>
+		<a class="btn btn-outline-success btn-sm viewButton mx-2" asp-controller="Account" asp-action="CreateRole">Creëer/Verwijder Rollen</a>
+		<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="AssignRole">Beheer Rollen van Gebruikers</a>
+	</div>
+</div>
 
 <div class="identity">
-	@* Roles *@
-	@if (Model.Roles != null)
-	{
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Roles</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var role in Model.Roles)
-				{
-					<tr>
-						<td>@role.Name</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	}
+	@* Users *@
+	<div class="row">
+		@if (Model.Users != null)
+		{
+			<div class="column">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>All Users</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var users in Model.Users)
+						{
+							<tr>
+								<td>@users.Email</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+
+		@* Roles *@
+		@if (Model.Roles != null)
+		{
+			<div class="column">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>All Roles</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var role in Model.Roles)
+						{
+							<tr>
+								<td>@role.Name</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+	</div>
+
 
 	@* TagHelper *@
 	@if (Model.Roles != null)
@@ -44,27 +80,6 @@
 					<td role="@role.Id"></td>
 				</tr>
 			}
-			</tbody>
-		</table>
-	}
-
-	@* Users *@
-	@if (Model.Users != null)
-	{
-		<table class="table">
-			<thead>
-				<tr>
-					<th>RoleName</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var users in Model.Users) {
-					<tr>
-						<td>@users.UserName</td>
-						<td>@users.Email</td>
-					</tr>
-				}
 			</tbody>
 		</table>
 	}

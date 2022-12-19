@@ -1,0 +1,59 @@
+﻿@model IdentityViewModel
+
+<h1 class="titleView">Beheer Gebruikers en Rollen</h1>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="FormHandler">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Users" class="control-label">Gebruikers</label>
+                <select asp-for="Users" class="form-control" asp-items="ViewBag.Users"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Roles" class="control-label">Rollen</label>
+                <select asp-for="Roles" class="form-control" asp-items="ViewBag.Roles"></select>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <input type="submit" value="Verwijderen" name="submitButton" class="btn btn-outline-danger btn-sm viewButton" />
+                <input type="submit" value="Toekennen" name="submitButton" class="btn btn-outline-success btn-sm viewButton" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Alert after a successfull delete or add of roles *@
+@{
+    if (ViewBag.Alert == "RoleAssigned")
+    {
+        <div id="snackbar">
+            <div class="toast-header">
+                <img src="~/img/green-check.png" height="16" class="me-2">
+                <strong class="me-auto">Succesfull</strong>
+            </div>
+            <div class="toast-body">
+                Succesfully Added Role
+            </div>
+        </div>
+    }
+    else if (ViewBag.Alert == "RoleDeleted")
+    {
+        <div id="snackbar">
+            <div class="toast-header">
+                <img src="~/img/red-cross.png" height="16" class="me-2">
+                <strong class="me-auto">Succesfull</strong>
+            </div>
+            <div class="toast-body">
+                Succesfully Deleted Role
+            </div>
+        </div>
+    }
+}
+
+<script>
+    // De 2 selectLists op deze pagina hebben een attribute die "multiple" noemt, dit verwijdert ze
+    var selectElements = document.querySelectorAll(".form-control");
+      for (var i = 0; i < selectElements.length; i++) {
+        selectElements[i].removeAttribute("multiple");
+      }
+</script>

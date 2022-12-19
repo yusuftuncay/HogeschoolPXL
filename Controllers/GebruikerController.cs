@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class GebruikerController : Controller
     {
         private readonly AppDbContext _context;

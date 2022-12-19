@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using HogeschoolPXL.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -100,11 +101,14 @@ namespace HogeschoolPXL.Controllers
 
         #region create role
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateRole()
         {
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRoleAsync(RoleViewModel role)
         {
             if (!await _roleManager.RoleExistsAsync(role.RoleName))
@@ -116,20 +120,39 @@ namespace HogeschoolPXL.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
+            ViewBag.Roles = _roleManager.Roles;
             ModelState.AddModelError("", "Probleem met aanmaken van rol");
             return View();
         }
-		#endregion
+        #endregion
 
-		#region assign role
-		[HttpGet]
+        #region form handler
+        /* Because our form has 2 submit buttons, it goes through this method to check which button was pressed */
+        [Authorize(Roles = "Admin")]
+        public Task<IActionResult> FormHandler(string submitButton, string roles, string users)
+        {
+            if (submitButton == "Toekennen")
+            {
+                return AssignRoleAsync(roles, users);
+            }
+            else if (submitButton == "Verwijderen")
+            {
+                return RemoveRoleAsync(roles, users);
+            }
+            ModelState.AddModelError("", "Something went wrong");
+            return Task.FromResult((IActionResult)View("ManageRoles"));
+        }
+        #endregion
+
+        #region assign role
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AssignRole()
 		{
 			ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
 			ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
 
-			return View();
+			return View("ManageRoles");
 		}
 		[HttpPost]
         [Authorize(Roles = "Admin")]
@@ -153,7 +176,7 @@ namespace HogeschoolPXL.Controllers
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
                 ModelState.AddModelError("", "User already has role");
-                return View();
+                return View("ManageRoles");
             }
 
             // Assign the role to the user
@@ -162,7 +185,10 @@ namespace HogeschoolPXL.Controllers
             // Check if the role was successfully assigned
             if (result.Succeeded)
             {
-                return Ok();
+                ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+                ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+				ViewBag.Alert = "RoleAssigned";
+				return View("ManageRoles");
             }
             else
             {
@@ -179,7 +205,7 @@ namespace HogeschoolPXL.Controllers
             ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
             ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
 
-            return View();
+            return View("ManageRoles");
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -203,7 +229,7 @@ namespace HogeschoolPXL.Controllers
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
                 ModelState.AddModelError("", "User doesn't have this role");
-                return View();
+                return View("ManageRoles");
             }
 
             // Remove role from the user
@@ -212,7 +238,10 @@ namespace HogeschoolPXL.Controllers
             // Check if the role was successfully assigned
             if (result.Succeeded)
             {
-                return Ok();
+                ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+                ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+				ViewBag.Alert = "RoleDeleted";
+                return View("ManageRoles");
             }
             else
             {

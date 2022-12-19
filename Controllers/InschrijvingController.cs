@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
+    [Authorize]
     public class InschrijvingController : Controller
     {
         private readonly AppDbContext _context;
@@ -49,6 +50,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Inschrijving/Create
+        [Authorize(Roles = "Admin,Student")]
         public IActionResult Create()
         {
             ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
@@ -72,6 +74,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Create([Bind("InschrijvingId,StudentId,VakLectorId,AcademiejaarId")] Inschrijving inschrijving)
         {
             ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
@@ -104,6 +107,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Inschrijving/Edit/5
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Inschrijving == null)
@@ -130,6 +134,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Edit(int id, [Bind("InschrijvingId,StudentId,VakLectorId,AcademiejaarId")] Inschrijving inschrijving)
         {
             // Update ModelState to exclude nested models (Student, VakLector and Academiejaar) from model Inschrijving
@@ -173,6 +178,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Inschrijving/Delete/5
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Inschrijving == null)
@@ -196,6 +202,7 @@ namespace HogeschoolPXL.Controllers
         // POST: Inschrijving/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Inschrijving == null)

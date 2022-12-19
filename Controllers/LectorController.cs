@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
+    [Authorize]
     public class LectorController : Controller
     {
         private readonly AppDbContext _context;
@@ -42,6 +44,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Lector/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             // Show both Naam and Voornaam (instead of just the Naam) while creating a Lector
@@ -73,6 +76,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("LectorId,GebruikerId")] Lector lector)
         {
             // Update ModelState to exclude nested model (Gebruiker) from model Lector
@@ -104,6 +108,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Lector/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Lector == null)
@@ -139,6 +144,7 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("LectorId,GebruikerId")] Lector lector)
         {
             // Update ModelState to exclude nested model (Gebruiker) from model Lector
@@ -189,6 +195,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Lector/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Lector == null)
@@ -210,6 +217,7 @@ namespace HogeschoolPXL.Controllers
         // POST: Lector/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Lector == null)

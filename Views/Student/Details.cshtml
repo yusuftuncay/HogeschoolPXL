@@ -10,11 +10,14 @@
 
 @if (Model.Inschrijving != null)
 {
-    <div class="form-group d-flex justify-content-center">
+    <div class="form-group d-flex @(User.IsInRole("Admin") ? "justify-content-between" : "justify-content-center")">
         <a class="btn-sm backArrow mx-1" asp-action="Index" asp-controller="Student">
             <img src="~/img/arrow-left-black.png" height="16"/>
             <span >Terug</span>
         </a>
-        <a asp-action="Edit" asp-route-id="@Model?.Inschrijving.Student.StudentId" class="btn btn-outline-success btn-sm viewButton mx-1">Edit Student</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model?.Inschrijving.Student.StudentId" class="btn btn-outline-success btn-sm viewButton mx-1">Edit Student</a>
+        }
     </div>
 }

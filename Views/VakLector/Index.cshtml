@@ -10,7 +10,7 @@
         <span>Home</span>
     </a>
     <h1>VakLector</h1>
-    <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer VakLector</a>
+    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") || User.IsInRole("Lector") ? "" : "invisible")" asp-action="Create">Creëer VakLector</a>
 </div>
 
 <table class="table">
@@ -33,14 +33,23 @@
                 @Html.DisplayFor(modelItem => item.Lector.Gebruiker.Voornaam) 
                 @Html.DisplayFor(modelItem => item.Lector.Gebruiker.Naam)
             </td>
-            <td>
+            <td class="text-start">
                 @Html.DisplayFor(modelItem => item.Vak.VakNaam)
             </td>
-            <td>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.VakLectorId">Edit</a>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.VakLectorId">Details</a>
-                <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.VakLectorId">Delete</a>
-            </td>
+            @if (User.IsInRole("Admin") || User.IsInRole("Lector"))
+            {
+                <td>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.VakLectorId">Edit</a>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.VakLectorId">Details</a>
+                    <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.VakLectorId">Delete</a>
+                </td>
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <td>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.VakLectorId">Details</a>
+                </td>
+            }
         </tr>
     }
     </tbody>

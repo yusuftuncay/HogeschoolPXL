@@ -10,7 +10,7 @@
         <span>Home</span>
     </a>
     <h1>Lectoren</h1>
-    <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Lector</a>
+    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") ? "" : "invisible")" asp-action="Create">Creëer Lector</a>
 </div>
 
 <table class="table">
@@ -26,16 +26,25 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-start">
                 @Html.DisplayFor(modelItem => item.Gebruiker.Voornaam) 
                 @Html.DisplayFor(modelItem => item.Gebruiker.Naam)
             </td>
-            <td>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.LectorId">Edit</a>
-                <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.LectorId">Details</a>
-                <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.LectorId">Delete</a>
-            </td>
-        </tr>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.LectorId">Edit</a>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.LectorId">Details</a>
+                    <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.LectorId">Delete</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.LectorId">Details</a>
+                </td>
+            }
+            </tr>
     }
     </tbody>
 </table>

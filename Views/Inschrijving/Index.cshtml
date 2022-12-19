@@ -10,7 +10,7 @@
         <span>Home</span>
     </a>
     <h1>Inschrijvingen</h1>
-    <a class="btn btn-outline-success btn-sm viewButton" asp-action="Create">Creëer Inschrijving</a>
+    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") || User.IsInRole("Student") ? "" : "invisible")" asp-action="Create">Creëer Inschrijving</a>
 </div>
 
 <div class="d-flex justify-content-center row">
@@ -52,14 +52,23 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam)
                     </td>
-                    <td>
+                    <td class="text-start">
                         @Html.DisplayFor(modelItem => item.Academiejaar.Datum)
                     </td>
-                    <td>
-                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.InschrijvingId">Edit</a>
-                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
-                        <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.InschrijvingId">Delete</a>
-                    </td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                    {
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.InschrijvingId">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
+                            <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.InschrijvingId">Delete</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
+                        </td>
+                    }
                 </tr>
             }
             </tbody>

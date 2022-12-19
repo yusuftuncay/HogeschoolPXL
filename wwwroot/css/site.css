@@ -140,11 +140,6 @@ tr:last-child {
     text-align: right;
 }
 
-/* Table Identity */
-.identity tr td:last-child {
-     text-align: initial;
-}
-
 /* Logo Navigation Bar */
 #logo {
     box-shadow: 0 0 16px grey;
@@ -241,7 +236,17 @@ header form * {
     padding-bottom: initial !important;
 }
 #dropdown-login-form .backArrow {
-    transition: 0 !important;
+    transition: none !important;
+}
+
+/* Identity Tables */
+.identity .column {
+    float: left;
+    width: 50%;
+    margin-bottom: 12px;
+}
+.identity tr td:last-child {
+    text-align: initial;
 }
 
 /* Placement to Toggle Password Visibility */
@@ -262,7 +267,7 @@ form i {
     right: 0;
     bottom: 0;
     /* Styling */
-    width: 200px;
+    width: fit-content;
     margin: 88px 20px;
     padding: 4px 8px;
     background-color: #f4f4f4;

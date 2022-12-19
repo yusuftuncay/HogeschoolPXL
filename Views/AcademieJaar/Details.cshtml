@@ -17,12 +17,15 @@
             </dd>
         </dl>
 
-        <div class="form-group d-flex justify-content-between">
+        <div class="form-group d-flex @(User.IsInRole("Admin") ? "justify-content-between" : "justify-content-center")">
             <a class="btn-sm backArrow" asp-action="Index" asp-controller="Academiejaar">
                 <img src="~/img/arrow-left-black.png" height="16"/>
                 <span >Terug</span>
             </a>
-            <a asp-action="Edit" asp-route-id="@Model?.AcademiejaarId" class="btn btn-outline-success btn-sm viewButton">Edit Academiejaar</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model?.AcademiejaarId" class="btn btn-outline-success btn-sm viewButton">Edit Academiejaar</a>
+            }
         </div>
     </div>
 </div>
