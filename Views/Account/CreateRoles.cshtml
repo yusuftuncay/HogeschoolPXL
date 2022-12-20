@@ -1,0 +1,22 @@
+﻿@model RoleViewModel
+
+<h1 class="titleView">Voeg Rollen Toe</h1>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="CreateRoles">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label">Rolnaam</label>
+                <input asp-for="RoleName" class="form-control" type="text"/>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <a class="btn-sm backArrow" asp-action="Identity" asp-controller="Account">
+                    <img src="~/img/arrow-left-black.png" height="16" />
+                    <span>Terug</span>
+                </a>
+                <input type="submit" value="Creëer Rol" class="btn btn-outline-success btn-sm viewButton"/>
+            </div>
+        </form>
+    </div>
+</div>

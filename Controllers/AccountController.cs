@@ -99,17 +99,16 @@ namespace HogeschoolPXL.Controllers
 		}
         #endregion
 
-        #region create role
+        #region create roles
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult CreateRole()
+        public IActionResult CreateRoles()
         {
-            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
             return View();
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateRoleAsync(RoleViewModel role)
+        public async Task<IActionResult> CreateRolesAsync(RoleViewModel role)
         {
             if (!await _roleManager.RoleExistsAsync(role.RoleName))
             {
@@ -117,11 +116,52 @@ namespace HogeschoolPXL.Controllers
                 var result = await _roleManager.CreateAsync(identityRole);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    TempData["Alert"] = "RoleCreated";
+                    return RedirectToAction("Identity");
                 }
             }
             ViewBag.Roles = _roleManager.Roles;
-            ModelState.AddModelError("", "Probleem met aanmaken van rol");
+            ModelState.AddModelError("", $"Role ({role.RoleName}) already exists");
+            return View();
+        }
+        #endregion
+
+        #region delete roles
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteRoles()
+        {
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Name));
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteRolesAsync(RoleViewModel role)
+        {
+            if (await _roleManager.RoleExistsAsync(role.RoleName))
+            {
+                var result = _context.Roles.Where(x => x.Name == role.RoleName).FirstOrDefault();
+                if (result != null)
+                {
+                    _context.Roles.Remove(result);
+                    _context.SaveChanges();
+
+                    TempData["Alert"] = "RoleDeleted";
+                    return RedirectToAction("Identity");
+                }
+            }
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Name));
+            ModelState.AddModelError("", "Problem with deleting role");
+            return View();
+        }
+        #endregion
+
+        #region manage user roles
+        public IActionResult ManageUserRoles()
+        {
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+            ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+
             return View();
         }
         #endregion
@@ -131,32 +171,23 @@ namespace HogeschoolPXL.Controllers
         [Authorize(Roles = "Admin")]
         public Task<IActionResult> FormHandler(string submitButton, string roles, string users)
         {
-            if (submitButton == "Toekennen")
+            if (submitButton == "Add Role")
             {
-                return AssignRoleAsync(roles, users);
+                return AddUserRoleAsync(roles, users);
             }
-            else if (submitButton == "Verwijderen")
+            else if (submitButton == "Remove Role")
             {
-                return RemoveRoleAsync(roles, users);
+                return RemoveUserRoleAsync(roles, users);
             }
             ModelState.AddModelError("", "Something went wrong");
-            return Task.FromResult((IActionResult)View("ManageRoles"));
+            return Task.FromResult((IActionResult)View("ManageUserRoles"));
         }
         #endregion
 
         #region assign role
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IActionResult AssignRole()
-		{
-			ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
-			ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-
-			return View("ManageRoles");
-		}
 		[HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AssignRoleAsync(string roles, string users)
+        public async Task<IActionResult> AddUserRoleAsync(string roles, string users)
 		{
             // Get the user and role by their respective ids
             var user = await _userManager.FindByIdAsync(users.ToString());
@@ -176,7 +207,7 @@ namespace HogeschoolPXL.Controllers
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
                 ModelState.AddModelError("", "User already has role");
-                return View("ManageRoles");
+                return View("ManageUserRole");
             }
 
             // Assign the role to the user
@@ -187,8 +218,8 @@ namespace HogeschoolPXL.Controllers
             {
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-				ViewBag.Alert = "RoleAssigned";
-				return View("ManageRoles");
+				ViewBag.Alert = "RoleAssignedToUser";
+				return View("ManageUserRole");
             }
             else
             {
@@ -198,18 +229,9 @@ namespace HogeschoolPXL.Controllers
         #endregion
 
         #region remove role
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IActionResult RemoveRole()
-        {
-            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
-            ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-
-            return View("ManageRoles");
-        }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RemoveRoleAsync(string roles, string users)
+        public async Task<IActionResult> RemoveUserRoleAsync(string roles, string users)
         {
             // Get the user and role by their respective ids
             var user = await _userManager.FindByIdAsync(users.ToString());
@@ -229,7 +251,7 @@ namespace HogeschoolPXL.Controllers
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
                 ModelState.AddModelError("", "User doesn't have this role");
-                return View("ManageRoles");
+                return View("ManageUserRoles");
             }
 
             // Remove role from the user
@@ -240,8 +262,8 @@ namespace HogeschoolPXL.Controllers
             {
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-				ViewBag.Alert = "RoleDeleted";
-                return View("ManageRoles");
+                ViewBag.Alert = "RoleRemovedFromUser";
+                return View("ManageUserRoles");
             }
             else
             {
@@ -255,6 +277,11 @@ namespace HogeschoolPXL.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Identity()
         {
+            if (TempData["Alert"] != null)
+            {
+                ViewBag.Alert = TempData["Alert"];
+                TempData.Remove("Alert");
+            }
             var identityViewModel = new IdentityViewModel
             {
                 Roles = _roleManager.Roles,
