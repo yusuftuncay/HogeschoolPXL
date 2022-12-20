@@ -110,7 +110,14 @@ namespace HogeschoolPXL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRolesAsync(RoleViewModel role)
         {
-            if (!await _roleManager.RoleExistsAsync(role.RoleName))
+            if (role.RoleName == null)
+            {
+				ViewBag.Roles = _roleManager.Roles;
+				ModelState.AddModelError("", $"Rolename can't be empty");
+				return View();
+			}
+
+			if (!await _roleManager.RoleExistsAsync(role.RoleName))
             {
                 var identityRole = new IdentityRole(role.RoleName);
                 var result = await _roleManager.CreateAsync(identityRole);
@@ -140,8 +147,18 @@ namespace HogeschoolPXL.Controllers
         {
             if (await _roleManager.RoleExistsAsync(role.RoleName))
             {
-                var result = _context.Roles.Where(x => x.Name == role.RoleName).FirstOrDefault();
-                if (result != null)
+				// Check if any users are in the role
+				var usersInRole = await _userManager.GetUsersInRoleAsync(role.RoleName);
+				if (usersInRole.Any())
+				{
+					// Return an error if there are users in the role
+					ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Name));
+					ModelState.AddModelError("", "Cannot delete role because there are users in it, remove role from users first");
+					return View();
+				}
+
+				var result = _context.Roles.Where(x => x.Name == role.RoleName).FirstOrDefault();
+				if (result != null)
                 {
                     _context.Roles.Remove(result);
                     _context.SaveChanges();
@@ -207,7 +224,7 @@ namespace HogeschoolPXL.Controllers
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
                 ModelState.AddModelError("", "User already has role");
-                return View("ManageUserRole");
+                return View("ManageUserRoles");
             }
 
             // Assign the role to the user
@@ -218,8 +235,8 @@ namespace HogeschoolPXL.Controllers
             {
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-				ViewBag.Alert = "RoleAssignedToUser";
-				return View("ManageUserRole");
+				TempData["Alert"] = "RoleAssignedToUser";
+				return RedirectToAction("Identity");
             }
             else
             {
@@ -242,28 +259,28 @@ namespace HogeschoolPXL.Controllers
                 return BadRequest();
             }
 
-            // Gets all users in selected role, needed to check if the user already has role
+            // Gets all users in selected role
             var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
 
-            // Check if user doesn't have the role
-            if (!usersInRole.Any(u => u.Id == users))
-            {
-                ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
-                ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-                ModelState.AddModelError("", "User doesn't have this role");
-                return View("ManageUserRoles");
-            }
+			// Check if user has the role before deleting
+			if (!usersInRole.Any(u => u.Id == users))
+			{
+				ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+				ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+				ModelState.AddModelError("", "User doesn't have this role");
+				return View("ManageUserRoles");
+			}
 
-            // Remove role from the user
-            var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+			// Remove role from the user
+			var result = await _userManager.RemoveFromRoleAsync(user, role.ToString());
 
             // Check if the role was successfully assigned
             if (result.Succeeded)
             {
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-                ViewBag.Alert = "RoleRemovedFromUser";
-                return View("ManageUserRoles");
+				TempData["Alert"] = "RoleRemovedFromUser";
+                return RedirectToAction("Identity");
             }
             else
             {

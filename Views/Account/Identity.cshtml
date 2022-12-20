@@ -111,3 +111,27 @@
 		</div>
 	</div>
 }
+@if (ViewBag.Alert == "RoleAssignedToUser")
+{
+	<div id="snackbar">
+		<div class="toast-header">
+			<img src="~/img/green-check.png" height="16" class="me-2">
+			<strong class="me-auto">Succesfull</strong>
+		</div>
+		<div class="toast-body">
+			Succesfully Assign a User a Role
+		</div>
+	</div>
+}
+@if (ViewBag.Alert == "RoleRemovedFromUser")
+{
+	<div id="snackbar">
+		<div class="toast-header">
+			<img src="~/img/green-check.png" height="16" class="me-2">
+			<strong class="me-auto">Succesfull</strong>
+		</div>
+		<div class="toast-body">
+			Succesfully Removed Role from User
+		</div>
+	</div>
+}
