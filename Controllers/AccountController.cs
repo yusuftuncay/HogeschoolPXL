@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using HogeschoolPXL.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using NuGet.Protocol.Plugins;
+using HogeschoolPXL.Data.DefaultData;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -171,21 +173,45 @@ namespace HogeschoolPXL.Controllers
             ModelState.AddModelError("", "Problem with deleting role");
             return View();
         }
-        #endregion
+		#endregion
 
-        #region manage user roles
-        public IActionResult ManageUserRoles()
+		#region manage user roles
+		[Authorize(Roles = "Admin")]
+		public IActionResult ManageUserRoles()
         {
-            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id)).ToList();
             ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
 
             return View();
         }
-        #endregion
+		#endregion
 
-        #region form handler
-        /* Because our form has 2 submit buttons, it goes through this method to check which button was pressed */
-        [Authorize(Roles = "Admin")]
+		#region selected role in ManageUserRoles page
+		[HttpPost]
+        [AllowAnonymous]
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> GetRolesAsync(string selectedUser)
+		{
+			// Find correct User
+			var user = await _userManager.FindByIdAsync(selectedUser);
+			// Get Roles of that User
+			var userRoles = await _userManager.GetRolesAsync(user);
+
+            // Create a SelectList of available roles
+            ViewBag.Roles = _context.Roles
+                .Where(x => userRoles.Contains(x.Name))
+                .Select(r => new SelectListItem { Text = r.Name, Value = r.Id });
+            // All users
+			ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+
+            //return Json(new { success = true });
+            return View("ManageUserRoles");
+        }
+		#endregion
+
+		#region form handler
+		/* Because our form has 2 submit buttons, it goes through this method to check which button was pressed */
+		[Authorize(Roles = "Admin")]
         public Task<IActionResult> FormHandler(string submitButton, string roles, string users)
         {
             if (submitButton == "Add Role")
@@ -287,10 +313,10 @@ namespace HogeschoolPXL.Controllers
                 return BadRequest();
             }
         }
-        #endregion
+		#endregion
 
-        #region identity
-        [HttpGet]
+		#region identity
+		[HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult Identity()
         {
