@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RoleRequests>
+
+
+@{
+    ViewData["Title"] = "Rol Verzoeken";
+}
+
+<div class="d-flex justify-content-between mx-2 mb-3">
+    <a class="btn-sm backArrow" asp-action="Index" asp-controller="Home">
+        <img src="~/img/arrow-left-black.png" height="16" />
+        <span>Home</span>
+    </a>
+    <h1>Rol Verzoeken</h1>
+    <div></div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Users)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Roles)
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Accept" asp-route-id="@item.Id">Accept</a>
+                    <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

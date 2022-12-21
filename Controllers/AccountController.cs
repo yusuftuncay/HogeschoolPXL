@@ -37,9 +37,7 @@ namespace HogeschoolPXL.Controllers
 			return View();
 		}
 		[HttpPost]
-		// returnUrl works but has a problem with the Popup Toast after login that appears on the Home Page only
-		// Uncomment the commented lines below to test returnUrl
-		public async Task<IActionResult> LoginAsync(LoginViewModel login/*, string returnUrl*/)
+		public async Task<IActionResult> LoginAsync(LoginViewModel login)
         {
             if (login.Email == null || login.Password == null)
                 return View("Login");
@@ -49,11 +47,8 @@ namespace HogeschoolPXL.Controllers
 
 			if (signInResult.Succeeded)
 			{
-                TempData["Login"] = "Succeeded";
-                //if (!string.IsNullOrEmpty(returnUrl))
-                //    return Redirect(returnUrl);
-                //else
-					return RedirectToAction("Index", "Home");
+                TempData["Login"] = "LoginSucceeded";
+				return RedirectToAction("Index", "Home");
             }
 			else
 			{
@@ -80,8 +75,12 @@ namespace HogeschoolPXL.Controllers
 			var identityResult = await _userManager.CreateAsync(identityUser, register.Password);
 
 			if (identityResult.Succeeded)
-				return View("RegistrationCompleted");
-			foreach (var error in identityResult.Errors)
+            {
+                TempData["Login"] = "RegisterSucceeded";
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in identityResult.Errors)
 			{
 				ModelState.AddModelError("", error.Description);
 			}
@@ -173,39 +172,46 @@ namespace HogeschoolPXL.Controllers
             ModelState.AddModelError("", "Problem with deleting role");
             return View();
         }
-		#endregion
+        #endregion
 
-		#region manage user roles
-		[Authorize(Roles = "Admin")]
-		public IActionResult ManageUserRoles()
+        #region delete user
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string? Id)
         {
-            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id)).ToList();
-            ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
+            var user = await _userManager.FindByIdAsync(Id);
 
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                // Deletes the user from identity and database
+                var resultIdentity = _context.Users.Where(x => x.Id == Id).FirstOrDefault();
+                var resultData = _context.Gebruiker.Where(x => x.Email == resultIdentity.Email).FirstOrDefault();
+                if (resultIdentity != null || resultData != null)
+                {
+                    _context.Users.Remove(resultIdentity);
+                    _context.Gebruiker.Remove(resultData);
+                    _context.SaveChanges();
+
+                    TempData["Alert"] = "UserDeleted";
+                    return RedirectToAction("Identity");
+                }
+            }
             return View();
         }
 		#endregion
 
-		#region selected role in ManageUserRoles page
-		[HttpPost]
-        [AllowAnonymous]
+		#region manage user roles
 		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> GetRolesAsync(string selectedUser)
-		{
-			// Find correct User
-			var user = await _userManager.FindByIdAsync(selectedUser);
-			// Get Roles of that User
-			var userRoles = await _userManager.GetRolesAsync(user);
+		public IActionResult ManageUserRolesAsync()
+        {
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+            ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
 
-            // Create a SelectList of available roles
-            ViewBag.Roles = _context.Roles
-                .Where(x => userRoles.Contains(x.Name))
-                .Select(r => new SelectListItem { Text = r.Name, Value = r.Id });
-            // All users
-			ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-
-            //return Json(new { success = true });
-            return View("ManageUserRoles");
+            return View();
         }
 		#endregion
 

@@ -6,9 +6,12 @@
         <span>Home</span>
     </a>
     <h1>Identity</h1>
-	<div>
+	<div class="btn-group mx-2">
 		<a class="btn btn-outline-success btn-sm viewButton" asp-controller="Account" asp-action="CreateRoles">Creëer Rollen</a>
-		<a class="btn btn-outline-danger btn-sm viewButton mx-2" asp-controller="Account" asp-action="DeleteRoles">Verwijder Rollen</a>
+		<a class="btn btn-outline-danger btn-sm viewButton" asp-controller="Account" asp-action="DeleteRoles">Verwijder Rollen</a>
+	</div>
+	<div class="btn-group">
+		<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="RoleRequests">Rol Verzoeken</a>
 		<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="ManageUserRoles">Beheer Rollen van Gebruikers</a>
 	</div>
 </div>
@@ -19,10 +22,11 @@
 		@if (Model.Users != null)
 		{
 			<div class="column">
-				<table class="table">
+				<table class="table" id="users">
 					<thead>
 						<tr>
 							<th>All Users</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,6 +34,9 @@
 						{
 							<tr>
 								<td>@users.Email</td>
+								<td>
+									<a class="btn btn-outline-danger btn-sm viewButton" asp-controller="Account" asp-action="DeleteUser" asp-route-id="@users.Id">Delete</a>
+								</td>
 							</tr>
 						}
 					</tbody>
@@ -69,7 +76,7 @@
 				<tr>
 					<th>ID</th>
 					<th>Roles</th>
-					<th>Users</th>
+					<th>Users in Role</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -132,6 +139,19 @@
 		</div>
 		<div class="toast-body">
 			Succesfully Removed Role from User
+		</div>
+	</div>
+}
+
+@if (ViewBag.Alert == "UserDeleted")
+{
+	<div id="snackbar">
+		<div class="toast-header">
+			<img src="~/img/green-check.png" height="16" class="me-2">
+			<strong class="me-auto">Succesfull</strong>
+		</div>
+		<div class="toast-body">
+			Succesfully Deleted User
 		</div>
 	</div>
 }

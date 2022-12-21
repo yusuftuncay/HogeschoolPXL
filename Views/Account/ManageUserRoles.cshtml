@@ -8,16 +8,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Users" class="control-label">Gebruikers</label>
-                <select asp-for="Users" class="form-control" asp-items="ViewBag.Users" id="options" name="selectedUser" onchange="getSelectedOption()"></select>
+                <select asp-for="Users" class="form-control" asp-items="ViewBag.Users"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Roles" class="control-label">Rollen</label>
-                <select asp-for="Roles" class="form-control">
-                    @for(int i = 0; i < ViewBag.Roles.Count(); i++)
-                    {
-                        <option value="@i">@i</option>
-                    }
-                </select>
+                <select asp-for="Roles" class="form-control" asp-items="ViewBag.Roles"></select>
             </div>
             <div class="form-group d-flex justify-content-between">
                 <a class="btn-sm backArrow" asp-action="Identity" asp-controller="Account">
@@ -38,19 +33,6 @@
     var selectElements = document.querySelectorAll(".form-control");
     for (var i = 0; i < selectElements.length; i++) {
         selectElements[i].removeAttribute("multiple");
-    }
-
-    // Changes the Roles that are shown in the SelectList according to the selected User
-    function getSelectedOption() {
-        var selectedUser = $("#options").val();
-        $.ajax({
-            url: "/Account/GetRoles",
-            type: "POST",
-            data: { selectedUser: selectedUser },
-            //success: function (result) {
-            //    location.reload()
-            //}
-        });
     }
 </script>
 

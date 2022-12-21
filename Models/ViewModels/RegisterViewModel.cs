@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HogeschoolPXL.Models.ViewModels
@@ -9,5 +10,6 @@ namespace HogeschoolPXL.Models.ViewModels
         [DisplayName("Bevestig Wachtwoord")]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
+        public IEnumerable<IdentityRole> Roles { get; set; }
     }
 }
