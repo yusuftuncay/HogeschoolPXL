@@ -1,18 +1,16 @@
 ﻿@model IdentityViewModel
 
-<div class="d-flex justify-content-between mx-2 mb-3">
+<div class="d-flex justify-content-between mx-2 mb-3 align-items-center">
     <a class="btn-sm backArrow" asp-action="Index" asp-controller="Home">
         <img src="~/img/arrow-left-black.png" height="16"/>
         <span>Home</span>
     </a>
     <h1>Identity</h1>
-	<div class="btn-group mx-2">
-		<a class="btn btn-outline-success btn-sm viewButton" asp-controller="Account" asp-action="CreateRoles">Creëer Rollen</a>
-		<a class="btn btn-outline-danger btn-sm viewButton" asp-controller="Account" asp-action="DeleteRoles">Verwijder Rollen</a>
-	</div>
-	<div class="btn-group">
-		<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="RoleRequests">Rol Verzoeken</a>
-		<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="ManageUserRoles">Beheer Rollen van Gebruikers</a>
+	<div>
+		<div class="btn-group">
+			<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="RoleRequest">Rol Verzoeken</a>
+			<a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="ManageUserRoles">Beheer Rollen van Gebruikers</a>
+		</div>
 	</div>
 </div>
 
@@ -48,10 +46,13 @@
 		@if (Model.Roles != null)
 		{
 			<div class="column">
-				<table class="table">
+				<table class="table" id="users">
 					<thead>
 						<tr>
 							<th>All Roles</th>
+							<th>
+								<a class="btn btn-outline-success btn-sm viewButton" asp-controller="Account" asp-action="CreateRoles">Creëer Rol</a>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -59,6 +60,9 @@
 						{
 							<tr>
 								<td>@role.Name</td>
+								<td>
+									<a class="btn btn-outline-danger btn-sm viewButton" asp-controller="Account" asp-action="DeleteRoles" asp-route-id="@role.Id">Delete</a>
+								</td>
 							</tr>
 						}
 					</tbody>
@@ -142,7 +146,6 @@
 		</div>
 	</div>
 }
-
 @if (ViewBag.Alert == "UserDeleted")
 {
 	<div id="snackbar">
@@ -152,6 +155,42 @@
 		</div>
 		<div class="toast-body">
 			Succesfully Deleted User
+		</div>
+	</div>
+}
+@if (ViewBag.Alert == "UsersInRole")
+{
+	<div id="snackbar">
+		<div class="toast-header">
+			<img src="~/img/red-cross.png" height="16" class="me-2">
+			<strong class="me-auto">Error</strong>
+		</div>
+		<div class="toast-body">
+			Cannot delete role because there are users in it, remove role from users first
+		</div>
+	</div>
+}
+@if (ViewBag.Alert == "RoleAccepted")
+{
+	<div id="snackbar">
+		<div class="toast-header">
+			<img src="~/img/red-cross.png" height="16" class="me-2">
+			<strong class="me-auto">Error</strong>
+		</div>
+		<div class="toast-body">
+			Cannot delete role because there are users in it, remove role from users first
+		</div>
+	</div>
+}
+@if (ViewBag.Alert == "RoleDenied")
+{
+	<div id="snackbar">
+		<div class="toast-header">
+			<img src="~/img/red-cross.png" height="16" class="me-2">
+			<strong class="me-auto">Error</strong>
+		</div>
+		<div class="toast-body">
+			Cannot delete role because there are users in it, remove role from users first
 		</div>
 	</div>
 }

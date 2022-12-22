@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RoleRequestsViewModel>
+
+@{
+    ViewData["Title"] = "Rol Verzoeken";
+}
+
+<div class="d-flex justify-content-between mx-2 mb-3">
+    <a class="btn-sm backArrow" href="javascript:history.back()">
+        <img src="~/img/arrow-left-black.png" height="16" />
+        <span>Home</span>
+    </a>
+    <h1>Rol Verzoeken</h1>
+    <div></div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td>No Requests</td>
+                <td>No Requests</td>
+                <td></td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.User
+                    </td>
+                    <td>
+                        @item.Role
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Account" asp-action="RoleRequestChoose" asp-route-choice="Accept" asp-route-id="@item.Id">Accept</a>
+                        <a class="btn btn-outline-danger btn-sm viewButton" asp-controller="Account" asp-action="RoleRequestChoose" asp-route-choice="Decline" asp-route-id="@item.Id">Decline</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

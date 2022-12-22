@@ -19,5 +19,6 @@ namespace HogeschoolPXL.Data
         public DbSet<Academiejaar> Academiejaar { get; set; }
         public DbSet<LoginViewModel> LoginViewModel { get; set; }
         public DbSet<RegisterViewModel> RegisterViewModel { get; set; }
+        public DbSet<RoleRequestsViewModel> RoleRequestsViewModel { get; set; }
 	}
 }

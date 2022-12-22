@@ -7,7 +7,7 @@ namespace HogeschoolPXL.TagHelpers
     [HtmlTargetElement("student-card")]
     public class StudentCardTagHelper : TagHelper
     {
-        public StudentCard StudentCardViewModel { get; set; }
+        public StudentCardViewModel StudentCardViewModel { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (StudentCardViewModel.InschrijvingId == 0)

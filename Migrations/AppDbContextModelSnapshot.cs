@@ -35,7 +35,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasKey("AcademiejaarId");
 
-                    b.ToTable("Academiejaar", (string)null);
+                    b.ToTable("Academiejaar");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Gebruiker", b =>
@@ -60,7 +60,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasKey("GebruikerId");
 
-                    b.ToTable("Gebruiker", (string)null);
+                    b.ToTable("Gebruiker");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Handboek", b =>
@@ -86,7 +86,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasKey("HandboekId");
 
-                    b.ToTable("Handboek", (string)null);
+                    b.ToTable("Handboek");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Inschrijving", b =>
@@ -114,7 +114,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasIndex("VakLectorId");
 
-                    b.ToTable("Inschrijving", (string)null);
+                    b.ToTable("Inschrijving");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Lector", b =>
@@ -132,7 +132,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasIndex("GebruikerId");
 
-                    b.ToTable("Lector", (string)null);
+                    b.ToTable("Lector");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Student", b =>
@@ -150,7 +150,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasIndex("GebruikerId");
 
-                    b.ToTable("Student", (string)null);
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.Vak", b =>
@@ -175,7 +175,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasIndex("HandboekId");
 
-                    b.ToTable("Vak", (string)null);
+                    b.ToTable("Vak");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.VakLector", b =>
@@ -198,7 +198,7 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasIndex("VakId");
 
-                    b.ToTable("VakLector", (string)null);
+                    b.ToTable("VakLector");
                 });
 
             modelBuilder.Entity("HogeschoolPXL.Models.ViewModels.LoginViewModel", b =>
@@ -223,9 +223,30 @@ namespace HogeschoolPXL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LoginViewModel", (string)null);
+                    b.ToTable("LoginViewModel");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("LoginViewModel");
+                });
+
+            modelBuilder.Entity("HogeschoolPXL.Models.ViewModels.RoleRequestsViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleRequestsViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -431,6 +452,10 @@ namespace HogeschoolPXL.Migrations
                     b.HasBaseType("HogeschoolPXL.Models.ViewModels.LoginViewModel");
 
                     b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Roles")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

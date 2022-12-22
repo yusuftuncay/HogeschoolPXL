@@ -34,7 +34,7 @@ namespace HogeschoolPXL.Controllers
                 .Include(x => x.VakLector).ThenInclude(x => x.Vak)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
 
-            var studentCard = new StudentCard(_context, student);
+            var studentCard = new StudentCardViewModel(_context, student);
             return View(studentCard);
         }
 

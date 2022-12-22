@@ -245,14 +245,19 @@ header form * {
     width: 50%;
     margin-bottom: 12px;
 }
-.identity tr td:last-child {
-    text-align: initial;
-}
-.identity #users td:last-child {
-    text-align: right;
+.identity #users th:last-child {
+    text-align: end;
 }
 .identity #users a {
     margin: 0;
+}
+#users a {
+    padding: 0 6px;
+}
+
+/* Manage User Roles */
+#manageUserRoles.titleView {
+    width: 60%;
 }
 
 /* Placement to Toggle Password Visibility */

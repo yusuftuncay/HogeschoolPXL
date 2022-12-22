@@ -10,6 +10,6 @@ namespace HogeschoolPXL.Models.ViewModels
         [DisplayName("Bevestig Wachtwoord")]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
-        public IEnumerable<IdentityRole> Roles { get; set; }
+        public string Roles { get; set; }
     }
 }
