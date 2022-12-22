@@ -20,6 +20,9 @@
     <div class="dropdown-content" id="dropdown-login-form">
         @if (SignInManager.IsSignedIn(User))
         {
+            @if (User.IsInRole("Admin")) { <h6 class="dropdown-item"><i>Admin</i></h6> }
+            @if (User.IsInRole("Lector")) { <h6 class="dropdown-item"><i>Lector</i></h6> }
+            @if (User.IsInRole("Student")) { <h6 class="dropdown-item"><i>Student</i></h6> }
             <span class="dropdown-item">@User.Identity?.Name</span>
             <hr>
             @* Show Identity Tab if Admin is Logged in *@
@@ -27,6 +30,13 @@
             {
                 <a class="dropdown-item" class="dropdown-item" asp-controller="Account" asp-action="Identity">Identity</a>
             }
+
+            @* User is authenticated/loggedin but has NO role, because it probably got DECLINED by an admin, this way they can request again *@
+            if (!User.IsInRole("Admin") && !User.IsInRole("Lector") && !User.IsInRole("Student"))
+            {
+                <a class="dropdown-item" class="dropdown-item" asp-controller="Account" asp-action="RoleRequestRepeatGet">Stuur Rolverzoek</a>
+            }
+
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Uitloggen</a>
         }
         else

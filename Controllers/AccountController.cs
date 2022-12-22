@@ -94,7 +94,7 @@ namespace HogeschoolPXL.Controllers
             ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
             return View();
 		}
-        #endregion
+        #endregion 
 
         #region logout
         [HttpGet]
@@ -140,7 +140,7 @@ namespace HogeschoolPXL.Controllers
 				_context.RoleRequestsViewModel.Remove(getId);
 				_context.SaveChanges();
 
-				TempData["Login"] = "RoleAccepted";
+				TempData["Alert"] = "RoleAccepted";
             }
             else if (choice == "Decline")
             {
@@ -149,9 +149,36 @@ namespace HogeschoolPXL.Controllers
                 _context.RoleRequestsViewModel.Remove(getId);
                 _context.SaveChanges();
 
-                TempData["Login"] = "RoleDenied";
+                TempData["Alert"] = "RoleDenied";
             }
             return RedirectToAction("Identity", "Account");
+        }
+        #endregion
+
+        #region role request repeat
+        [HttpGet]
+        [Authorize]
+        public IActionResult RoleRequestRepeatGet()
+        {
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+
+            return View("RoleRequestRepeat");
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> RoleRequestRepeatPostAsync(string roleId)
+        {
+            // Get currently logged in User (that made the role request)
+            IdentityUser user = await _userManager.GetUserAsync(User);
+            IdentityRole roleName = await _roleManager.FindByIdAsync(roleId);
+
+            // Add User and Role to the RoleRequest Page
+            _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { User = user.Email, Role = roleName.Name });
+            _context.SaveChanges();
+
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+            ViewBag.Alert = "Success";
+            return View("RoleRequestRepeat");
         }
         #endregion
 

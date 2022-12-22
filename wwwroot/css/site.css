@@ -227,11 +227,16 @@ header form * {
 .dropdown-login #loginImg /* Styling to Fix Visual Bugs */ {
     padding-bottom: 20px !important;
 }
-.dropdown-login .dropdown-item:first-child {
+.dropdown-login span {
     background-color: #fcfcfc;
     cursor: text;
 }
-.dropdown-login span:first-child {
+.dropdown-login span {
+    background-color: initial !important;
+    padding-bottom: initial !important;
+    padding-top: initial !important;
+}
+.dropdown-login h6 {
     background-color: initial !important;
     padding-bottom: initial !important;
 }
