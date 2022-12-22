@@ -1,7 +1,7 @@
 ﻿@model HogeschoolPXL.Models.Inschrijving
 
 @{
-    ViewData["Title"] = "Verwijderen";
+    ViewData["Title"] = "Deleteen";
 }
 
 <h3 class="titleView">Deze inschrijving verwijderen?</h3>
@@ -33,10 +33,10 @@
         <form asp-action="Delete" class="form-group d-flex justify-content-between">
             <a class="btn-sm backArrow" asp-action="Index" asp-controller="Inschrijving">
                 <img src="~/img/arrow-left-black.png" height="16"/>
-                <span >Terug</span>
+                <span >Back</span>
             </a>
             <input type="hidden" asp-for="InschrijvingId"/>
-            <input type="submit" value="Verwijder" class="btn btn-outline-danger btn-sm viewButton"/>
+            <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm viewButton"/>
         </form>
     </div>
 </div>

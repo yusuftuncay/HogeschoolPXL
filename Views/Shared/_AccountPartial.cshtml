@@ -17,12 +17,12 @@
             </a>
         }
     </span>
-    <div class="dropdown-content" id="dropdown-login-form">
-        @if (SignInManager.IsSignedIn(User))
-        {
-            @if (User.IsInRole("Admin")) { <h6 class="dropdown-item"><i>Admin</i></h6> }
-            @if (User.IsInRole("Lector")) { <h6 class="dropdown-item"><i>Lector</i></h6> }
-            @if (User.IsInRole("Student")) { <h6 class="dropdown-item"><i>Student</i></h6> }
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="dropdown-content" id="dropdown-logged-in">
+            @if (User.IsInRole("Admin")) { <h6 class="dropdown-item"><i><u>Admin</u></i></h6> }
+            @if (User.IsInRole("Lector")) { <h6 class="dropdown-item"><i><u>Lector</u></i></h6> }
+            @if (User.IsInRole("Student")) { <h6 class="dropdown-item"><i><u>Student</u></i></h6> }
             <span class="dropdown-item">@User.Identity?.Name</span>
             <hr>
             @* Show Identity Tab if Admin is Logged in *@
@@ -30,18 +30,18 @@
             {
                 <a class="dropdown-item" class="dropdown-item" asp-controller="Account" asp-action="Identity">Identity</a>
             }
-
             @* User is authenticated/loggedin but has NO role, because it probably got DECLINED by an admin, this way they can request again *@
-            if (!User.IsInRole("Admin") && !User.IsInRole("Lector") && !User.IsInRole("Student"))
+            @if (!User.IsInRole("Admin") && !User.IsInRole("Lector") && !User.IsInRole("Student"))
             {
-                <a class="dropdown-item" class="dropdown-item" asp-controller="Account" asp-action="RoleRequestRepeatGet">Stuur Rolverzoek</a>
+                <a class="dropdown-item" class="dropdown-item" asp-controller="Account" asp-action="RoleRequestRepeatGet">Stuur rolverzoek</a>
             }
-
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Uitloggen</a>
-        }
-        else
-        {
-            <form class="dropdown-item" asp-controller="Account" asp-action="Login" method="post" autocomplete="off">
+        </div>
+    }
+    else
+    {
+        <div class="dropdown-content" id="dropdown-logged-out">
+            <form class="d-block px-3 pt-2 pb-1" asp-controller="Account" asp-action="Login" method="post" autocomplete="off">
                 <div class="form-group">
                     <label name="Email" class="control-label">Email</label>
                     <input name="Email" class="form-control" type="email" placeholder="email@example.com"/>
@@ -55,6 +55,6 @@
                     <input type="submit" value="Inloggen" class="btn btn-outline-success btn-sm viewButton"/>
                 </div>
             </form>
-        }
-    </div>
+        </div>
+    }
 </div>

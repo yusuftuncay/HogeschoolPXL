@@ -1,4 +1,4 @@
-﻿@model HogeschoolPXL.Models.ViewModels.StudentCardViewModel
+﻿@model HogeschoolPXL.Models.ViewModels.StudentCard
 
 @{
     ViewData["Title"] = "Details";
@@ -10,10 +10,10 @@
 
 @if (Model.Inschrijving != null)
 {
-    <div class="form-group d-flex @(User.IsInRole("Admin") ? "justify-content-between" : "justify-content-center")">
+    <div class="form-group d-flex justify-content-center">
         <a class="btn-sm backArrow mx-1" asp-action="Index" asp-controller="Student">
             <img src="~/img/arrow-left-black.png" height="16"/>
-            <span >Terug</span>
+            <span >Back</span>
         </a>
         @if (User.IsInRole("Admin"))
         {

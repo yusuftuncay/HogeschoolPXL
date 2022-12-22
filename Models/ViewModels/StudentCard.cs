@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HogeschoolPXL.Models.ViewModels
 {
-    public class StudentCardViewModel
+    public class StudentCard
     {
-        public StudentCardViewModel(AppDbContext context, Inschrijving? inschrijving)
+        public StudentCard(AppDbContext context, Inschrijving? inschrijving)
         {
             if (inschrijving != null)
             {

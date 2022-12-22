@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -11,10 +12,12 @@ namespace HogeschoolPXL.Controllers
     public class InschrijvingController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public InschrijvingController(AppDbContext context)
+        public InschrijvingController(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Inschrijving
@@ -51,18 +54,27 @@ namespace HogeschoolPXL.Controllers
 
         // GET: Inschrijving/Create
         [Authorize(Roles = "Admin,Student")]
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem(
-                x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));
-            ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem(
-                x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
-            ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem(
-                x.Vak.VakNaam, x.VakId.ToString()));
+            // Get current logged in Student, this makes the Student only able to create an Inschrijving of his own.
+            IdentityUser user = await _userManager.GetUserAsync(User);
+
+            ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem
+                (x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));
+            ViewData["StudentId"] = _context.Student.Where(x => x.Gebruiker.Email == user.Email)
+                .Select(x => new SelectListItem(x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+            ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem
+                (x.Vak.VakNaam, x.VakId.ToString()));
+
+            if (user.Email != "Student")
+            {
+                ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem
+                (x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+            }
 
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
-                ModelState.AddModelError("", "Creëer een Student en/of Vak voordat je een Inschrijving creëert!");
+                ModelState.AddModelError("", "Create een Student en/of Vak voordat je een Inschrijving creëert!");
                 return View();
             }
 
@@ -92,7 +104,7 @@ namespace HogeschoolPXL.Controllers
 
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
-                ModelState.AddModelError("", "Creëer een Student en/of Vak voordat je een Inschrijving creëert!");
+                ModelState.AddModelError("", "Create een Student en/of Vak voordat je een Inschrijving creëert!");
                 return View();
             }
 

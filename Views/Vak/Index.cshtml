@@ -10,7 +10,7 @@
         <span>Home</span>
     </a>
     <h1>Vakken</h1>
-    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") || User.IsInRole("Lector") ? "" : "invisible")" asp-action="Create">Creëer Vak</a>
+    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") || User.IsInRole("Lector") ? "" : "invisible")" asp-action="Create">Create Vak</a>
 </div>
 
 <table class="table">

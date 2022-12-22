@@ -26,7 +26,7 @@
         <div class="form-group d-flex @(User.IsInRole("Admin") ? "justify-content-between" : "justify-content-center")">
             <a class="btn-sm backArrow" asp-action="Index" asp-controller="Lector">
                 <img src="~/img/arrow-left-black.png" height="16"/>
-                <span >Terug</span>
+                <span >Back</span>
             </a>
             @if (User.IsInRole("Admin"))
             {

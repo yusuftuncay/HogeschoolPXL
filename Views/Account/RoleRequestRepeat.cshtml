@@ -11,7 +11,7 @@
             <div class="form-group d-flex justify-content-between">
                 <a class="btn-sm backArrow" href="javascript:history.back()">
                     <img src="~/img/arrow-left-black.png" height="16" />
-                    <span>Terug</span>
+                    <span>Back</span>
                 </a>
                 <div class="btn-group">
                     <input type="submit" value="Stuur Rolverzoek" class="btn btn-outline-success btn-sm viewButton" />
@@ -31,15 +31,15 @@
 
 
 @* Alert after a successfull request *@
-@if (ViewBag.Alert == "Success")
+@if (ViewBag.AlertTitle != null)
 {
 	<div id="snackbar">
 		<div class="toast-header">
-			<img src="~/img/green-check.png" height="16" class="me-2">
-			<strong class="me-auto">Succesfull</strong>
+			<img src="@ViewBag.AlertImg" height="16" class="me-2">
+			<strong class="me-auto">@ViewBag.AlertTitle</strong>
 		</div>
 		<div class="toast-body">
-			Succesfully Requested a Role
+            @ViewBag.AlertMessage
 		</div>
 	</div>
 }

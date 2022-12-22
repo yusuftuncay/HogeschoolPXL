@@ -6,42 +6,16 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
-@* Toast after login attempt *@
-@{
-    if (ViewBag.Login == "LoginSucceeded")
-    {
-        <div id="snackbar">
-            <div class="toast-header">
-                <img src="~/img/green-check.png" height="16" class="me-2">
-                <strong class="me-auto">Succesfull</strong>
-            </div>
-            <div class="toast-body">
-                Logged in as <i>@User.Identity?.Name</i>
-            </div>
+@* Dynamic Toast after login attempt *@
+@if (ViewBag.LoginTitle != null)
+{
+    <div id="snackbar">
+        <div class="toast-header">
+            <img src="@ViewBag.LoginImg" height="16" class="me-2">
+            <strong class="me-auto">@ViewBag.LoginTitle</strong>
         </div>
-    }
-    else if (ViewBag.Login == "RegisterSucceeded")
-    {
-        <div id="snackbar">
-            <div class="toast-header">
-                <img src="~/img/green-check.png" height="16" class="me-2">
-                <strong class="me-auto">Succesfull</strong>
-            </div>
-            <div class="toast-body">
-                Successfully Registered
-            </div>
+        <div class="toast-body">
+            @ViewBag.LoginMessage
         </div>
-    }
-    else if (ViewBag.Login == "LogOut")
-    {
-        <div id="snackbar">
-            <div class="toast-header">
-                <img src="~/img/profile.png" height="16" class="me-2">
-                <strong class="me-auto">Logged Out</strong>
-            </div>
-            <div class="toast-body">
-                Succesfully Logged Out
-            </div>
-        </div>
-    }
+    </div>
 }

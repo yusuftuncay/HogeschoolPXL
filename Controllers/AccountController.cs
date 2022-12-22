@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using NuGet.Protocol.Plugins;
 using HogeschoolPXL.Data.DefaultData;
+using System.Security.Cryptography.Xml;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -47,12 +48,14 @@ namespace HogeschoolPXL.Controllers
 
 			if (signInResult.Succeeded)
 			{
-                TempData["Login"] = "LoginSucceeded";
+                TempData["LoginTitle"] = "Succesfull";
+                TempData["LoginMessage"] = "Successfully logged in";
+                TempData["LoginImg"] = "/img/green-check.png";
 				return RedirectToAction("Index", "Home");
             }
 			else
 			{
-                ModelState.AddModelError("", "Something went wrong");
+                ModelState.AddModelError("", "Email or password is invalid");
                 return View("Login");
             }
 		}
@@ -72,24 +75,26 @@ namespace HogeschoolPXL.Controllers
 			var identityUser = new IdentityUser { Email = register.Email, UserName = register.Email };
 			var identityResult = await _userManager.CreateAsync(identityUser, register.Password);
 
-            var user = await _userManager.FindByEmailAsync(identityUser.ToString());
-            var role = await _roleManager.FindByIdAsync(register.Roles);
-            //await _userManager.AddToRoleAsync(user, register.Roles.ToString());
+            // Find users Email and Role
+            var user = await _userManager.FindByEmailAsync(identityUser.Email.ToString());
+            var role = await _roleManager.FindByIdAsync(register.Roles.ToString());
 
 			if (identityResult.Succeeded)
             {
                 // Add User and Role to the RoleRequest Page
-                _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { User = user.ToString(), Role = role.ToString() });
+                _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { Voornaam = register.Voornaam, Naam = register.Naam, Email = user.Email.ToString(), Role = role.ToString() });
                 _context.SaveChanges();
 
-                TempData["Login"] = "RegisterSucceeded";
+                TempData["LoginTitle"] = "Succesfull";
+                TempData["LoginMessage"] = "Successfully registered";
+                TempData["LoginImg"] = "/img/green-check.png";
                 return RedirectToAction("Index", "Home");
             }
 
             foreach (var error in identityResult.Errors)
-			{
-				ModelState.AddModelError("", error.Description);
-			}
+            {
+                ModelState.AddModelError("", error.Description);
+            }
 
             ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
             return View();
@@ -100,7 +105,9 @@ namespace HogeschoolPXL.Controllers
         [HttpGet]
 		public async Task<IActionResult> LogOut()
 		{
-            TempData["Login"] = "LogOut";
+            TempData["LoginTitle"] = "Logged Out";
+            TempData["LoginMessage"] = "Succesfully logged out";
+            TempData["LoginImg"] = "/img/profile.png";
 
             await _signInManager.SignOutAsync();
 			return RedirectToAction("Index", "Home");
@@ -120,13 +127,16 @@ namespace HogeschoolPXL.Controllers
         {
             if (choice == "Accept")
             {
-                // Get users requested role and their email
-                var getUser = _context.RoleRequestsViewModel.Where(x => x.Id == Id).FirstOrDefault();
-				var user = await _userManager.FindByEmailAsync(getUser.User);
+                // Get User from Id
+                var getUser = _context.RoleRequestsViewModel.Find(Id);
+				var user = await _userManager.FindByEmailAsync(getUser.Email);
                 if (user == null || getUser == null)
                 {
                     return BadRequest();
                 }
+
+                // Remove Request
+				_context.RoleRequestsViewModel.Remove(getUser);
 
                 // Add the role to the User
 				var addRole = await _userManager.AddToRoleAsync(user, getUser.Role);
@@ -135,12 +145,31 @@ namespace HogeschoolPXL.Controllers
 					return BadRequest();
 				}
 
-                // Remove Request
-				var getId = _context.RoleRequestsViewModel.Find(Id);
-				_context.RoleRequestsViewModel.Remove(getId);
-				_context.SaveChanges();
+                // Check if a User exists with this Email, if not this will make a Gebruiker and then a Student or Lector
+                if (!_context.Gebruiker.Where(x => x.Email == getUser.Email).Select(x => x.GebruikerId).Any())
+                {
+                    // Make User a Gebruiker
+                    _context.Gebruiker.Add(new Gebruiker { Voornaam = getUser.Voornaam, Naam = getUser.Naam, Email = getUser.Email });
+                    _context.SaveChanges();
 
-				TempData["Alert"] = "RoleAccepted";
+                    // Make that Gebruiker a Lector or Student
+                    var getUserId = _context.Gebruiker.Where(x => x.Email == user.Email).Select(x => x.GebruikerId).FirstOrDefault();
+                    if (getUser.Role == "Student")
+                    {
+                        _context.Student.Add(new Student { GebruikerId = getUserId });
+                    }
+                    if (getUser.Role == "Lector")
+                    {
+                        _context.Lector.Add(new Lector { GebruikerId = getUserId });
+                    }
+                }
+
+                // Save Changes
+                _context.SaveChanges();
+
+				TempData["LoginTitle"] = "Accepted";
+				TempData["LoginMessage"] = "Role accepted succesfully";
+				TempData["LoginImg"] = "/img/green-check.png";
             }
             else if (choice == "Decline")
             {
@@ -148,8 +177,10 @@ namespace HogeschoolPXL.Controllers
 				var getId = _context.RoleRequestsViewModel.Find(Id);
                 _context.RoleRequestsViewModel.Remove(getId);
                 _context.SaveChanges();
-
-                TempData["Alert"] = "RoleDenied";
+                
+				TempData["LoginTitle"] = "Denied";
+				TempData["LoginMessage"] = "Role denied successfully";
+				TempData["LoginImg"] = "/img/green-check.png";
             }
             return RedirectToAction("Identity", "Account");
         }
@@ -172,13 +203,28 @@ namespace HogeschoolPXL.Controllers
             IdentityUser user = await _userManager.GetUserAsync(User);
             IdentityRole roleName = await _roleManager.FindByIdAsync(roleId);
 
+            // Check if User already made a request with the same Role
+            if (_context.RoleRequestsViewModel
+                .Where(x => x.Email == user.Email)
+                .Where(x => x.Role == roleName.Name)
+                .Select(x => x.Id).Any())
+            {
+                ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+                ModelState.AddModelError("", "This Role is already requested");
+                return View("RoleRequestRepeat");
+            }
+
             // Add User and Role to the RoleRequest Page
-            _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { User = user.Email, Role = roleName.Name });
+            _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { Email = user.Email, Role = roleName.Name });
             _context.SaveChanges();
 
-            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
-            ViewBag.Alert = "Success";
-            return View("RoleRequestRepeat");
+            // ViewBag for Popup Toast
+            ViewBag.AlertTitle = "Success";
+            ViewBag.AlertMessage = "Succesfully requested role";
+            ViewBag.AlertImg = "/img/green-check.png";
+
+			ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
+			return View("RoleRequestRepeat");
         }
         #endregion
 
@@ -206,7 +252,9 @@ namespace HogeschoolPXL.Controllers
                 var result = await _roleManager.CreateAsync(identityRole);
                 if (result.Succeeded)
                 {
-                    TempData["Alert"] = "RoleCreated";
+					TempData["RoleTitle"] = "Succesfull";
+					TempData["RoleMessage"] = "Succesfully added role";
+					TempData["RoleImg"] = "/img/green-check.png";
                     return RedirectToAction("Identity");
                 }
             }
@@ -229,7 +277,10 @@ namespace HogeschoolPXL.Controllers
 			{
 				// Return an error if there are users in the role
 				ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Name));
-				TempData["Alert"] = "UsersInRole";
+
+				TempData["RoleTitle"] = "Error";
+				TempData["RoleMessage"] = "Can't delete role because there are users in it, remove role from users first";
+				TempData["RoleImg"] = "/img/red-cross.png";
 				return RedirectToAction("Identity");
 			}
 
@@ -239,7 +290,9 @@ namespace HogeschoolPXL.Controllers
                 _context.Roles.Remove(result);
                 _context.SaveChanges();
 
-                TempData["Alert"] = "RoleDeleted";
+				TempData["RoleTitle"] = "Succesfull";
+				TempData["RoleMessage"] = "Succesfully deleted role";
+				TempData["RoleImg"] = "/img/green-check.png";
                 return RedirectToAction("Identity");
             }
             ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Name));
@@ -268,8 +321,16 @@ namespace HogeschoolPXL.Controllers
                     // If a user deletes the logged in user, they will be logged out
                     string loggedInUser = User.Identity.Name;
                     var deletedUser = await _userManager.FindByIdAsync(Id);
-                    if (loggedInUser == deletedUser.Email) { LogOut(); }
-                    else { TempData["Alert"] = "UserDeleted"; }
+                    if (loggedInUser == deletedUser.Email)
+                    {
+                        LogOut();
+                    }
+                    else
+                    {
+						TempData["RoleTitle"] = "Succesfull";
+						TempData["RoleMessage"] = "Succesfully deleted user";
+						TempData["RoleImg"] = "/img/green-check.png";
+                    }
 
                     // Remove user from database
                     _context.Users.Remove(resultIdentity);
@@ -346,7 +407,10 @@ namespace HogeschoolPXL.Controllers
             {
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-				TempData["Alert"] = "RoleAssignedToUser";
+
+				TempData["RoleTitle"] = "Succesfull";
+				TempData["RoleMessage"] = "Succesfully assign a user a role";
+				TempData["RoleImg"] = "/img/green-check.png";
 				return RedirectToAction("Identity");
             }
             else
@@ -390,7 +454,10 @@ namespace HogeschoolPXL.Controllers
             {
                 ViewBag.Roles = _context.Roles.Select(x => new SelectListItem(x.Name, x.Id));
                 ViewBag.Users = _context.Users.Select(x => new SelectListItem(x.UserName, x.Id));
-				TempData["Alert"] = "RoleRemovedFromUser";
+
+				TempData["RoleTitle"] = "Succesfull";
+				TempData["RoleMessage"] = "Succesfully removed role from user";
+				TempData["RoleImg"] = "/img/green-check.png";
                 return RedirectToAction("Identity");
             }
             else
@@ -405,10 +472,17 @@ namespace HogeschoolPXL.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Identity()
         {
+            // ViewBag for the Badge on the RoleRequests button
+            ViewBag.RoleRequestsBadge = _context.RoleRequestsViewModel.Select(x => x.Id).Count();
+
             if (TempData["Alert"] != null)
             {
-                ViewBag.Alert = TempData["Alert"];
-                TempData.Remove("Alert");
+                ViewBag.RoleTitle = TempData["RoleTitle"];
+                ViewBag.RoleMessage = TempData["RoleMessage"];
+                ViewBag.RoleImg = TempData["RoleImg"];
+                TempData.Remove("RoleTitle");
+                TempData.Remove("RoleMessage");
+                TempData.Remove("RoleImg");
             }
             var identityViewModel = new IdentityViewModel
             {

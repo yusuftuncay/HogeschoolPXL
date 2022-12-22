@@ -18,8 +18,8 @@ namespace HogeschoolPXL.Data.DefaultData
             _roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             await VoegRollenToeAsync();
             await CreateIdentityRecordAsync("admin@pxl.be", "admin@pxl.be", "123Az#", Roles.Admin);
-            await CreateIdentityRecordAsync("lector@pxl.be", "lector@pxl.be", "123Az#", Roles.Lector);
-            await CreateIdentityRecordAsync("student@pxl.be", "student@pxl.be", "123Az#", Roles.Student);
+            await CreateIdentityRecordAsync("kristof.palmaers@pxl.be", "kristof.palmaers@pxl.be", "123Az#", Roles.Lector);
+            await CreateIdentityRecordAsync("yusuf.tuncay@student.pxl.be", "yusuf.tuncay@student.pxl.be", "123Az#", Roles.Student);
             VoegDataToe();
         }
 

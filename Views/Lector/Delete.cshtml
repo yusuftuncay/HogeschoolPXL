@@ -1,7 +1,7 @@
 ﻿@model HogeschoolPXL.Models.Lector
 
 @{
-    ViewData["Title"] = "Verwijderen";
+    ViewData["Title"] = "Deleteen";
 }
 
 <h3 class="titleView">Deze lector verwijderen?</h3>
@@ -21,10 +21,10 @@
         <form asp-action="Delete" class="form-group d-flex justify-content-between">
             <a class="btn-sm backArrow" asp-action="Index" asp-controller="Lector">
                 <img src="~/img/arrow-left-black.png" height="16"/>
-                <span>Terug</span>
+                <span>Back</span>
             </a>
             <input type="hidden" asp-for="LectorId"/>
-            <input type="submit" value="Verwijder" class="btn btn-outline-danger btn-sm viewButton"/>
+            <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm viewButton"/>
         </form>
     </div>
 </div>

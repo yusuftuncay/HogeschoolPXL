@@ -15,10 +15,14 @@ namespace HogeschoolPXL.Controllers
 
         public IActionResult Index()
         {
-            if (TempData["Login"] != null)
+            if (TempData["LoginTitle"] != null)
             {
-                ViewBag.Login = TempData["Login"];
-                TempData.Remove("Login");
+                ViewBag.LoginTitle = TempData["LoginTitle"];
+                ViewBag.LoginMessage = TempData["LoginMessage"];
+                ViewBag.LoginImg = TempData["LoginImg"];
+                TempData.Remove("LoginTitle");
+                TempData.Remove("LoginMessage");
+                TempData.Remove("LoginImg");
             }
             return View();
         }

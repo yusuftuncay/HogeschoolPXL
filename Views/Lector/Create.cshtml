@@ -1,10 +1,10 @@
 ﻿@model HogeschoolPXL.Models.Lector
 
 @{
-    ViewData["Title"] = "Creëer";
+    ViewData["Title"] = "Create";
 }
 
-<h1 class="titleView">Creëer Lector</h1>
+<h1 class="titleView">Create Lector</h1>
 
 <div class="row d-flex justify-content-center">
     <div class="col-md-4">
@@ -20,15 +20,15 @@
             <div class="form-group d-flex justify-content-between">
                 <a class="btn-sm backArrow" asp-action="Index" asp-controller="Lector">
                     <img src="~/img/arrow-left-black.png" height="16"/>
-                    <span >Terug</span>
+                    <span >Back</span>
                 </a>
                 @if (ViewBag.GebruikerId != null)
                 {
-                    <input type="submit" value="Creëer Lector" class="btn btn-outline-success btn-sm viewButton"/>
+                    <input type="submit" value="Create Lector" class="btn btn-outline-success btn-sm viewButton"/>
                 }
                 else
                 {
-                    <input type="submit" value="Creëer Lector" class="btn btn-outline-success btn-sm viewButton" disabled/>
+                    <input type="submit" value="Create Lector" class="btn btn-outline-success btn-sm viewButton" disabled/>
                 }
             </div>
         </form>

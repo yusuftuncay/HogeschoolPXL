@@ -7,9 +7,15 @@ namespace HogeschoolPXL.Models.ViewModels
     {
         [Key]
         public int Id { get; set; }
+		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
+        public string Voornaam { get; set; }
+		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
+        public string Naam { get; set; }
         [Required]
-        public string User { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
         [Required]
+		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
         public string Role { get; set; }
     }
 }

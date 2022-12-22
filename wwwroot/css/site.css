@@ -211,8 +211,9 @@ header form * {
     transform: translate(-75%, 4%);
     /* Styling */
     padding-top: 10px;
-    border-radius: 20px;
+    border-radius: 28px;
     width: 200px;
+    margin-bottom: -40px;
 }
 .dropdown-login form * {
     box-shadow: initial;
@@ -227,7 +228,7 @@ header form * {
 .dropdown-login #loginImg /* Styling to Fix Visual Bugs */ {
     padding-bottom: 20px !important;
 }
-.dropdown-login span {
+.dropdown-login span:not(:first-child) {
     background-color: #fcfcfc;
     cursor: text;
 }
@@ -242,6 +243,16 @@ header form * {
 }
 #dropdown-login-form .backArrow {
     transition: none !important;
+}
+#dropdown-logged-out {
+    border-radius: 28px;
+}
+#dropdown-logged-in {
+    border-radius: 20px;
+    width: fit-content;
+}
+#dropdown-logged-out .backArrow {
+    transition: none;
 }
 
 /* Identity Tables */
