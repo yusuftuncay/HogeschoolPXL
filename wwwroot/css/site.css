@@ -110,7 +110,7 @@ footer #footerText {
     border-bottom: 1px solid lightgrey;
 }
 
-/* Table */
+/* Tables */
 table {
     /* Positioning */
     border-collapse: separate;
@@ -199,13 +199,19 @@ tr:last-child {
     background-color: #e4e4e4;
     color: black;
 }
-header form /* Search Bar */ {
+#searchBar /* Search Bar */ {
     display: flex;
     margin-left: auto;
 }
-header form * {
+#searchBar * {
     box-shadow: 0 0 12px lightgrey;
     border-radius: 50px !important;
+}
+#searchBar input /* Styling for SearchBar (Custom Grouping) */ {
+    border-radius: 50px 0 0 50px !important;
+}
+#searchBar button {
+    border-radius: 0 50px 50px 0 !important
 }
 .dropdown-login .dropdown-content /* Dropdown Login */ {
     transform: translate(-75%, 4%);

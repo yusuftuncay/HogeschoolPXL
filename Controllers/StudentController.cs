@@ -20,19 +20,10 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Student
-        public async Task<IActionResult> Index(string search)
+        public async Task<IActionResult> Index()
         {
-            if (search != null)
-            {
-                var result = _context.Student.Where(x => x.Gebruiker.Voornaam!.Contains(search) || x.Gebruiker.Naam!.Contains(search))
-                    .Include(s => s.Gebruiker);
-                return View(result);
-            }
-            else
-            {
-                var appDbContext = _context.Student.Include(s => s.Gebruiker);
-                return View(await appDbContext.ToListAsync());
-            }
+            var appDbContext = _context.Student.Include(s => s.Gebruiker);
+            return View(await appDbContext.ToListAsync());
         }
 
         // GET: Student/Details/5

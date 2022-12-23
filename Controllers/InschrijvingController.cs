@@ -20,6 +20,23 @@ namespace HogeschoolPXL.Controllers
             _userManager = userManager;
         }
 
+        // Search Student
+        [HttpPost]
+        public IActionResult Search(string search)
+        {
+            if (search != null)
+            {
+                var result = _context.Inschrijving.Where(x => x.Student.Gebruiker.Voornaam!.Contains(search) || x.Student.Gebruiker.Naam!.Contains(search))
+                    .Include(x => x.Student).ThenInclude(x => x.Gebruiker)
+                    .Include(x => x.VakLector).ThenInclude(x => x.Vak).ThenInclude(x => x.Handboek);
+                return View(result);
+            }
+            else
+            {
+                return View("Inschrijving", "Index");
+            }
+        }
+
         // GET: Inschrijving
         public async Task<IActionResult> Index(string? category = null)
         {
@@ -54,7 +71,7 @@ namespace HogeschoolPXL.Controllers
 
         // GET: Inschrijving/Create
         [Authorize(Roles = "Admin,Student")]
-        public async Task<IActionResult> CreateAsync()
+        public IActionResult Create()
         {
             ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem
                 (x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));

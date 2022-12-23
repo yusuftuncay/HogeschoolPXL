@@ -1,0 +1,71 @@
+﻿@model IEnumerable<HogeschoolPXL.Models.Inschrijving>
+
+@{
+    ViewData["Title"] = "Overview";
+
+    bool showColumn = true;
+}
+
+<div class="d-flex justify-content-between mx-2 mb-3">
+    <a class="btn-sm backArrow" asp-action="Index" asp-controller="Home">
+        <img src="~/img/arrow-left-black.png" height="16"/>
+        <span>Home</span>
+    </a>
+    <h1>Overzicht Studenten</h1>
+    <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") ? "" : "invisible")" asp-controller="Student" asp-action="Create">Create Student</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.Gebruiker)
+            </th>
+            @if (Model.Count() != 0)
+            {
+                <th>
+                    Alle Ingeschreven Vakken
+                </th>
+                <th class="text-center">
+                    <text>@Model.Count() records</text>
+                </th>
+            }
+            else
+            {
+                <th></th>
+                <th></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td>No Records Found</td>
+                <td></td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-start" style="width:fit-content">
+                    @if (showColumn)
+                    {
+                        <div>@item.Student.Gebruiker.Voornaam @item.Student.Gebruiker.Naam</div>
+                        showColumn = false; // Shows the Name just once, instead of repeating it X amount of times
+                    }
+                    else { <div></div> }
+                    </td>
+                    <td class="text-start">
+                        @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam) - @Html.DisplayFor(modelItem => item.VakLector.Vak.Handboek.Titel)
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Inschrijving" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
