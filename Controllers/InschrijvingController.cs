@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HogeschoolPXL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Lector,Student")]
     public class InschrijvingController : Controller
     {
         private readonly AppDbContext _context;
@@ -18,23 +18,6 @@ namespace HogeschoolPXL.Controllers
         {
             _context = context;
             _userManager = userManager;
-        }
-
-        // Search Student
-        [HttpPost]
-        public IActionResult Search(string search)
-        {
-            if (search != null)
-            {
-                var result = _context.Inschrijving.Where(x => x.Student.Gebruiker.Voornaam!.Contains(search) || x.Student.Gebruiker.Naam!.Contains(search))
-                    .Include(x => x.Student).ThenInclude(x => x.Gebruiker)
-                    .Include(x => x.VakLector).ThenInclude(x => x.Vak).ThenInclude(x => x.Handboek);
-                return View(result);
-            }
-            else
-            {
-                return View("Inschrijving", "Index");
-            }
         }
 
         // GET: Inschrijving

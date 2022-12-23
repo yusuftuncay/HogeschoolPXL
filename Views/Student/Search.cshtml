@@ -11,7 +11,7 @@
         <img src="~/img/arrow-left-black.png" height="16"/>
         <span>Home</span>
     </a>
-    <h1>Overzicht Studenten</h1>
+    <h1>Inschrijvingen</h1>
     <a class="btn btn-outline-success btn-sm viewButton @(User.IsInRole("Admin") ? "" : "invisible")" asp-controller="Student" asp-action="Create">Create Student</a>
 </div>
 
@@ -27,7 +27,7 @@
                     Alle Ingeschreven Vakken
                 </th>
                 <th class="text-center">
-                    <text>@Model.Count() records</text>
+                    <text>@Model.Count() vakken</text>
                 </th>
             }
             else
@@ -62,7 +62,7 @@
                         @Html.DisplayFor(modelItem => item.VakLector.Vak.VakNaam) - @Html.DisplayFor(modelItem => item.VakLector.Vak.Handboek.Titel)
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Inschrijving" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-controller="Student" asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
                     </td>
                 </tr>
             }

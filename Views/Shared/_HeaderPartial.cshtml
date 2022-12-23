@@ -5,7 +5,7 @@
 </a>
 
 @* You need to be signed in to see any info *@
-@if (SignInManager.IsSignedIn(User))
+@if (User.IsInRole("Admin") || User.IsInRole("Lector") || User.IsInRole("Student"))
 {
     <div class="dropdown">
         <span>Gebruiker</span>
@@ -21,7 +21,7 @@
     </div>
 }
 
-@if (SignInManager.IsSignedIn(User))
+@if (User.IsInRole("Admin") || User.IsInRole("Lector") || User.IsInRole("Student"))
 {
     <div class="dropdown">
         <span>Inschrijving</span>
@@ -38,7 +38,7 @@
     </div>
 }
 
-@if (SignInManager.IsSignedIn(User))
+@if (User.IsInRole("Admin"))
 {
     <div class="dropdown">
         <span>VakLector</span>
@@ -48,7 +48,7 @@
     </div>
 }
 
-<form asp-controller="Inschrijving" asp-action="Search" class="btn-group" id="searchBar">
+<form asp-controller="Student" asp-action="Search" class="btn-group" id="searchBar" style="width:240px;height:fit-content;">
     <input class="form-control" type="search" placeholder="Overzicht Studenten" name="search">
     <button class="btn btn-outline-primary" type="submit">Zoeken</button>
 </form>

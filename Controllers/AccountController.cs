@@ -127,7 +127,7 @@ namespace HogeschoolPXL.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult RoleRequest()
         {
-            return View(_context.RoleRequestsViewModel);
+            return View(_context?.RoleRequestsViewModel);
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -169,7 +169,7 @@ namespace HogeschoolPXL.Controllers
 				TempData["LoginMessage"] = "Role denied successfully";
 				TempData["LoginImg"] = "/img/green-check.png";
             }
-            return View();
+            return RedirectToAction("RoleRequest");
         }
         #endregion
 

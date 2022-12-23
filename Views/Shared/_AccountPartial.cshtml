@@ -41,7 +41,7 @@
     else
     {
         <div class="dropdown-content" id="dropdown-logged-out">
-            <form class="d-block px-3 pt-2 pb-1" asp-controller="Account" asp-action="Login" method="post" autocomplete="off">
+            <form class="d-block px-3 pt-2" asp-controller="Account" asp-action="Login" method="post" autocomplete="off">
                 <div class="form-group">
                     <label name="Email" class="control-label">Email</label>
                     <input name="Email" class="form-control" type="email" placeholder="email@example.com"/>
@@ -50,7 +50,7 @@
                     <label name="Password" class="control-label">Wachtwoord</label>
                     <input name="Password" class="form-control" type="password" placeholder="Wachtwoord"/>
                 </div>
-                <div class="form-group d-flex justify-content-between">
+                <div class="form-group d-flex justify-content-between btn-group">
                     <a class="btn-sm backArrow" asp-controller="Account" asp-action="Register">Registreren</a>
                     <input type="submit" value="Inloggen" class="btn btn-outline-success btn-sm viewButton"/>
                 </div>

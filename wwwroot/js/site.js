@@ -1,6 +1,6 @@
 ﻿// Inschrijvingen Page
 $(function highlightButton_InschrPage() {
-    // Get full URL
+    // Get the current URL
     var url = window.location.href;
 
     // Pass Every "a" Tag
@@ -36,3 +36,20 @@ $(function showSnackbar() {
     // After 2 seconds, remove the show class from element
     setTimeout(function () { toast.style.opacity = toast.style.opacity.replace("1", "0"); }, 4000);
 })
+
+// Shows the SearchBar when User is on Student Page
+function showSearchBarOnStudentPage() {
+    // Get the current URL
+    var currentURL = window.location.href;
+
+    // Check if the current URL contains the string "Student"
+    if (currentURL.indexOf("Student") !== -1) {
+        // If the current URL contains "Student", show the element
+        document.getElementById("searchBar").style.display = "flex";
+        document.getElementsByClassName("dropdown-login")[0].style.marginLeft = "0";
+    } else {
+        // If the current URL does not contain "Student", hide the element
+        document.getElementById("searchBar").style.display = "none";
+        document.getElementsByClassName("dropdown-login")[0].style.marginLeft = "auto";
+    }
+}

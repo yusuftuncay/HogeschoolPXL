@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
-	[Authorize]
-	public class VakLectorController : Controller
+    [Authorize(Roles = "Admin")]
+    public class VakLectorController : Controller
     {
         private readonly AppDbContext _context;
 
@@ -46,7 +46,6 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: VakLector/Create
-        [Authorize(Roles = "Admin,Lector")]
         public IActionResult Create()
         {
             ViewData["LectorId"] = _context.Lector.Select(x => new SelectListItem(
@@ -61,7 +60,6 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Lector")]
         public async Task<IActionResult> Create([Bind("VakLectorId,LectorId,VakId")] VakLector vakLector)
         {
             // Update ModelState to exclude nested model (Vak and Lector) from model VakLector
@@ -96,7 +94,6 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: VakLector/Edit/5
-        [Authorize(Roles = "Admin,Lector")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.VakLector == null)
@@ -120,7 +117,6 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Lector")]
         public async Task<IActionResult> Edit(int id, [Bind("VakLectorId,LectorId,VakId")] VakLector vakLector)
         {
             // Update ModelState to exclude nested model (Vak and Lector) from model VakLector
@@ -174,7 +170,6 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: VakLector/Delete/5
-        [Authorize(Roles = "Admin,Lector")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.VakLector == null)
@@ -198,7 +193,6 @@ namespace HogeschoolPXL.Controllers
         // POST: VakLector/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Lector")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.VakLector == null)

@@ -110,6 +110,11 @@ footer #footerText {
     border-bottom: 1px solid lightgrey;
 }
 
+/* Align Items Center on every Overview Page */
+.d-flex.justify-content-between.mx-2.mb-3 {
+    align-items: center;
+}
+
 /* Tables */
 table {
     /* Positioning */
@@ -200,7 +205,7 @@ tr:last-child {
     color: black;
 }
 #searchBar /* Search Bar */ {
-    display: flex;
+    display: none;
     margin-left: auto;
 }
 #searchBar * {
@@ -220,6 +225,9 @@ tr:last-child {
     border-radius: 28px;
     width: 200px;
     margin-bottom: -40px;
+}
+.dropdown-login {
+    margin-left: auto;
 }
 .dropdown-login form * {
     box-shadow: initial;
@@ -247,18 +255,19 @@ tr:last-child {
     background-color: initial !important;
     padding-bottom: initial !important;
 }
-#dropdown-login-form .backArrow {
-    transition: none !important;
-}
-#dropdown-logged-out {
-    border-radius: 28px;
-}
-#dropdown-logged-in {
-    border-radius: 20px;
-    width: fit-content;
-}
 #dropdown-logged-out .backArrow {
     transition: none;
+    border-radius: 10px 0 0 10px !important;
+}
+#dropdown-logged-out .viewButton {
+    border-radius: 0 10px 10px 0 !important;
+}
+#dropdown-logged-out input {
+    border-radius: 10px;
+}
+#dropdown-logged-in {
+    border-radius: 16px;
+    width: fit-content;
 }
 
 /* Identity Tables */

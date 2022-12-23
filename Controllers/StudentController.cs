@@ -9,7 +9,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace HogeschoolPXL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Lector,Student")]
     public class StudentController : Controller
     {
         private readonly AppDbContext _context;
@@ -17,6 +17,28 @@ namespace HogeschoolPXL.Controllers
         public StudentController(AppDbContext context)
         {
             _context = context;
+        }
+
+        // Search Student
+        [HttpPost]
+        public IActionResult Search(string search)
+        {
+            if (search != null)
+            {
+                var result = _context.Inschrijving
+                    .Where(x => x.Student.Gebruiker.Voornaam!.Contains(search) || x.Student.Gebruiker.Naam!.Contains(search))
+                    .Include(x => x.Student).ThenInclude(x => x.Gebruiker)
+                    .Include(x => x.VakLector).ThenInclude(x => x.Vak).ThenInclude(x => x.Handboek);
+                return View(result);
+            }
+            else
+            {
+                var appDbContextModel = _context.Inschrijving
+                    .Include(i => i.Academiejaar)
+                    .Include(i => i.Student).ThenInclude(x => x.Gebruiker)
+                    .Include(i => i.VakLector).ThenInclude(x => x.Vak);
+                return View("Index", appDbContextModel.ToList());
+            }
         }
 
         // GET: Student
