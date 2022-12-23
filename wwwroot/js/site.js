@@ -17,24 +17,28 @@ $(function highlightButton_InschrPage() {
 $(function disableToast_LoginPage() {
     // Get Full URL
     var url = window.location.href;
-    var loginDropdown = document.getElementById("dropdown-login-form");
+    var loginDropdown = document.getElementById("dropdown-logged-out");
     if (url.includes("/Account/LoginForm") || url.includes("/Account/Login") || url.includes("/Account/Register")) {
         loginDropdown.classList.add("d-none");
         loginDropdown.classList.remove("d-block");
     }
     else {
-        loginDropdown.classList.remove("d-none");
-        loginDropdown.classList.add("d-block");
+        if (loginDropdown !== null) {
+            loginDropdown.classList.remove("d-none");
+            loginDropdown.classList.add("d-block");
+        }
     }
 })
 
 // Toast that pops up after Login
 $(function showSnackbar() {
     var toast = document.getElementById("snackbar");
-    toast.style.opacity = "1";
-    
-    // After 2 seconds, remove the show class from element
-    setTimeout(function () { toast.style.opacity = toast.style.opacity.replace("1", "0"); }, 4000);
+    if (toast !== null) {
+        toast.style.opacity = "1";
+
+        // After 2 seconds, remove the show class from element
+        setTimeout(function () { toast.style.opacity = toast.style.opacity.replace("1", "0"); }, 4000);
+    }
 })
 
 // Shows the SearchBar when User is on Student Page

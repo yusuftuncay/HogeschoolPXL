@@ -32,7 +32,10 @@
                 <hr>
                 <a class="dropdown-item" asp-controller="Academiejaar" asp-action="Index">Academiejaar</a>
                 <a class="dropdown-item" asp-controller="Handboek" asp-action="Index">Handboek</a>
-                <a class="dropdown-item" asp-controller="Vak" asp-action="Index">Vak</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="dropdown-item" asp-controller="Vak" asp-action="Index">Vak</a>
+                }
             }
         </div>
     </div>

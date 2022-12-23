@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HogeschoolPXL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AcademiejaarController : Controller
     {
         private readonly AppDbContext _context;
@@ -41,7 +41,6 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Academiejaar/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -52,7 +51,6 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("AcademiejaarId,Datum")] Academiejaar academieJaar)
         {
             // Check if Academiejaar exists
@@ -81,7 +79,6 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Academiejaar/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Academiejaar == null)
@@ -102,7 +99,6 @@ namespace HogeschoolPXL.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("AcademiejaarId,Datum")] Academiejaar academieJaar)
         {
             if (id != academieJaar.AcademiejaarId)
@@ -150,7 +146,6 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Academiejaar/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Academiejaar == null)
@@ -171,7 +166,6 @@ namespace HogeschoolPXL.Controllers
         // POST: Academiejaar/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Academiejaar == null)
