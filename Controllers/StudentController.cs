@@ -5,6 +5,7 @@ using HogeschoolPXL.Data;
 using HogeschoolPXL.Models;
 using HogeschoolPXL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HogeschoolPXL.Controllers
 {
@@ -19,10 +20,19 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Student
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            var appDbContext = _context.Student.Include(s => s.Gebruiker);
-            return View(await appDbContext.ToListAsync());
+            if (search != null)
+            {
+                var result = _context.Student.Where(x => x.Gebruiker.Voornaam!.Contains(search) || x.Gebruiker.Naam!.Contains(search))
+                    .Include(s => s.Gebruiker);
+                return View(result);
+            }
+            else
+            {
+                var appDbContext = _context.Student.Include(s => s.Gebruiker);
+                return View(await appDbContext.ToListAsync());
+            }
         }
 
         // GET: Student/Details/5

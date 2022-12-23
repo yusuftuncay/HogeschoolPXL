@@ -21,7 +21,7 @@ namespace HogeschoolPXL.Controllers
         }
 
         // GET: Inschrijving
-        public async Task<IActionResult> Index(string category = null)
+        public async Task<IActionResult> Index(string? category = null)
         {
             var appDbContextModel = _context.Inschrijving
                 .Where(x => category == null || x.Student.Gebruiker.Voornaam == category)
@@ -56,21 +56,12 @@ namespace HogeschoolPXL.Controllers
         [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> CreateAsync()
         {
-            // Get current logged in Student, this makes the Student only able to create an Inschrijving of his own.
-            IdentityUser user = await _userManager.GetUserAsync(User);
-
             ViewData["AcademiejaarId"] = _context.Academiejaar.Select(x => new SelectListItem
                 (x.Datum.ToShortDateString().ToString(), x.AcademiejaarId.ToString()));
-            ViewData["StudentId"] = _context.Student.Where(x => x.Gebruiker.Email == user.Email)
-                .Select(x => new SelectListItem(x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
+            ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem
+                (x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
             ViewData["VakLectorId"] = _context.VakLector.Select(x => new SelectListItem
                 (x.Vak.VakNaam, x.VakId.ToString()));
-
-            if (user.Email != "Student")
-            {
-                ViewData["StudentId"] = _context.Student.Select(x => new SelectListItem
-                (x.Gebruiker.Voornaam + " " + x.Gebruiker.Naam, x.StudentId.ToString()));
-            }
 
             if (!_context.Student.Any() || !_context.Vak.Any())
             {

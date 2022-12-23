@@ -35,7 +35,15 @@ namespace HogeschoolPXL.Controllers
 		[HttpGet]
 		public IActionResult Login()
 		{
-			return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                // Prevent User from accessing Login Page if they're Logged In
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
 		}
 		[HttpPost]
 		public async Task<IActionResult> LoginAsync(LoginViewModel login)
@@ -82,7 +90,7 @@ namespace HogeschoolPXL.Controllers
 			if (identityResult.Succeeded)
             {
                 // Add User and Role to the RoleRequest Page
-                _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { Voornaam = register.Voornaam, Naam = register.Naam, Email = user.Email.ToString(), Role = role.ToString() });
+                _context.RoleRequestsViewModel.Add(new RoleRequestsViewModel { Email = user.Email.ToString(), Role = role.ToString() });
                 _context.SaveChanges();
 
                 TempData["LoginTitle"] = "Succesfull";
@@ -137,35 +145,14 @@ namespace HogeschoolPXL.Controllers
 
                 // Remove Request
 				_context.RoleRequestsViewModel.Remove(getUser);
+                _context.SaveChanges();
 
                 // Add the role to the User
-				var addRole = await _userManager.AddToRoleAsync(user, getUser.Role);
+                var addRole = await _userManager.AddToRoleAsync(user, getUser.Role);
                 if (!addRole.Succeeded)
                 {
 					return BadRequest();
 				}
-
-                // Check if a User exists with this Email, if not this will make a Gebruiker and then a Student or Lector
-                if (!_context.Gebruiker.Where(x => x.Email == getUser.Email).Select(x => x.GebruikerId).Any())
-                {
-                    // Make User a Gebruiker
-                    _context.Gebruiker.Add(new Gebruiker { Voornaam = getUser.Voornaam, Naam = getUser.Naam, Email = getUser.Email });
-                    _context.SaveChanges();
-
-                    // Make that Gebruiker a Lector or Student
-                    var getUserId = _context.Gebruiker.Where(x => x.Email == user.Email).Select(x => x.GebruikerId).FirstOrDefault();
-                    if (getUser.Role == "Student")
-                    {
-                        _context.Student.Add(new Student { GebruikerId = getUserId });
-                    }
-                    if (getUser.Role == "Lector")
-                    {
-                        _context.Lector.Add(new Lector { GebruikerId = getUserId });
-                    }
-                }
-
-                // Save Changes
-                _context.SaveChanges();
 
 				TempData["LoginTitle"] = "Accepted";
 				TempData["LoginMessage"] = "Role accepted succesfully";
@@ -182,7 +169,7 @@ namespace HogeschoolPXL.Controllers
 				TempData["LoginMessage"] = "Role denied successfully";
 				TempData["LoginImg"] = "/img/green-check.png";
             }
-            return RedirectToAction("Identity", "Account");
+            return View();
         }
         #endregion
 

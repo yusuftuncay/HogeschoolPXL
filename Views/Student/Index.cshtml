@@ -23,28 +23,38 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
+    @if (!Model.Any())
+        {
         <tr>
-            <td class="text-start">
-                @Html.DisplayFor(modelItem => item.Gebruiker.Voornaam)
-                @Html.DisplayFor(modelItem => item.Gebruiker.Naam)
-            </td>
-            @if (User.IsInRole("Admin"))
-            {
-                <td>
-                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a>
-                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.StudentId">Details</a>
-                    <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
-                </td>
-            }
-            else
-            {
-                <td>
-                    <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.StudentId">Details</a>
-                </td>
-            }
+            <td>No Records Found</td>
+            <td></td>
         </tr>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-start">
+                    @Html.DisplayFor(modelItem => item.Gebruiker.Voornaam)
+                    @Html.DisplayFor(modelItem => item.Gebruiker.Naam)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.StudentId">Details</a>
+                        <a class="btn btn-outline-danger btn-sm viewButton" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm viewButton" asp-action="Details" asp-route-id="@item.StudentId">Details</a>
+                    </td>
+                }
+            </tr>
+        }
     }
     </tbody>
 </table>
