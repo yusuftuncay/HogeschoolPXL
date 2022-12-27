@@ -5,9 +5,6 @@ using HogeschoolPXL.Data.DefaultData;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Razor Pages
-builder.Services.AddRazorPages();
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("HogeschoolPXLConnection");
@@ -30,9 +27,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Razor Pages
-app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

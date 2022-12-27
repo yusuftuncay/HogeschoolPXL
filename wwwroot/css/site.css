@@ -310,21 +310,6 @@ form i {
     display: inline;
 }
 
-/* Portfolio */
-#portfolio {
-    width: 100%;
-    font-size: initial;
-    padding-bottom: 60px;
-    padding-top: 28px;
-}
-#portfolio h1 {
-    font-weight: 400;
-    margin-bottom: 16px;
-}
-#portfolio p, #portfolio ul {
-    font-weight: initial;
-}
-
 /* PopUp Toast */
 #snackbar {
     /* Positioning */
