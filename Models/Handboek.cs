@@ -10,7 +10,6 @@ namespace HogeschoolPXL.Models
         [Key]
         public int HandboekId { get; set; }
         [Required]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters allowed")]
         public string Titel { get; set; }
         [Required]
         [DataType(DataType.Currency)]

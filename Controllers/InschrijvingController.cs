@@ -93,6 +93,13 @@ namespace HogeschoolPXL.Controllers
             ModelState.Remove("VakLector");
             ModelState.Remove("Academiejaar");
 
+            if (_context.Inschrijving.Where(x => x.StudentId == inschrijving.StudentId && x.VakLectorId == inschrijving.VakLectorId && x.AcademiejaarId == inschrijving.AcademiejaarId)
+                .Select(x => x.InschrijvingId).Any())
+            {
+                ModelState.AddModelError("", "Data met exact deze 3 gegevens bestaat al");
+                return View();
+            }
+
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
                 ModelState.AddModelError("", "Create een Student en/of Vak voordat je een Inschrijving creëert!");

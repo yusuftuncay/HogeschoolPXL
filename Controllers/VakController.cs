@@ -73,7 +73,7 @@ namespace HogeschoolPXL.Controllers
                 .Select(x => x.VakId).Any())
             {
                 ViewData["HandboekId"] = new SelectList(_context.Handboek, "HandboekId", "Titel", vak.HandboekId);
-                ModelState.AddModelError("", "VakNaam al in gebruik");
+                ModelState.AddModelError("", "Vaknaam al in gebruik");
                 return View(vak);
             }
 

@@ -4,7 +4,6 @@ html {
     min-height: 100%;
 }
 body {
-    margin-bottom: 60px;
     background-color: #fafafa;
     background-size: cover;
 }
@@ -12,26 +11,32 @@ body {
 /* Header en Footer */
 header {
     padding: 12px 40px;
+    position: sticky;
     gap: 20px;
+    top: 0;
 
     /* Align items in a Row */
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+footer {
+    padding-left: 30px;
+    vertical-align: middle;
+    height: 60px;
+    font-size: 18px;
+}
 header, footer {
+    width: 100%;
     box-shadow: 0 0 20px lightgrey;
     background-color: #f4f4f4;
-}
-footer #footerText {
-    font-size: 18px;
-    margin-left: 25px;
 }
 
 /* Container & Main Content */
 .container {
     margin: 25px auto;
     max-width: 65rem;
+    min-height: 100%;
 }
 .viewButton {
     margin: 6px 0;
@@ -206,7 +211,10 @@ tr:last-child {
 }
 #searchBar /* Search Bar */ {
     display: none;
+    /* */
     margin-left: auto;
+    width: 240px;
+    height: fit-content;
 }
 #searchBar * {
     box-shadow: 0 0 12px lightgrey;
@@ -258,9 +266,11 @@ tr:last-child {
 #dropdown-logged-out .backArrow {
     transition: none;
     border-radius: 10px 0 0 10px !important;
+    margin: 5px 0;
 }
 #dropdown-logged-out .viewButton {
     border-radius: 0 10px 10px 0 !important;
+    margin: 5px 0;
 }
 #dropdown-logged-out input {
     border-radius: 10px;
@@ -298,6 +308,21 @@ form i {
 }
 .togglePasswordForm input {
     display: inline;
+}
+
+/* Portfolio */
+#portfolio {
+    width: 100%;
+    font-size: initial;
+    padding-bottom: 60px;
+    padding-top: 28px;
+}
+#portfolio h1 {
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+#portfolio p, #portfolio ul {
+    font-weight: initial;
 }
 
 /* PopUp Toast */

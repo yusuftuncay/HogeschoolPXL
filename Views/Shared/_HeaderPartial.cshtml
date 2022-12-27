@@ -51,7 +51,14 @@
     </div>
 }
 
-<form asp-controller="Student" asp-action="Search" class="btn-group" id="searchBar" style="width:240px;height:fit-content;">
+<form asp-controller="Student" asp-action="Search" class="btn-group" id="searchBar">
     <input class="form-control" type="search" placeholder="Overzicht Studenten" name="search">
     <button class="btn btn-outline-primary" type="submit">Zoeken</button>
 </form>
+
+<div class="dropdown">
+    <span>Portfolio</span>
+    <div class="dropdown-content">
+        <a class="dropdown-item" class="dropdown-item" asp-page="/Portfolio/Index">Portfolio</a>
+    </div>
+</div>
