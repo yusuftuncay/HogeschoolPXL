@@ -93,16 +93,16 @@ namespace HogeschoolPXL.Controllers
             ModelState.Remove("VakLector");
             ModelState.Remove("Academiejaar");
 
-            if (_context.Inschrijving.Where(x => x.StudentId == inschrijving.StudentId && x.VakLectorId == inschrijving.VakLectorId && x.AcademiejaarId == inschrijving.AcademiejaarId)
-                .Select(x => x.InschrijvingId).Any())
-            {
-                ModelState.AddModelError("", "Data met exact deze 3 gegevens bestaat al");
-                return View();
-            }
-
             if (!_context.Student.Any() || !_context.Vak.Any())
             {
                 ModelState.AddModelError("", "Create een Student en/of Vak voordat je een Inschrijving creëert!");
+                return View();
+            }
+
+            if (_context.Inschrijving.Where(x => x.StudentId == inschrijving.StudentId && x.VakLectorId == inschrijving.VakLectorId && x.AcademiejaarId == inschrijving.AcademiejaarId)
+                .Select(x => x.InschrijvingId).Any())
+            {
+                ModelState.AddModelError("", "Een record met precies dezelfde waarden voor alle drie de velden bestaat al in de database");
                 return View();
             }
 
@@ -152,6 +152,13 @@ namespace HogeschoolPXL.Controllers
             ModelState.Remove("Student");
             ModelState.Remove("VakLector");
             ModelState.Remove("Academiejaar");
+
+            if (_context.Inschrijving.Where(x => x.StudentId == inschrijving.StudentId && x.VakLectorId == inschrijving.VakLectorId && x.AcademiejaarId == inschrijving.AcademiejaarId)
+                .Select(x => x.InschrijvingId).Any())
+            {
+                ModelState.AddModelError("", "Een record met precies dezelfde waarden voor alle drie de velden bestaat al in de database");
+                return View();
+            }
 
             if (id != inschrijving.InschrijvingId)
             {
